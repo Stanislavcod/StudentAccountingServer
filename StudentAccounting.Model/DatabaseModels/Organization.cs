@@ -12,6 +12,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public string? WebSite { get; set; } = string.Empty;
         public DateTime? FoundationDate { get; set; }
         public List<Department> Departments { get; set; } = new();
-        public List<Regulation> Regulations { get; set } = new();
+        public List<Regulation> Regulations { get; set; } = new();
     }
 }

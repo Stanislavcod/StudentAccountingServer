@@ -9,6 +9,7 @@ namespace StudentAccounting.Model.DataBaseModels
         public int CourseNumber { get; set; }
         public string University { get; set; } = string.Empty;
         public int IndivisualsId { get; set; }
+        public int IndividualsId { get; set; }
         public Individuals? Individuals { get; set; }
     }
 }

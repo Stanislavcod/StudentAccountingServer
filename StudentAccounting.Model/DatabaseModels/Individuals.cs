@@ -10,6 +10,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public string Gender { get; set; } = string.Empty;
         public string SocialNetwork { get; set; } = string.Empty;
         public Participants? Participants { get; set; }
-        public List<Student> Students { get; set; } = new();
+        public Student? Student { get; set; }
     }
 }

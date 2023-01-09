@@ -6,14 +6,14 @@ namespace StudentAccounting.Model
 {
     public class ApplicationDatabaseContext : DbContext
     {
-        public ApplicationDatabaseContext()
+        public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
             Database.EnsureCreated();
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder _context)
-        {
-            _context.UseSqlServer("Server=STASVCODE\\SQLEXPRESS;DataBase=StudentAccountingDatabase;Trusted_Connection=True;TrustServerCertificate=True;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder _context)
+        //{
+        //    _context.UseSqlServer("Server=STASVCODE\\SQLEXPRESS;DataBase=StudentAccounting;Trusted_Connection=True;TrustServerCertificate=True;");
+        //}
         public DbSet<ApplicationsInTheProject> ApplicationsInTheProjects { get; set; }
         public DbSet<Employment> Employments { get; set; }
         public DbSet<FinalProject> FinalProjects { get; set; }

@@ -1,0 +1,39 @@
+﻿
+using StudentAccounting.Model;
+using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.BusinessLogic.Services.Contracts;
+
+namespace StudentAccounting.BusinessLogic.Implementations
+{
+    public class TrainingCoursesService : ITrainingCoursesService
+    {
+        private readonly ApplicationDatabaseContext _context;
+        public TrainingCoursesService(ApplicationDatabaseContext context)
+        {
+            _context = context;
+        }
+        public void Create(TrainingCourses trainingCourses)
+        {
+            _context.TrainingCourses.Add(trainingCourses);
+            _context.SaveChanges();
+        }
+        public IEnumerable<TrainingCourses> Get()
+        {
+            return _context.TrainingCourses.ToList();
+        }
+        public TrainingCourses GetName(string name)
+        {
+            return _context.TrainingCourses.FirstOrDefault(x => x.Name == name);
+        }
+        public void Edit(TrainingCourses trainingCourses)
+        {
+            _context.TrainingCourses.Update(trainingCourses);
+            _context.SaveChanges();
+        }
+        public void Delete(TrainingCourses trainingCourses)
+        {
+            _context.TrainingCourses.Remove(trainingCourses);
+            _context.SaveChanges();
+        }
+    }
+}
