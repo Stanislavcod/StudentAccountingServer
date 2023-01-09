@@ -14,6 +14,17 @@ namespace StudentAccounting.Model
         //{
         //    _context.UseSqlServer("Server=STASVCODE\\SQLEXPRESS;DataBase=StudentAccounting;Trusted_Connection=True;TrustServerCertificate=True;");
         //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User[]
+                {
+                    new User { Id =1, IsAdmin = true, Login = "Stas", Password = "123456" },
+                    new User { Id =2, IsAdmin = true, Login = "Ilya", Password = "12345"},
+                    new User { Id =3, IsAdmin = true, Login = "Pavel", Password = "1234"},
+                    new User { Id=4, IsAdmin = false, Login = "Roman", Password = "123"}
+                });
+        }
         public DbSet<ApplicationsInTheProject> ApplicationsInTheProjects { get; set; }
         public DbSet<Employment> Employments { get; set; }
         public DbSet<FinalProject> FinalProjects { get; set; }
@@ -32,5 +43,6 @@ namespace StudentAccounting.Model
         public DbSet<Project> Projects { get; set; }
         public DbSet<Rang> Rangs { get; set; }
         public DbSet<Student> Students {get; set;}
+
     }
 }
