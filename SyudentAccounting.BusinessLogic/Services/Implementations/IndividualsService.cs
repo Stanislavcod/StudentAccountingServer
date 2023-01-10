@@ -1,37 +1,49 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.ModelsDto;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
     public class IndividualsService : IIndividualsService
     {
         private readonly ApplicationDatabaseContext _context;
-        public IndividualsService(ApplicationDatabaseContext context)
+        private readonly IMapper _mapper;
+        public IndividualsService(ApplicationDatabaseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public void Create(Individuals individuals)
+        public void Create(IndividualsDto newIndividuals)
         {
+            var individuals = _mapper.Map<Individuals>(newIndividuals);
             _context.Individuals.Add(individuals);
             _context.SaveChanges();
         }
-        public IEnumerable<Individuals> Get()
+        public IEnumerable<IndividualsDto> Get()
         {
-            return _context.Individuals.ToList();
+            var individuals = _context.Individuals.AsNoTracking().ToList();
+            var individualsDto = _mapper.Map<List<IndividualsDto>>(individuals);
+            return individualsDto;
         }
-        public Individuals GetName(string name)
+        public IndividualsDto Get(string name)
         {
-            return _context.Individuals.FirstOrDefault(x => x.FIO == name);
+            var individuals = _context.Individuals.FirstOrDefault(x => x.FIO == name);
+            var individualsDto = _mapper.Map<IndividualsDto>(individuals);
+            return individualsDto;
         }
-        public void Edit(Individuals individuals)
+        public void Edit(IndividualsDto newIndividuals)
         {
+            var individuals = _mapper.Map<Individuals>(newIndividuals);
             _context.Individuals.Update(individuals);
             _context.SaveChanges();
         }
-        public void Delete(Individuals individuals)
+        public void Delete(int id)
         {
-            _context.Individuals.Update(individuals);
+            var individual = _context.Individuals.FirstOrDefault(x => x.Id == id);
+            _context.Individuals.Remove(individual);
             _context.SaveChanges();
         }
     }

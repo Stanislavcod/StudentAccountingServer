@@ -8,12 +8,7 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
-            Database.EnsureCreated();
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder _context)
-        //{
-        //    _context.UseSqlServer("Server=STASVCODE\\SQLEXPRESS;DataBase=StudentAccounting;Trusted_Connection=True;TrustServerCertificate=True;");
-        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
@@ -23,6 +18,12 @@ namespace StudentAccounting.Model
                     new User { Id =2, IsAdmin = true, Login = "Ilya", Password = "12345"},
                     new User { Id =3, IsAdmin = true, Login = "Pavel", Password = "1234"},
                     new User { Id=4, IsAdmin = false, Login = "Roman", Password = "123"}
+                });
+            modelBuilder.Entity<Individuals>().HasData(
+                new Individuals[]
+                {
+                    new Individuals{ FIO = "Илья Давыдов Александрович", Id = 1, Gender = "Мужчина", Mail = "ilya5607@gmail.com", Phone = "+3542682351", SocialNetwork ="https://vk.com/ilya57061"},
+                    new Individuals{ FIO = "Дрык Станислав Геннадьевич", Id = 2, Gender = "Мужчина", Mail = "dryk.stas@gmail.com", Phone = "+35474557", SocialNetwork ="https://vk.com/id158119349"}
                 });
         }
         public DbSet<ApplicationsInTheProject> ApplicationsInTheProjects { get; set; }
@@ -43,6 +44,5 @@ namespace StudentAccounting.Model
         public DbSet<Project> Projects { get; set; }
         public DbSet<Rang> Rangs { get; set; }
         public DbSet<Student> Students {get; set;}
-
     }
 }

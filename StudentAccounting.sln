@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAccounting", "StudentAccounting\StudentAccounting.csproj", "{440CD5DF-E9F0-45CF-830A-9C170DA0942C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting", "StudentAccounting\StudentAccounting.csproj", "{440CD5DF-E9F0-45CF-830A-9C170DA0942C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Server", "1.Server", "{FB2A84B9-7573-44EC-B9BE-FF9847047B0B}"
 EndProject
@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.BusinessLogic", "2.Busine
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Model", "3.Model", "{7D20EA06-4F60-4567-A174-76C4C83CD998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAccounting.BusinessLogic", "SyudentAccounting.BusinessLogic\StudentAccounting.BusinessLogic.csproj", "{12D9D117-52B2-45AF-9A34-8232FB2403AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting.BusinessLogic", "SyudentAccounting.BusinessLogic\StudentAccounting.BusinessLogic.csproj", "{12D9D117-52B2-45AF-9A34-8232FB2403AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAccounting.Model", "StudentAccounting.Model\StudentAccounting.Model.csproj", "{4A853D4E-08BF-473E-ABD6-60028C5B50EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting.Model", "StudentAccounting.Model\StudentAccounting.Model.csproj", "{4A853D4E-08BF-473E-ABD6-60028C5B50EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAccounting.Common", "StudentAccounting.Common\StudentAccounting.Common.csproj", "{502CBFBE-33D7-4829-80C1-73DF850C3297}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Common", "4.Common", "{E2A334F5-AA52-4F9C-A7FD-2F32093B4196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{4A853D4E-08BF-473E-ABD6-60028C5B50EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A853D4E-08BF-473E-ABD6-60028C5B50EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A853D4E-08BF-473E-ABD6-60028C5B50EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502CBFBE-33D7-4829-80C1-73DF850C3297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502CBFBE-33D7-4829-80C1-73DF850C3297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502CBFBE-33D7-4829-80C1-73DF850C3297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502CBFBE-33D7-4829-80C1-73DF850C3297}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{440CD5DF-E9F0-45CF-830A-9C170DA0942C} = {FB2A84B9-7573-44EC-B9BE-FF9847047B0B}
 		{12D9D117-52B2-45AF-9A34-8232FB2403AC} = {F39F1E00-A94C-4A91-844E-6262E5E19DF0}
 		{4A853D4E-08BF-473E-ABD6-60028C5B50EB} = {7D20EA06-4F60-4567-A174-76C4C83CD998}
+		{502CBFBE-33D7-4829-80C1-73DF850C3297} = {E2A334F5-AA52-4F9C-A7FD-2F32093B4196}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58DCBDEA-1662-4944-AFC8-809108FE03F5}

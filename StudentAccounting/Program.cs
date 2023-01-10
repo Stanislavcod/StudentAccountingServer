@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,11 @@ builder.Services.AddDbContext<ApplicationDatabaseContext>(options => options.Use
 builder.Services.AddControllers();
 
 builder.Services.AddMvc();
+
+var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>();
 builder.Services.AddTransient<IUserService, UserService>();
@@ -37,6 +44,7 @@ builder.Services.AddTransient<IVacanciesService, VacanciesService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
