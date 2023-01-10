@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
@@ -12,31 +13,36 @@ namespace StudentAccounting.Controllers
             _userService = userService;
         }
         [HttpGet("GetUsers")]
-        public ActionResult<IEnumerable<User>> Get()
+        public ActionResult<IEnumerable<UserDto>> Get()
         {
             return Ok(_userService.Get());
         }
-        [HttpGet("GetUser")]
+        [HttpGet("GetUser{login}")]
         public IActionResult Get(string login)
         {
-            return Ok(_userService.GetName(login));
+            return Ok(_userService.Get(login));
+        }
+        [HttpGet("GetUser{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_userService.Get(id));
         }
         [HttpPost("CreateUser")]
-        public IActionResult Create(User user)
+        public IActionResult Create(UserDto userDto)
         {
-            _userService.Create(user);
+            _userService.Create(userDto);
             return Ok();
         }
         [HttpPut("UpdateUser")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserDto userDto)
         {
-            _userService.Edit(user);
+            _userService.Edit(userDto);
             return Ok();
         }
         [HttpDelete("DeletUser")]
-        public IActionResult Delete(User user)
+        public IActionResult Delete(int id)
         {
-            _userService.Delete(user);
+            _userService.Delete(id);
             return Ok();
         }
     }

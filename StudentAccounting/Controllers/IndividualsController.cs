@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using StudentAccounting.BusinessLogic.Implementations;
+﻿using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.ModelsDto;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -19,10 +16,15 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_individualsService.Get());
         }
-        [HttpGet("GetIndividual")]
+        [HttpGet("GetIndividual{name}")]
         public IActionResult Get(string name)
         {
             return Ok(_individualsService.Get(name));
+        }
+        [HttpGet("GetIndividual{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_individualsService.Get(id));
         }
         [HttpPost("CreateIndividual")]
         public IActionResult Create(IndividualsDto newIndividuals)

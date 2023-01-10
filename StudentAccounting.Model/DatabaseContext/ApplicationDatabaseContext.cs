@@ -8,6 +8,7 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -15,8 +15,7 @@ namespace StudentAccountin.Model.DatabaseModels
         public int ParticipantsId { get; set; }
         public TrainingCourses? TrainingCourses { get; set; }
         public int TrainingCoursesId { get; set; }
-        public FinalProject? FinalProject { get; set; }
-        public int FinalProjectId { get; set; }
+        public List<FinalProject> FinalProjects { get; set; } = new();
         public Position? Position { get; set; }
         public int PositionId { get; set; }
     }

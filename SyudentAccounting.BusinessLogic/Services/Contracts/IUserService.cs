@@ -1,14 +1,16 @@
 ﻿
+using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
     public interface IUserService
     {
-        void Create(User user);
-        IEnumerable<User> Get();
-        User GetName(string name);
-        void Edit(User user);
-        void Delete(User user);
+        void Create(UserDto userDto);
+        IEnumerable<UserDto> Get();
+        UserDto Get(string name);
+        UserDto Get(int id);
+        void Edit(UserDto userDto);
+        void Delete(int id);
     }
 }

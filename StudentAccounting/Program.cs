@@ -6,6 +6,7 @@ using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
 
 var builder = WebApplication.CreateBuilder(args);
+
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.

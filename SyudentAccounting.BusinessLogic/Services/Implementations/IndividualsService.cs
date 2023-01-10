@@ -34,6 +34,12 @@ namespace StudentAccounting.BusinessLogic.Implementations
             var individualsDto = _mapper.Map<IndividualsDto>(individuals);
             return individualsDto;
         }
+        public IndividualsDto Get(int id)
+        {
+            var individuals = _context.Individuals.FirstOrDefault(x => x.Id == id);
+            var individualsDto = _mapper.Map<IndividualsDto>(individuals);
+            return individualsDto;
+        }
         public void Edit(IndividualsDto newIndividuals)
         {
             var individuals = _mapper.Map<Individuals>(newIndividuals);

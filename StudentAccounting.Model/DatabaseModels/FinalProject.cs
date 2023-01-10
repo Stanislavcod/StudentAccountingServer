@@ -10,6 +10,7 @@ namespace StudentAccountin.Model.DatabaseModels
         public string Links { get; set; } = string.Empty;
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public List<Employment> Employments { get; set; } = new();
+        public Employment? Employment { get; set; }
+        public int EmploymentId { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Create(IndividualsDto individualsDto);
         IEnumerable<IndividualsDto> Get();
         IndividualsDto Get(string name);
+        IndividualsDto Get(int id);
         void Edit(IndividualsDto individualsDto);
         void Delete(int id);
     }

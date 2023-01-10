@@ -1,37 +1,49 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using AutoMapper;
+using StudentAccounting.Common.ModelsDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
     public class ParticipantsService : IParticipantsService
     {
         private readonly ApplicationDatabaseContext _context;
-        public ParticipantsService(ApplicationDatabaseContext context)
+        private readonly IMapper _mapper;
+        public ParticipantsService(ApplicationDatabaseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public void Create(Participants participants)
+        public void Create(ParticipantsDto newParticipant)
         {
-            _context.Participants.Add(participants);
+            var participant = _mapper.Map<Participants>(newParticipant);
+            _context.Participants.Add(participant);
             _context.SaveChanges();
         }
-        public IEnumerable<Participants> Get()
+        public IEnumerable<ParticipantsDto> Get()
         {
-            return _context.Participants.ToList();
+            var participants = _context.Participants.AsNoTracking().ToList();
+            var participantsDto = _mapper.Map<List<ParticipantsDto>>(participants);
+            return participantsDto;
         }
-        public Participants GetId(int id)
+        public ParticipantsDto Get(int id)
         {
-            return _context.Participants.FirstOrDefault(x => x.Id == id);
+            var participant = _context.Participants.FirstOrDefault(x => x.Id == id);
+            var participantDto = _mapper.Map<ParticipantsDto>(participant);
+            return participantDto;
         }
-        public void Edit(Participants participants)
+        public void Edit(ParticipantsDto newParticipants)
         {
-            _context.Participants.Update(participants);
+            var participant = _mapper.Map<Participants>(newParticipants);
+            _context.Participants.Update(participant);
             _context.SaveChanges();
         }
-        public void Delete(Participants participants)
+        public void Delete(int id)
         {
-            _context.Participants.Remove(participants);
+            var participant = _context.Participants.FirstOrDefault(x => x.Id == id);
+            _context.Participants.Remove(participant);
             _context.SaveChanges();
         }
     }

@@ -9,6 +9,9 @@ namespace StudentAccounting.Common.Mapper
         public MappingProfile()
         {
             CreateMap<Individuals, IndividualsDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Participants, ParticipantsDto>().ReverseMap();
+            CreateMap<Student,StudentDto>().ReverseMap();
         }
     }
 }
