@@ -16,7 +16,7 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_participantsService.Get());
         }
-        [HttpGet("GetParticipant{id}")]
+        [HttpGet("idParticipant/{id}", Name ="GetPartisipantsId")]
         public IActionResult Get(int id)
         {
             return Ok(_participantsService.Get(id));

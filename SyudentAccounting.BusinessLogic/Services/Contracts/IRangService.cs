@@ -7,8 +7,10 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Rang rang);
         IEnumerable<Rang> Get();
-        Rang GetName(string name);
+        Rang Get(string name);
+        Rang Get(int id);
+
         void Edit(Rang rang);
-        void Delete(Rang rang);
+        void Delete(int id);
     }
 }

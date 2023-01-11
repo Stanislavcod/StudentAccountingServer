@@ -8,7 +8,7 @@ namespace StudentAccounting.Model.DataBaseModels
         public int Id { get; set; }
         public int IndividualsId { get; set; }
         public Individuals? Individuals { get; set; }
-        public int RangId { get; set; }
+        public int? RangId { get; set; }
         public Rang? Rang { get; set; }
         public int UserId { get; set; }
         public User? User { get; set; }

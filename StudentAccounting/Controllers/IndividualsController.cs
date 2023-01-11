@@ -16,12 +16,12 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_individualsService.Get());
         }
-        [HttpGet("GetIndividual{name}")]
+        [HttpGet("nameIndividual/{name}", Name ="GetIndividualName")]
         public IActionResult Get(string name)
         {
             return Ok(_individualsService.Get(name));
         }
-        [HttpGet("GetIndividual{id}")]
+        [HttpGet("idIndividual/{id}", Name ="GetIndividualId")]
         public IActionResult Get(int id)
         {
             return Ok(_individualsService.Get(id));

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.ModelsDto;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -17,12 +16,12 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_userService.Get());
         }
-        [HttpGet("GetUser{login}")]
+        [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
             return Ok(_userService.Get(login));
         }
-        [HttpGet("GetUser{id}")]
+        [HttpGet("idUser/{id}", Name ="GetUserId")]
         public IActionResult Get(int id)
         {
             return Ok(_userService.Get(id));

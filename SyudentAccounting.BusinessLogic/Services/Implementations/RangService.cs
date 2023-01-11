@@ -20,7 +20,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Rangs.ToList();
         }
-        public Rang GetName(string name)
+        public Rang Get(int id)
+        {
+            return _context.Rangs.FirstOrDefault(x => x.Id == id);
+        }
+        public Rang Get(string name)
         {
             return _context.Rangs.FirstOrDefault(x => x.RangName == name);
         }
@@ -29,8 +33,9 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.Rangs.Update(rang);
             _context.SaveChanges();
         }
-        public void Delete(Rang rang)
+        public void Delete(int id)
         {
+            var rang = _context.Rangs.FirstOrDefault(x => x.Id == id);
             _context.Rangs.Remove(rang);
             _context.SaveChanges();
         }

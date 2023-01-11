@@ -8,7 +8,8 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
-
+            //Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,8 +24,22 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Individuals>().HasData(
                 new Individuals[]
                 {
-                    new Individuals{ FIO = "Илья Давыдов Александрович", Id = 1, Gender = "Мужчина", Mail = "ilya5607@gmail.com", Phone = "+3542682351", SocialNetwork ="https://vk.com/ilya57061"},
-                    new Individuals{ FIO = "Дрык Станислав Геннадьевич", Id = 2, Gender = "Мужчина", Mail = "dryk.stas@gmail.com", Phone = "+35474557", SocialNetwork ="https://vk.com/id158119349"}
+                    new Individuals{ FIO = "Илья Давыдов Александрович", Id = 1, Gender = "Мужчина", Mail = "ilya5607@gmail.com", Phone = "+3542682351", SocialNetwork ="https://vk.com/ilya57061", DateOfBirth = DateTime.Parse("01/09/2002")},
+                    new Individuals{ FIO = "Дрык Станислав Геннадьевич", Id = 2, Gender = "Мужчина", Mail = "dryk.stas@gmail.com", Phone = "+35474557", SocialNetwork ="https://vk.com/id158119349", DateOfBirth = DateTime.Parse("01/10/2002")}
+                });
+            modelBuilder.Entity<Student>().HasData(
+                new Student[]
+                {
+                    new Student{ CourseNumber = 3, Group = "20ИТ-1", Id = 1, IndividualsId = 1, University = "Polessu", StudentCard = 5254458545631459},
+                    new Student{ CourseNumber = 3, Group = "20ИТ-1", Id = 2, IndividualsId = 2, University = "Polessu", StudentCard = 4523542686597542}
+                });
+            modelBuilder.Entity<Participants>().HasData(
+                new Participants[]
+                {
+                    new Participants{ Id =1, DateEntry = DateTime.Parse("01/09/2002"), GitHub = "https://github.com/Ilya57061", IndividualsId=1, Status = "Cтудент",
+                     UserId = 2},
+                    new Participants{ Id =2, DateEntry = DateTime.Parse("01/09/2002"), GitHub = "https://github.com/Stanislavcod", IndividualsId=2, Status = "Cтудент",
+                     UserId = 1}
                 });
         }
         public DbSet<ApplicationsInTheProject> ApplicationsInTheProjects { get; set; }
