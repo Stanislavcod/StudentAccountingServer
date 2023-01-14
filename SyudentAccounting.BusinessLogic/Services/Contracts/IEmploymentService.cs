@@ -7,8 +7,8 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Employment employment);
         IEnumerable<Employment> Get();
-        Employment GetId(int id);
+        Employment Get(int id);
         void Edit(Employment employment);
-        void Delete(Employment employment);
+        void Delete(int id);
     }
 }

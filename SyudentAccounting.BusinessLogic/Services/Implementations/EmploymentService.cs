@@ -21,7 +21,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Employments.ToList();
         }
-        public Employment GetId(int id)
+        public Employment Get(int id)
         {
             return _context.Employments.FirstOrDefault(x => x.Id == id);
         }
@@ -30,8 +30,9 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.Employments.Update(employment);
             _context.SaveChanges();
         }
-        public void Delete(Employment employment)
+        public void Delete(int id)
         {
+            var employment = _context.Employments.FirstOrDefault(x => x.Id == id);
             _context.Employments.Remove(employment);
             _context.SaveChanges();
         }

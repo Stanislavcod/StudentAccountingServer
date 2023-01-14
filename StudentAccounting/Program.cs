@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
@@ -42,18 +43,27 @@ builder.Services.AddTransient<IStudentService, StudentService>();
 builder.Services.AddTransient<ITrainingCoursesService, TrainingCoursesService>();
 builder.Services.AddTransient<IVacanciesService, VacanciesService>();
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
 }
 
 app.UseHttpsRedirection();

@@ -20,17 +20,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Departments.ToList();
         }
-        public Department GetName(string name)
+        public Department Get(string name)
         {
             return _context.Departments.FirstOrDefault(x => x.FullName == name);
+        }
+        public Department Get(int id)
+        {
+            return _context.Departments.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Department department)
         {
             _context.Departments.Update(department);
             _context.SaveChanges();
         }
-        public void Delete(Department department)
+        public void Delete(int id)
         {
+            var department = _context.Departments.FirstOrDefault(x => x.Id == id);
             _context.Departments.Remove(department);
             _context.SaveChanges();
         }

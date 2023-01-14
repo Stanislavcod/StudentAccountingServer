@@ -9,8 +9,9 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Bonus bonus);
         IEnumerable<Bonus> Get();
-        Bonus GetName(string name);
+        Bonus Get(string name);
+        Bonus Get(int id);
         void Edit(Bonus bonus);
-        void Delete(Bonus bonus);
+        void Delete(int id);
     }
 }

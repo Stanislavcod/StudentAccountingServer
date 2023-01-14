@@ -20,17 +20,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Organizations.ToList();
         }
-        public Organization GetName(string name)
+        public Organization Get(string name)
         {
             return _context.Organizations.FirstOrDefault(x => x.Fullname == name);
+        }
+        public Organization Get(int id)
+        {
+            return _context.Organizations.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Organization organization)
         {
             _context.Organizations.Update(organization);
             _context.SaveChanges();
         }
-        public void Delete(Organization organization)
+        public void Delete(int id)
         {
+            var organization = _context.Organizations.FirstOrDefault(x => x.Id == id);
             _context.Organizations.Remove(organization);
             _context.SaveChanges();
         }

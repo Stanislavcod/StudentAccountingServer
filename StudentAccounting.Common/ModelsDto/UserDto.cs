@@ -1,4 +1,5 @@
-﻿
+﻿using StudentAccounting.Model.DataBaseModels;
+
 namespace StudentAccounting.Common.ModelsDto
 {
     public class UserDto
@@ -7,5 +8,6 @@ namespace StudentAccounting.Common.ModelsDto
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
+        public Participants? Participants { get; set; }
     }
 }

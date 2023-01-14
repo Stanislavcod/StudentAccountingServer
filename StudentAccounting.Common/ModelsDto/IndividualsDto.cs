@@ -1,4 +1,6 @@
 ﻿
+using StudentAccounting.Model.DataBaseModels;
+
 namespace StudentAccounting.Common.ModelsDto
 {
     public class IndividualsDto
@@ -10,5 +12,7 @@ namespace StudentAccounting.Common.ModelsDto
         public string Mail { get; set; } = string.Empty;
         public string Gender { get; set; } = string.Empty;
         public string SocialNetwork { get; set; } = string.Empty;
+        public Participants? Participants { get; set; }
+        public Student? Student { get; set; }
     }
 }

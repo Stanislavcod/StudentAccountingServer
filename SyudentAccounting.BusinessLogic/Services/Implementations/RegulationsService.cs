@@ -20,17 +20,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Regulations.ToList();
         }
-        public Regulation GetName(string name)
+        public Regulation Get(string name)
         {
             return _context.Regulations.FirstOrDefault(x => x.Name == name);
+        }
+        public Regulation Get(int id)
+        {
+            return _context.Regulations.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Regulation regulation)
         {
             _context.Regulations.Update(regulation);
             _context.SaveChanges();
         }
-        public void Delete(Regulation regulation)
+        public void Delete(int id)
         {
+            var regulation = _context.Regulations.FirstOrDefault(x => x.Id == id);
             _context.Regulations.Remove(regulation);
             _context.SaveChanges();
         }

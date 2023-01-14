@@ -22,17 +22,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Vacancies.ToList();
         }
-        public Vacancy GetName(string name)
+        public Vacancy Get(string name)
         {
             return _context.Vacancies.FirstOrDefault(x => x.Name == name);
+        }
+        public Vacancy Get(int id)
+        {
+            return _context.Vacancies.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Vacancy vacancy)
         {
             _context.Vacancies.Update(vacancy);
             _context.SaveChanges();
         }
-        public void Delete(Vacancy vacancy)
+        public void Delete(int id)
         {
+            var vacancy = _context.Vacancies.FirstOrDefault(x => x.Id == id);
             _context.Vacancies.Remove(vacancy);
             _context.SaveChanges();
         }

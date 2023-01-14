@@ -20,7 +20,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Projects.ToList();
         }
-        public Project GetId(int id)
+        public Project Get(int id)
         {
             return _context.Projects.FirstOrDefault(x => x.Id == id);
         }
@@ -29,8 +29,9 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.Projects.Update(project);
             _context.SaveChanges();
         }
-        public void Delete(Project project)
+        public void Delete(int id)
         {
+            var project = _context.Projects.FirstOrDefault(x => x.Id == id);
             _context.Projects.Remove(project);
             _context.SaveChanges();
         }

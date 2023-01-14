@@ -7,8 +7,9 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Organization organization);
         IEnumerable<Organization> Get();
-        Organization GetName(string name);
+        Organization Get(string name);
+        Organization Get(int id);
         void Edit(Organization organization);
-        void Delete(Organization organization);
+        void Delete(int id);
     }
 }

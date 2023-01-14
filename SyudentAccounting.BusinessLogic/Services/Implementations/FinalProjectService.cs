@@ -22,17 +22,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.FinalProjects.ToList();
         }
-        public FinalProject GetName(string name)
+        public FinalProject Get(string name)
         {
             return _context.FinalProjects.FirstOrDefault(x => x.Name == name);
+        }
+        public FinalProject Get(int id)
+        {
+            return _context.FinalProjects.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(FinalProject finalProject)
         {
             _context.FinalProjects.Update(finalProject);
             _context.SaveChanges();
         }
-        public void Delete(FinalProject finalProject)
+        public void Delete(int id)
         {
+            var finalProject = _context.FinalProjects.FirstOrDefault(x => x.Id == id);
             _context.FinalProjects.Remove(finalProject);
             _context.SaveChanges();
         }

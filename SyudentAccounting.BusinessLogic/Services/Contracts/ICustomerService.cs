@@ -7,8 +7,9 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Customer customer);
         IEnumerable<Customer> Get();
-        Customer GetName(string name);
+        Customer Get(string name);
+        Customer Get(int id);
         void Edit(Customer customer);
-        void Delete(Customer customer);
+        void Delete(int id);
     }
 }

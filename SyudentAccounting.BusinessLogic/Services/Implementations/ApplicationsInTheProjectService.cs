@@ -21,7 +21,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.ApplicationsInTheProjects.ToList();
         }
-        public ApplicationsInTheProject GetId(int id)
+        public ApplicationsInTheProject Get(int id)
         {
             return _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
         }
@@ -30,9 +30,10 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.ApplicationsInTheProjects.Update(applicationsInTheProject);
             _context.SaveChanges();
         }
-        public void Delete(ApplicationsInTheProject applicationsInTheProject)
+        public void Delete(int id)
         {
-            _context.ApplicationsInTheProjects.Remove(applicationsInTheProject);
+            var application = _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
+            _context.ApplicationsInTheProjects.Remove(application);
             _context.SaveChanges();
         }
     }

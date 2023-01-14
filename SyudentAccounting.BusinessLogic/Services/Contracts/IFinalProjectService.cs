@@ -7,8 +7,9 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(FinalProject finalProject);
         IEnumerable<FinalProject> Get();
-        FinalProject GetName(string name);
+        FinalProject Get(string name);
+        FinalProject Get(int id);
         void Edit(FinalProject finalProject);
-        void Delete(FinalProject finalProject);
+        void Delete(int id);
     }
 }

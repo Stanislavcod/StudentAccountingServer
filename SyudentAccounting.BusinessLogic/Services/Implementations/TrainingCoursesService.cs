@@ -21,18 +21,23 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.TrainingCourses.ToList();
         }
-        public TrainingCourses GetName(string name)
+        public TrainingCourses Get(string name)
         {
             return _context.TrainingCourses.FirstOrDefault(x => x.Name == name);
+        }
+        public TrainingCourses Get(int id)
+        {
+            return _context.TrainingCourses.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(TrainingCourses trainingCourses)
         {
             _context.TrainingCourses.Update(trainingCourses);
             _context.SaveChanges();
         }
-        public void Delete(TrainingCourses trainingCourses)
+        public void Delete(int id)
         {
-            _context.TrainingCourses.Remove(trainingCourses);
+            var cours = _context.TrainingCourses.FirstOrDefault(x => x.Id == id);
+            _context.TrainingCourses.Remove(cours);
             _context.SaveChanges();
         }
     }

@@ -1,5 +1,4 @@
-﻿
-using StudentAccounting.Model.DataBaseModels;
+﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 
@@ -21,17 +20,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Bonuses.ToList();
         }
-        public Bonus GetName(string name)
+        public Bonus Get(string name)
         {
             return _context.Bonuses.FirstOrDefault(x => x.BonusName == name);
+        }
+        public Bonus Get(int id)
+        {
+            return _context.Bonuses.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Bonus bonus)
         {
             _context.Bonuses.Update(bonus);
             _context.SaveChanges();
         }
-        public void Delete(Bonus bonus)
+        public void Delete(int id)
         {
+            var bonus = _context.Bonuses.FirstOrDefault(x => x.Id == id);
             _context.Bonuses.Remove(bonus);
             _context.SaveChanges();
         }

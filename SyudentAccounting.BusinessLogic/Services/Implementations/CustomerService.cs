@@ -21,17 +21,22 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.Customers.ToList();
         }
-        public Customer GetName(string name)
+        public Customer Get(string name)
         {
             return _context.Customers.FirstOrDefault(x => x.FullName == name);
+        }
+        public Customer Get(int id)
+        {
+            return _context.Customers.FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Customer customer)
         {
             _context.Customers.Update(customer);
             _context.SaveChanges();
         }
-        public void Delete(Customer customer)
+        public void Delete(int id)
         {
+            var customer = _context.Customers.FirstOrDefault(x => x.Id == id);
             _context.Customers.Remove(customer);
             _context.SaveChanges();
         }

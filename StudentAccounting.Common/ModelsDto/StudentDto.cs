@@ -1,4 +1,6 @@
 ﻿
+using StudentAccounting.Model.DataBaseModels;
+
 namespace StudentAccounting.Common.ModelsDto
 {
     public class StudentDto
@@ -8,5 +10,7 @@ namespace StudentAccounting.Common.ModelsDto
         public string Group { get; set; } = string.Empty;
         public int CourseNumber { get; set; }
         public string University { get; set; } = string.Empty;
+        public int IndividualsId { get; set; }
+        public Individuals? Individuals { get; set; }
     }
 }

@@ -22,7 +22,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.StagesOfProjects.ToList();
         }
-        public StagesOfProject GetName(string name)
+        public StagesOfProject Get(int id)
+        {
+            return _context.StagesOfProjects.FirstOrDefault(x => x.Id == id);
+        }
+        public StagesOfProject Get(string name)
         {
             return _context.StagesOfProjects.FirstOrDefault(x => x.Name == name);
         }
@@ -31,9 +35,10 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.StagesOfProjects.Update(stages);
             _context.SaveChanges();
         }
-        public void Delete(StagesOfProject stages)
+        public void Delete(int id)
         {
-            _context.StagesOfProjects.Remove(stages);
+            var stage = _context.StagesOfProjects.FirstOrDefault(x => x.Id == id);
+            _context.StagesOfProjects.Remove(stage);
             _context.SaveChanges();
         }
     }

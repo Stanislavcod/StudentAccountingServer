@@ -7,8 +7,9 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     {
         void Create(Regulation regulation);
         IEnumerable<Regulation> Get();
-        Regulation GetName(string name);
+        Regulation Get(string name);
+        Regulation Get(int id);
         void Edit(Regulation regulation);
-        void Delete(Regulation regulation);
+        void Delete(int id);
     }
 }
