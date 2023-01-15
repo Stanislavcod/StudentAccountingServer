@@ -7,6 +7,6 @@ namespace StudentAccountin.Model.DatabaseModels
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Link { get; set; } = string.Empty;
-        public List<Employment> Employments { get; set; } = new();
+        public List<Employment>? Employments { get; set; } = new();
     }
 }

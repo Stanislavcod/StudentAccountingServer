@@ -10,12 +10,11 @@ namespace StudentAccountin.Model.DatabaseModels
         public DateTime DateEnd { get; set; }
         public string Status { get; set; } = string.Empty;
         public string StatusDescription { get; set; } = string.Empty;
-        public int IdMentor { get; set; }
+        public int? IdMentor { get; set; }
         public Participants? Participants { get; set; }
         public int ParticipantsId { get; set; }
-        public TrainingCourses? TrainingCourses { get; set; }
-        public int TrainingCoursesId { get; set; }
-        public List<FinalProject> FinalProjects { get; set; } = new();
+        public List<TrainingCourses>? TrainingCourses { get; set; } = new();
+        public List<FinalProject>? FinalProjects { get; set; } = new();
         public Position? Position { get; set; }
         public int PositionId { get; set; }
     }

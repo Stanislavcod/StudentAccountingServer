@@ -10,6 +10,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public string Description { get; set; } = string.Empty;
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
-        public List<Employment> Employments { get; set; } = new();
+        public List<Employment>? Employments { get; set; } = new();
     }
 }
