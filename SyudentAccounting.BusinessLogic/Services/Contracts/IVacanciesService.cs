@@ -1,5 +1,6 @@
 ﻿
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -11,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Vacancy Get(int id);
         void Edit(Vacancy vacancy);
         void Delete(int id);
+        IEnumerable<Vacancy> Get(Participants participants);
     }
 }

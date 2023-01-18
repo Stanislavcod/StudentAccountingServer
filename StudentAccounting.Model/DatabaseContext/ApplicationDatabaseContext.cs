@@ -68,8 +68,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Employment>().HasData(
                 new Employment[]
                 {
-                    new Employment { Id = 1, Status = "В расмотрении", DateStart = DateTime.Parse("01.01.2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 1, PositionId = 1 },
-                    new Employment { Id = 2, Status = "В расмотрении", DateStart = DateTime.Parse("03.01.2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
+                    new Employment { Id = 1, Status = true, DateStart = DateTime.Parse("01.01.2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 1, PositionId = 1 },
+                    new Employment { Id = 2, Status = true, DateStart = DateTime.Parse("03.01.2023"), StatusDescription = "Фронт" , ParticipantsId = 1, PositionId = 1}
                 });
             modelBuilder.Entity<FinalProject>().HasData(
                 new FinalProject[]
@@ -122,8 +122,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Position>().HasData(
                 new Position[]
                 {
-                    new Position {Id =1, FullName = "Директор", Description = "Главный самый", DepartmentId =1},
-                    new Position {Id =2, FullName = "Бухгалтер", Description = "Заместитель директора", DepartmentId =2}
+                    new Position {Id =1, FullName = "Pm", Description = "Главный самый", DepartmentId =1},
+                    new Position {Id =2, FullName = "back-end", Description = "Заместитель директора", DepartmentId =2}
                 });
 
         }
