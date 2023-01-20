@@ -1,6 +1,7 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -18,11 +19,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Project> Get()
         {
-            return _context.Projects.ToList();
+            return _context.Projects.Include(x=>x.Customer).AsNoTracking().ToList();
         }
         public Project Get(int id)
         {
-            return _context.Projects.FirstOrDefault(x => x.Id == id);
+            return _context.Projects.Include(x => x.Customer).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Project project)
         {

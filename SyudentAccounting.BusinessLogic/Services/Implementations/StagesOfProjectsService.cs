@@ -3,6 +3,8 @@ using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -20,15 +22,12 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<StagesOfProject> Get()
         {
-            return _context.StagesOfProjects.ToList();
+            return _context.StagesOfProjects.Include(x => x.Project).AsNoTracking().ToList();
         }
-        public StagesOfProject Get(int id)
-        {
-            return _context.StagesOfProjects.FirstOrDefault(x => x.Id == id);
-        }
+        public StagesOfProject Get(int id) => _context.StagesOfProjects.Include(x=>x.Project).AsNoTracking().FirstOrDefault(x => x.Id == id);
         public StagesOfProject Get(string name)
         {
-            return _context.StagesOfProjects.FirstOrDefault(x => x.Name == name);
+            return _context.StagesOfProjects.Include(x => x.Project).AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public void Edit(StagesOfProject stages)
         {

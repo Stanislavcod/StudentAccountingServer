@@ -2,6 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -19,11 +20,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Employment> Get()
         {
-            return _context.Employments.ToList();
+            return _context.Employments.Include(x=>x.Position).Include(x=>x.Participants).AsNoTracking().ToList();
         }
         public Employment Get(int id)
         {
-            return _context.Employments.FirstOrDefault(x => x.Id == id);
+            return _context.Employments.Include(x => x.Position).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Employment employment)
         {

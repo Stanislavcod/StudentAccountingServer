@@ -3,6 +3,7 @@ using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -20,11 +21,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<FinalProject> Get()
         {
-            return _context.FinalProjects.ToList();
+            return _context.FinalProjects.Include(x=>x.Employment).AsNoTracking().ToList();
         }
         public FinalProject Get(string name)
         {
-            return _context.FinalProjects.FirstOrDefault(x => x.Name == name);
+            return _context.FinalProjects.Include(x => x.Employment).AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public FinalProject Get(int id)
         {
