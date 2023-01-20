@@ -1,10 +1,13 @@
 using AutoMapper;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,14 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
     opt => opt.MigrationsAssembly("StudentAccounting")));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
+    options.OutputFormatters.Add(new SystemTextJsonOutputFormatter(new JsonSerializerOptions(JsonSerializerDefaults.Web)
+    {
+        ReferenceHandler = ReferenceHandler.Preserve,
+    }));
+});
 
 builder.Services.AddMvc();
 
