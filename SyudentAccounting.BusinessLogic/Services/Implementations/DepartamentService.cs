@@ -1,6 +1,7 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -18,15 +19,15 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Department> Get()
         {
-            return _context.Departments.ToList();
+            return _context.Departments.Include(x=>x.Organizations).AsNoTracking().ToList();
         }
         public Department Get(string name)
         {
-            return _context.Departments.FirstOrDefault(x => x.FullName == name);
+            return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.FullName == name);
         }
         public Department Get(int id)
         {
-            return _context.Departments.FirstOrDefault(x => x.Id == id);
+            return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Department department)
         {
