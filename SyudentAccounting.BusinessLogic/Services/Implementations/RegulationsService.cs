@@ -1,6 +1,7 @@
 ﻿using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -18,15 +19,15 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Regulation> Get()
         {
-            return _context.Regulations.ToList();
+            return _context.Regulations.Include(x=>x.Organization).AsNoTracking().ToList();
         }
         public Regulation Get(string name)
         {
-            return _context.Regulations.FirstOrDefault(x => x.Name == name);
+            return _context.Regulations.Include(x => x.Organization).AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public Regulation Get(int id)
         {
-            return _context.Regulations.FirstOrDefault(x => x.Id == id);
+            return _context.Regulations.Include(x => x.Organization).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Regulation regulation)
         {

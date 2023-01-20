@@ -24,13 +24,13 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<StudentDto> Get()
         {
-            var students = _context.Students.AsNoTracking().ToList();
+            var students = _context.Students.Include(x=>x.Individuals).AsNoTracking().ToList();
             var studentsDto = _mapper.Map<List<StudentDto>>(students);
             return studentsDto;
         }
         public StudentDto Get(int id)
         {
-            var student = _context.Students.FirstOrDefault(x => x.Id == id);
+            var student = _context.Students.Include(x=>x.Individuals).FirstOrDefault(x => x.Id == id);
             var studentDto = _mapper.Map<StudentDto>(student);
             return studentDto;
         }

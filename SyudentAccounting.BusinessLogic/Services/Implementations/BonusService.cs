@@ -1,6 +1,7 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -18,11 +19,11 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Bonus> Get()
         {
-            return _context.Bonuses.ToList();
+            return _context.Bonuses.Include(x=>x.Rang).AsNoTracking().ToList();
         }
         public Bonus Get(string name)
         {
-            return _context.Bonuses.FirstOrDefault(x => x.BonusName == name);
+            return _context.Bonuses.Include(x => x.Rang).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
         }
         public Bonus Get(int id)
         {
