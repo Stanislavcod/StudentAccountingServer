@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Model.DatabaseModels;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Model
@@ -8,18 +9,18 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User { Id =1, IsAdmin = true, Login = "Stas", Password = "123456" },
-                    new User { Id =2, IsAdmin = true, Login = "Ilya", Password = "12345"},
-                    new User { Id =3, IsAdmin = true, Login = "Pavel", Password = "1234"},
-                    new User { Id=4, IsAdmin = false, Login = "Roman", Password = "123"}
+                    new User { Id =1, IsAdmin = true, Login = "Stas", Password = "123456", isGlobalPM = true },
+                    new User { Id =2, IsAdmin = true, Login = "Ilya", Password = "12345", isGlobalPM = true},
+                    new User { Id =3, IsAdmin = true, Login = "Pavel", Password = "1234", isGlobalPM = true},
+                    new User { Id=4, IsAdmin = false, Login = "Roman", Password = "123", isGlobalPM = false}
                 });
             modelBuilder.Entity<Individuals>().HasData(
                 new Individuals[]
@@ -68,8 +69,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Employment>().HasData(
                 new Employment[]
                 {
-                    new Employment { Id = 1, Status = true, DateStart = DateTime.Parse("01.01.2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 1, PositionId = 1 },
-                    new Employment { Id = 2, Status = true, DateStart = DateTime.Parse("03.01.2023"), StatusDescription = "Фронт" , ParticipantsId = 1, PositionId = 1}
+                    new Employment { Id = 1, Status = false, DateStart = DateTime.Parse("01.01.2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 2, PositionId = 1 },
+                    new Employment { Id = 2, Status = false, DateStart = DateTime.Parse("03.01.2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
                 });
             modelBuilder.Entity<FinalProject>().HasData(
                 new FinalProject[]
@@ -86,8 +87,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Vacancy>().HasData(
                 new Vacancy[]
                 {
-                    new Vacancy {Id =1, Budjet = 12665, DateStart = DateTime.Parse("12.12.2022"), DateEnd = DateTime.Parse("30.12.2022"), Descriptions = "Хорошая работа", Name = "Pm", Responsibilities = "communication", StagesOfProjectId = 1},
-                    new Vacancy {Id =2, Budjet = 5, DateStart = DateTime.Parse("10.12.2022"), DateEnd = DateTime.Parse("12.12.2022"), Descriptions = "работа", Name = "back-end", Responsibilities = "c#", StagesOfProjectId = 2}
+                    new Vacancy {Id =1, Budjet = 12665, DateStart = DateTime.Parse("12.12.2022"), DateEnd = DateTime.Parse("30.12.2022"), Descriptions = "Хорошая работа", Name = "Pm", Responsibilities = "communication", StagesOfProjectId = 1, isOpened = false},
+                    new Vacancy {Id =2, Budjet = 5, DateStart = DateTime.Parse("10.12.2022"), DateEnd = DateTime.Parse("12.12.2022"), Descriptions = "работа", Name = "front-end", Responsibilities = "c#", StagesOfProjectId = 2, isOpened = true}
                 });
             modelBuilder.Entity<TrainingCourses>().HasData(
                 new TrainingCourses[]
@@ -98,8 +99,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<StagesOfProject>().HasData(
                 new StagesOfProject[]
                 {
-                    new StagesOfProject {Id=1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17.11.2022"), ProjectId = 1},
-                    new StagesOfProject {Id=2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12.11.2022"), DateEnd = DateTime.Parse("15.12.2022"), ProjectId =2}
+                    new StagesOfProject {Id=1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17.11.2022"), ProjectId = 1, Status = "В процессе"},
+                    new StagesOfProject {Id=2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12.11.2022"), DateEnd = DateTime.Parse("15.12.2022"), ProjectId =2, Status = "Завершено"}
                 });
             modelBuilder.Entity<Regulation>().HasData(
                 new Regulation[]
@@ -116,8 +117,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Project>().HasData(
                 new Project[]
                 {
-                    new Project {Id = 1, Fullname = "nice", Description = "nice project", DateStart = DateTime.Parse("05.10.2022"), Status = "В разработке", TechnicalSpecification = "Site", CustomerId = 1},
-                    new Project {Id = 2, Fullname = "bad", Description = "bad project", DateStart = DateTime.Parse("01.12.2022"), DateEnd = DateTime.Parse("05.12.2022"), Status = "Конец", TechnicalSpecification = "Приложение", CustomerId =2}
+                    new Project {Id = 1, Fullname = "nice", Description = "nice project", DateStart = DateTime.Parse("05.10.2022"), Status = "В разработке", TechnicalSpecification = "Site", CustomerId = 1, idLocalPM = 1},
+                    new Project {Id = 2, Fullname = "bad", Description = "bad project", DateStart = DateTime.Parse("01.12.2022"), DateEnd = DateTime.Parse("05.12.2022"), Status = "Конец", TechnicalSpecification = "Приложение", CustomerId =2, idLocalPM = 2}
                 });
             modelBuilder.Entity<Position>().HasData(
                 new Position[]
@@ -145,5 +146,8 @@ namespace StudentAccounting.Model
         public DbSet<Project> Projects { get; set; }
         public DbSet<Rang> Rangs { get; set; }
         public DbSet<Student> Students {get; set;}
+        public DbSet<EducationalPortals> EducationalPortals { get; set; }
+        public DbSet<RegistrationForCourses> RegistrationForCourses { get; set; }
+        public DbSet<ScheduleOfСlasses> ScheduleOfСlasses { get; set; }
     }
 }

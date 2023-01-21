@@ -15,5 +15,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
         public List<StagesOfProject>? StagesOfProjects { get; set; } = new();
+        public int? idLocalPM { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace StudentAccountin.Model.DatabaseModels
         public int? IdMentor { get; set; }
         public Participants? Participants { get; set; }
         public int ParticipantsId { get; set; }
-        public List<TrainingCourses>? TrainingCourses { get; set; } = new();
         public List<FinalProject>? FinalProjects { get; set; } = new();
         public Position? Position { get; set; }
         public int PositionId { get; set; }

@@ -18,9 +18,9 @@ namespace StudentAccounting.Controllers
             return Ok(_vacanciesService.Get());
         }
         [HttpGet("GetVacancyPosition")]
-        public ActionResult<IEnumerable<Vacancy>> Get(Participants participants)
+        public ActionResult<IEnumerable<Vacancy>> GetVacanciesPos(int participantsId)
         {
-            return Ok(_vacanciesService.Get(participants));
+            return Ok(_vacanciesService.Get(participantsId));
         }
         [HttpGet("idVacancy/{id}", Name = "GetVacancyId")]
         public IActionResult Get(int id)

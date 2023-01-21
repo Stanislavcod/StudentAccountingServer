@@ -12,6 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Vacancy Get(int id);
         void Edit(Vacancy vacancy);
         void Delete(int id);
-        IEnumerable<Vacancy> Get(Participants participants);
+        IEnumerable<Vacancy> GetVacanciesPos(int participantsId);
     }
 }

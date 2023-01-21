@@ -1,5 +1,6 @@
 ﻿
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Model.DatabaseModels;
 
 namespace StudentAccounting.Model.DataBaseModels
 {
@@ -17,5 +18,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public string? GitHub { get; set; } = string.Empty;
         public List<ApplicationsInTheProject>? ApplicationsInTheProjects { get; set; } = new();
         public List<Employment>? Employments { get; set; } = new();
+        public List<RegistrationForCourses>? RegistrationForCourses { get; set; } = new();
     }
 }

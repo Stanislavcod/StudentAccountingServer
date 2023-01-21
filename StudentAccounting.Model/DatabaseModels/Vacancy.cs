@@ -18,5 +18,6 @@ namespace StudentAccountin.Model.DatabaseModels
         public List<ApplicationsInTheProject>? ApplicationsInTheProjects { get; set; } = new();
         public StagesOfProject? StagesOfProject { get; set; }
         public int StagesOfProjectId { get; set; } 
+        public bool isOpened { get; set; }
     }
 }

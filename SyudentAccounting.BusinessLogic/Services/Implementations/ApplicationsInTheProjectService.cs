@@ -2,6 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Implementations
 {
@@ -19,7 +20,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<ApplicationsInTheProject> Get()
         {
-            return _context.ApplicationsInTheProjects.ToList();
+            return _context.ApplicationsInTheProjects.AsNoTracking().ToList();
         }
         public ApplicationsInTheProject Get(int id)
         {

@@ -1,4 +1,6 @@
 ﻿
+using StudentAccounting.Model.DatabaseModels;
+
 namespace StudentAccounting.Model.DataBaseModels
 {
     public class Department
@@ -12,5 +14,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public List<Position>? Positions { get; set; } = new();
         public int OrganizationId { get; set; }
         public Organization? Organizations { get; set; }
+        public List<EducationalPortals> EducationalPortals { get; set; } = new();
     }
 }

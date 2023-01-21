@@ -22,7 +22,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Vacancy> Get()
         {
-            return _context.Vacancies.ToList();
+            return _context.Vacancies.AsNoTracking().ToList();
         }
         public Vacancy Get(string name)
         {
@@ -43,18 +43,12 @@ namespace StudentAccounting.BusinessLogic.Implementations
             _context.Vacancies.Remove(vacancy);
             _context.SaveChanges();
         }
-        public IEnumerable<Vacancy> Get(Participants participants)
+        public IEnumerable<Vacancy> GetVacanciesPos(int participantsId)
         {
-            //List<Vacancy> vacancyList = new List<Vacancy>();
-            //foreach (Employment employment in participants.Employments.Where(p => p.Status == true).ToList())
-            //    vacancyList.Add(_context.Vacancies.FirstOrDefault(p => p.Name == employment.Position.FullName));
-            //var partisipantsNew = _context.Participants.FirstOrDefault(x => x.Id == participants.Id);
-            //var employments = partisipantsNew.Employments.Where(x => x.Status == true).ToList();
-            //var vacancy = _context.Vacancies.Where(x => x.Name.ToList() == employments.Select(x => x.Position.FullName)).ToList();
-            //var partisipantsNew = _context.Participants.FirstOrDefault(x => x.Id == participants.Id);
-            //var employments = partisipantsNew.Employments.Where(x => x.Status == true).ToList();
-            var vacancy = _context.Vacancies.Where(x => _context.Positions.Include(a => a.Employments.Where(x => x.Status == true && x.ParticipantsId == participants.Id)).Any(a=> a.FullName == x.Name));
-            //var vacancy = _context.Vacancies.Where(x => x.Name.ToList() == _context.Positions.Include(a => a.Employments.Where(x => x.Status == true && x.ParticipantsId == participants.Id)).Select(a => a.FullName));
+            //var position = _context.Positions.Where(a => a.Employments.Where(x => x.Status == true && x.ParticipantsId == participants.Id));
+            var position = _context.Positions.Include(x => _context.Employments.Where(a=> a.Status == true && a.ParticipantsId == participantsId)).ToList();
+            var vacancy = _context.Vacancies.Where(x=> position.Any(a=> a.FullName == x.Name));
+            //var vacancy = _context.Vacancies.Where(x => position.Any(a=> a.FullName == x.Name));
             return vacancy;
         }
     }
