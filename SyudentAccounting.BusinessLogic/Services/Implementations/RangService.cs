@@ -3,7 +3,7 @@ using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class RangService : IRangService
     {
@@ -19,7 +19,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Rang> Get()
         {
-            return _context.Rangs.Include(x=>x.Organizations).AsNoTracking().ToList();
+            return _context.Rangs.Include(x => x.Organizations).AsNoTracking().ToList();
         }
         public Rang Get(int id)
         {

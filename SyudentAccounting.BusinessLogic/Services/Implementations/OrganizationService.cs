@@ -2,7 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccounting.Model.DataBaseModels;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class OrganizationService : IOrganizationService
     {

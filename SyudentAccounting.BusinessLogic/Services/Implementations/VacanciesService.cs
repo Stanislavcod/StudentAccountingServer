@@ -6,7 +6,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class VacanciesService : IVacanciesService
     {
@@ -46,8 +46,8 @@ namespace StudentAccounting.BusinessLogic.Implementations
         public IEnumerable<Vacancy> GetVacanciesPos(int participantsId)
         {
             //var position = _context.Positions.Where(a => a.Employments.Where(x => x.Status == true && x.ParticipantsId == participants.Id));
-            var position = _context.Positions.Include(x => _context.Employments.Where(a=> a.Status == true && a.ParticipantsId == participantsId)).ToList();
-            var vacancy = _context.Vacancies.Where(x=> position.Any(a=> a.FullName == x.Name));
+            var position = _context.Positions.Include(x => _context.Employments.Where(a => a.Status == true && a.ParticipantsId == participantsId)).ToList();
+            var vacancy = _context.Vacancies.Where(x => position.Any(a => a.FullName == x.Name));
             //var vacancy = _context.Vacancies.Where(x => position.Any(a=> a.FullName == x.Name));
             return vacancy;
         }

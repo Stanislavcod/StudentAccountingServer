@@ -5,7 +5,7 @@ using AutoMapper;
 using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class ParticipantsService : IParticipantsService
     {
@@ -30,7 +30,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public ParticipantsDto Get(int id)
         {
-            var participant = _context.Participants.Include(x=>x.Individuals).Include(x=>x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var participant = _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
             var participantDto = _mapper.Map<ParticipantsDto>(participant);
             return participantDto;
         }

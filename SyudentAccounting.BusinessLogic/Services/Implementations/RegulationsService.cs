@@ -3,7 +3,7 @@ using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class RegulationsService : IRegulationsService
     {
@@ -19,7 +19,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Regulation> Get()
         {
-            return _context.Regulations.Include(x=>x.Organization).AsNoTracking().ToList();
+            return _context.Regulations.Include(x => x.Organization).AsNoTracking().ToList();
         }
         public Regulation Get(string name)
         {

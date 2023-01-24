@@ -5,7 +5,7 @@ using AutoMapper;
 using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class UserService : IUserService
     {

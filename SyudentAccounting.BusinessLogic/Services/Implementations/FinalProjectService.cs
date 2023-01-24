@@ -5,7 +5,7 @@ using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class FinalProjectService : IFinalProjectService
     {
@@ -21,7 +21,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<FinalProject> Get()
         {
-            return _context.FinalProjects.Include(x=>x.Employment).AsNoTracking().ToList();
+            return _context.FinalProjects.Include(x => x.Employment).AsNoTracking().ToList();
         }
         public FinalProject Get(string name)
         {

@@ -3,7 +3,7 @@ using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class BonusService : IBonusService
     {
@@ -19,7 +19,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Bonus> Get()
         {
-            return _context.Bonuses.Include(x=>x.Rang).AsNoTracking().ToList();
+            return _context.Bonuses.Include(x => x.Rang).AsNoTracking().ToList();
         }
         public Bonus Get(string name)
         {

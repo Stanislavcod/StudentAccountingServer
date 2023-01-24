@@ -4,7 +4,7 @@ using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class EmploymentService : IEmploymentService
     {
@@ -20,7 +20,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Employment> Get()
         {
-            return _context.Employments.Include(x=>x.Position).Include(x=>x.Participants).AsNoTracking().ToList();
+            return _context.Employments.Include(x => x.Position).Include(x => x.Participants).AsNoTracking().ToList();
         }
         public Employment Get(int id)
         {

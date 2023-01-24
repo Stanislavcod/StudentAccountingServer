@@ -3,7 +3,7 @@ using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class DepartamentService : IDepartamentService
     {
@@ -19,7 +19,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Department> Get()
         {
-            return _context.Departments.Include(x=>x.Organizations).AsNoTracking().ToList();
+            return _context.Departments.Include(x => x.Organizations).AsNoTracking().ToList();
         }
         public Department Get(string name)
         {

@@ -3,7 +3,7 @@ using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class ProjectService : IProjectService
     {
@@ -19,7 +19,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<Project> Get()
         {
-            return _context.Projects.Include(x=>x.Customer).AsNoTracking().ToList();
+            return _context.Projects.Include(x => x.Customer).AsNoTracking().ToList();
         }
         public Project Get(int id)
         {

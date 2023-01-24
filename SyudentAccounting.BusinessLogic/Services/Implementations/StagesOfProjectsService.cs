@@ -6,7 +6,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class StagesOfProjectsService : IStagesOfProjectsService
     {
@@ -24,7 +24,7 @@ namespace StudentAccounting.BusinessLogic.Implementations
         {
             return _context.StagesOfProjects.Include(x => x.Project).AsNoTracking().ToList();
         }
-        public StagesOfProject Get(int id) => _context.StagesOfProjects.Include(x=>x.Project).AsNoTracking().FirstOrDefault(x => x.Id == id);
+        public StagesOfProject Get(int id) => _context.StagesOfProjects.Include(x => x.Project).AsNoTracking().FirstOrDefault(x => x.Id == id);
         public StagesOfProject Get(string name)
         {
             return _context.StagesOfProjects.Include(x => x.Project).AsNoTracking().FirstOrDefault(x => x.Name == name);

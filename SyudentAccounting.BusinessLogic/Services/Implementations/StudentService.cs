@@ -5,12 +5,12 @@ using AutoMapper;
 using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentAccounting.BusinessLogic.Implementations
+namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class StudentService : IStudentService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly IMapper _mapper;   
+        private readonly IMapper _mapper;
         public StudentService(ApplicationDatabaseContext context, IMapper mapper)
         {
             _context = context;
@@ -24,13 +24,13 @@ namespace StudentAccounting.BusinessLogic.Implementations
         }
         public IEnumerable<StudentDto> Get()
         {
-            var students = _context.Students.Include(x=>x.Individuals).AsNoTracking().ToList();
+            var students = _context.Students.Include(x => x.Individuals).AsNoTracking().ToList();
             var studentsDto = _mapper.Map<List<StudentDto>>(students);
             return studentsDto;
         }
         public StudentDto Get(int id)
         {
-            var student = _context.Students.Include(x=>x.Individuals).FirstOrDefault(x => x.Id == id);
+            var student = _context.Students.Include(x => x.Individuals).FirstOrDefault(x => x.Id == id);
             var studentDto = _mapper.Map<StudentDto>(student);
             return studentDto;
         }
