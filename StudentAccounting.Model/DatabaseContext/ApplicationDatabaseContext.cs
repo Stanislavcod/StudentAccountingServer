@@ -51,8 +51,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Bonus>().HasData(
                 new Bonus[]
                 {
-                    new Bonus { Id = 1, BonusDescription = "2 базовых", BonusName = "Деньги", RangId = 1},
-                    new Bonus { Id = 2, BonusDescription = "1 выходной", BonusName = "Выходные", RangId = 2}
+                    new Bonus { Id = 1, BonusDescription = "2 базовых", BonusName = "Деньги", RankId = 1},
+                    new Bonus { Id = 2, BonusDescription = "1 выходной", BonusName = "Выходные", RankId = 2}
                 });
             modelBuilder.Entity<Customer>().HasData(
                 new Customer[]
@@ -108,11 +108,11 @@ namespace StudentAccounting.Model
                     new Regulation {Id=1, Name = "Не оскорблять", Description = "Сразу бан", Text = "ОСКОРБЛЕНИЕ - БАН!", OrganizationId = 1},
                     new Regulation {Id=2, Name = "Не кричать", Description = "Сразу бан", Text = "КРИК- БАН!", OrganizationId = 2}
                 });
-            modelBuilder.Entity<Rang>().HasData(
-                new Rang[]
+            modelBuilder.Entity<Rank>().HasData(
+                new Rank[]
                 {
-                    new Rang { Id = 1, Description = "Новичек", RangName = "Джун", OrganizationId = 1},
-                    new Rang { Id = 2, Description = "Опытен", RangName = "Мидл", OrganizationId = 2}
+                    new Rank { Id = 1, Description = "Новичек", RankName = "Джун", OrganizationId = 1},
+                    new Rank { Id = 2, Description = "Опытен", RankName = "Мидл", OrganizationId = 2}
                 });
             modelBuilder.Entity<Project>().HasData(
                 new Project[]
@@ -144,7 +144,7 @@ namespace StudentAccounting.Model
         public DbSet<Participants> Participants { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Rang> Rangs { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
         public DbSet<Student> Students {get; set;}
         public DbSet<EducationalPortals> EducationalPortals { get; set; }
         public DbSet<RegistrationForCourses> RegistrationForCourses { get; set; }

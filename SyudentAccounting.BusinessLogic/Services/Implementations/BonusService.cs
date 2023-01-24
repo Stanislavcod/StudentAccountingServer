@@ -19,11 +19,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<Bonus> Get()
         {
-            return _context.Bonuses.Include(x => x.Rang).AsNoTracking().ToList();
+            return _context.Bonuses.Include(x => x.Rank).AsNoTracking().ToList();
         }
         public Bonus Get(string name)
         {
-            return _context.Bonuses.Include(x => x.Rang).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
+            return _context.Bonuses.Include(x => x.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
         }
         public Bonus Get(int id)
         {

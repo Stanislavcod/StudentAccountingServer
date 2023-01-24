@@ -13,6 +13,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public DateTime? FoundationDate { get; set; }
         public List<Department>? Departments { get; set; } = new();
         public List<Regulation>? Regulations { get; set; } = new();
-        public List<Rang>? Rangs { get; set; } = new();
+        public List<Rank>? Ranks { get; set; } = new();
     }
 }
