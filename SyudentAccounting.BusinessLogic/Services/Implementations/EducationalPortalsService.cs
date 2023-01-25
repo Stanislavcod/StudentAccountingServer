@@ -41,5 +41,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             _context.EducationalPortals.Remove(educationPortal);
             _context.SaveChanges();
         }
+
+     
     }
 }

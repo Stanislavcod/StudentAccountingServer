@@ -2,12 +2,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
-using StudentAccounting.BusinessLogic.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using StudentAccounting.BusinessLogic.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
