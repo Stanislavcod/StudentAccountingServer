@@ -9,7 +9,7 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -93,14 +93,14 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<TrainingCourses>().HasData(
                 new TrainingCourses[]
                 {
-                    new TrainingCourses { Id =1, Name = "ИИ", Description = "Курсы Курск", Link = "www"},
-                    new TrainingCourses { Id =2, Name = "Mobile", Description = "Курсы Курск", Link = "www"}
+                    new TrainingCourses { Id = 1, Name = "ИИ", Description = "Курсы Курск", Link = "www"},
+                    new TrainingCourses { Id = 2, Name = "Mobile", Description = "Курсы Курск", Link = "www"}
                 });
             modelBuilder.Entity<StagesOfProject>().HasData(
                 new StagesOfProject[]
                 {
-                    new StagesOfProject {Id=1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17.11.2022"), ProjectId = 1, Status = "В процессе"},
-                    new StagesOfProject {Id=2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12.11.2022"), DateEnd = DateTime.Parse("15.12.2022"), ProjectId =2, Status = "Завершено"}
+                    new StagesOfProject {Id= 1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17.11.2022"), ProjectId = 1, Status = "В процессе"},
+                    new StagesOfProject {Id= 2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12.11.2022"), DateEnd = DateTime.Parse("15.12.2022"), ProjectId =2, Status = "Завершено"}
                 });
             modelBuilder.Entity<Regulation>().HasData(
                 new Regulation[]
@@ -125,12 +125,6 @@ namespace StudentAccounting.Model
                 {
                     new Position {Id =1, FullName = "Pm", Description = "Главный самый", DepartmentId =1},
                     new Position {Id =2, FullName = "back-end", Description = "Заместитель директора", DepartmentId =2}
-                });
-            modelBuilder.Entity<TrainingCourses>().HasData(
-                new TrainingCourses[]
-                {
-                    new TrainingCourses { Id = 1, Name = "ИИ", Description = "Пускай будет искуственный интелект", Link = "www"},
-                    new TrainingCourses { Id = 2, Name = "MobDev", Description = "Разработка для андройда и айфона", Link = "www"}
                 });
             modelBuilder.Entity<EducationalPortals>().HasData(
                 new EducationalPortals[]

@@ -24,7 +24,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public ApplicationsInTheProject Get(int id)
         {
-            return _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
+            return _context.ApplicationsInTheProjects.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(ApplicationsInTheProject applicationsInTheProject)
         {
