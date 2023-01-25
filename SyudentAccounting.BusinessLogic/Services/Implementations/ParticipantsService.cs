@@ -2,7 +2,6 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using AutoMapper;
-using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
@@ -10,34 +9,26 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class ParticipantsService : IParticipantsService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly IMapper _mapper;
-        public ParticipantsService(ApplicationDatabaseContext context, IMapper mapper)
+        public ParticipantsService(ApplicationDatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public void Create(ParticipantsDto newParticipant)
+        public void Create(Participants newParticipant)
         {
-            var participant = _mapper.Map<Participants>(newParticipant);
-            _context.Participants.Add(participant);
+            _context.Participants.Add(newParticipant);
             _context.SaveChanges();
         }
-        public IEnumerable<ParticipantsDto> Get()
+        public IEnumerable<Participants> Get()
         {
-            var participants = _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().ToList();
-            var participantsDto = _mapper.Map<List<ParticipantsDto>>(participants);
-            return participantsDto;
+            return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().ToList();
         }
-        public ParticipantsDto Get(int id)
+        public Participants Get(int id)
         {
-            var participant = _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
-            var participantDto = _mapper.Map<ParticipantsDto>(participant);
-            return participantDto;
+            return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
-        public void Edit(ParticipantsDto newParticipants)
+        public void Edit(Participants newParticipants)
         {
-            var participant = _mapper.Map<Participants>(newParticipants);
-            _context.Participants.Update(participant);
+            _context.Participants.Update(newParticipants);
             _context.SaveChanges();
         }
         public void Delete(int id)

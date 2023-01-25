@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Common.ModelsDto;
+using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -12,7 +12,7 @@ namespace StudentAccounting.Controllers
             _participantsService = participantsService;
         }
         [HttpGet("GetParticipants")]
-        public ActionResult<IEnumerable<ParticipantsDto>> Get()
+        public ActionResult<IEnumerable<Participants>> Get()
         {
             return Ok(_participantsService.Get());
         }
@@ -22,15 +22,15 @@ namespace StudentAccounting.Controllers
             return Ok(_participantsService.Get(id));
         }
         [HttpPost("CreateParticipant")]
-        public IActionResult Create(ParticipantsDto participantsDto)
+        public IActionResult Create(Participants participants)
         {
-            _participantsService.Create(participantsDto);
+            _participantsService.Create(participants);
             return Ok();
         }
         [HttpPut("UpdateParticipant")]
-        public IActionResult Update(ParticipantsDto participantsDto)
+        public IActionResult Update(Participants participants)
         {
-            _participantsService.Edit(participantsDto);
+            _participantsService.Edit(participants);
             return Ok();
         }
         [HttpDelete("DeleteParticipant")]

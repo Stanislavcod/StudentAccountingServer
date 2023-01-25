@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
 using System.Text.Json.Serialization;
 using System.Text.Json;
@@ -29,10 +28,10 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddMvc();
 
-var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-IMapper mapper = mappingConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
+//var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//IMapper mapper = mappingConfig.CreateMapper();
+//builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>();
 builder.Services.AddTransient<IUserService, UserService>();

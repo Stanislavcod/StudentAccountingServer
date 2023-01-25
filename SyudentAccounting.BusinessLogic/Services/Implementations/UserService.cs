@@ -2,7 +2,6 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using AutoMapper;
-using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
@@ -10,40 +9,30 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class UserService : IUserService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly IMapper _mapper;
-        public UserService(ApplicationDatabaseContext context, IMapper mapper)
+        public UserService(ApplicationDatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public void Create(UserDto newUser)
+        public void Create(User newUser)
         {
-            var userDto = _mapper.Map<User>(newUser);
-            _context.Users.Add(userDto);
+            _context.Users.Add(newUser);
             _context.SaveChanges();
         }
-        public IEnumerable<UserDto> Get()
+        public IEnumerable<User> Get()
         {
-            var users = _context.Users.AsNoTracking().ToList();
-            var usersDto = _mapper.Map<List<UserDto>>(users);
-            return usersDto;
+            return _context.Users.AsNoTracking().ToList();
         }
-        public UserDto Get(string name)
+        public User Get(string name)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Login == name);
-            var userDto = _mapper.Map<UserDto>(user);
-            return userDto;
+            return _context.Users.AsNoTracking().FirstOrDefault(x => x.Login == name);
         }
-        public UserDto Get(int id)
+        public User Get(int id)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == id);
-            var userDto = _mapper.Map<UserDto>(user);
-            return userDto;
+            return _context.Users.FirstOrDefault(x => x.Id == id);
         }
-        public void Edit(UserDto newUser)
+        public void Edit(User newUser)
         {
-            var user = _mapper.Map<User>(newUser);
-            _context.Users.Update(user);
+            _context.Users.Update(newUser);
             _context.SaveChanges();
         }
         public void Delete(int id)

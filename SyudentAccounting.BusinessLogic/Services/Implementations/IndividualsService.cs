@@ -1,7 +1,6 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Common.ModelsDto;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,40 +9,30 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class IndividualsService : IIndividualsService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly IMapper _mapper;
-        public IndividualsService(ApplicationDatabaseContext context, IMapper mapper)
+        public IndividualsService(ApplicationDatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public void Create(IndividualsDto newIndividuals)
+        public void Create(Individuals newIndividuals)
         {
-            var individuals = _mapper.Map<Individuals>(newIndividuals);
-            _context.Individuals.Add(individuals);
+            _context.Individuals.Add(newIndividuals);
             _context.SaveChanges();
         }
-        public IEnumerable<IndividualsDto> Get()
+        public IEnumerable<Individuals> Get()
         {
-            var individuals = _context.Individuals.AsNoTracking().ToList();
-            var individualsDto = _mapper.Map<List<IndividualsDto>>(individuals);
-            return individualsDto;
+            return _context.Individuals.AsNoTracking().ToList();
         }
-        public IndividualsDto Get(string name)
+        public Individuals Get(string name)
         {
-            var individuals = _context.Individuals.FirstOrDefault(x => x.FIO == name);
-            var individualsDto = _mapper.Map<IndividualsDto>(individuals);
-            return individualsDto;
+            return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.FIO == name);
         }
-        public IndividualsDto Get(int id)
+        public Individuals Get(int id)
         {
-            var individuals = _context.Individuals.FirstOrDefault(x => x.Id == id);
-            var individualsDto = _mapper.Map<IndividualsDto>(individuals);
-            return individualsDto;
+            return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
-        public void Edit(IndividualsDto newIndividuals)
+        public void Edit(Individuals newIndividuals)
         {
-            var individuals = _mapper.Map<Individuals>(newIndividuals);
-            _context.Individuals.Update(individuals);
+            _context.Individuals.Update(newIndividuals);
             _context.SaveChanges();
         }
         public void Delete(int id)
