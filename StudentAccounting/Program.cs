@@ -52,6 +52,8 @@ builder.Services.AddTransient<IStudentService, StudentService>();
 builder.Services.AddTransient<ITrainingCoursesService, TrainingCoursesService>();
 builder.Services.AddTransient<IVacanciesService, VacanciesService>();
 builder.Services.AddTransient<IScheduleOfÑlassesService, ScheduleOfÑlassesService>();
+builder.Services.AddTransient<IEducationalPortalsService, EducationalPortalsService>();
+builder.Services.AddTransient<IRegistrationForCoursesService, RegistrationForCoursesService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
