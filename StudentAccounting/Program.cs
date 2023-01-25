@@ -7,7 +7,11 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using StudentAccounting.Configuration;
 
+//ConfigurationHelper _configurationHelper = new ConfigurationHelper();
+//_configurationHelper.ConfigureServices();
+//_configurationHelper.Configure();
 var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -28,10 +32,6 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddMvc();
 
-//var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-//IMapper mapper = mappingConfig.CreateMapper();
-//builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>();
 builder.Services.AddTransient<IUserService, UserService>();

@@ -45,5 +45,9 @@ namespace StudentAccounting.Controllers
             _bonusService.Delete(id);
             return Ok();
         }
+        public IActionResult GetForRang(int id)
+        {
+            return Ok(_bonusService.GetForRang(id));
+        }
     }
 }
