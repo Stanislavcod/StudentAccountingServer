@@ -1,46 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    public class RangController : Controller
+    public class RankController : Controller
     {
-        private readonly IRangService _routingService;
-        public RangController(IRangService routingService)
+        private readonly IRankService _routingService;
+        public RankController(IRankService routingService)
         {
             _routingService = routingService;
         }
 
-        [HttpGet("GetRang")]
-        public ActionResult<IEnumerable<Rang>> Get()
+        [HttpGet("GetRank")]
+        public ActionResult<IEnumerable<Rank>> Get()
         {
             return Ok(_routingService.Get());
         }
-        [HttpGet("idRang/{id}", Name = "GetRangId")]
+        [HttpGet("idRank/{id}", Name = "GetRankId")]
         public IActionResult Get(int id)
         {
             return Ok(_routingService.Get(id));
         }
-        [HttpGet("nameRang/{name}", Name = "GetRangName")]
+        [HttpGet("nameRank/{name}", Name = "GetRankName")]
         public IActionResult Get(string name)
         {
             return Ok(_routingService.Get(name));
         }
-        [HttpPost("CreateRang")]
-        public IActionResult Create(Rang rang)
+        [HttpPost("CreateRank")]
+        public IActionResult Create(Rank Rank)
         {
-            _routingService.Create(rang);
+            _routingService.Create(Rank);
             return Ok();
         }
-        [HttpPut("UpdateRang")]
-        public IActionResult Update(Rang rang)
+        [HttpPut("UpdateRank")]
+        public IActionResult Update(Rank Rank)
         {
-            _routingService.Edit(rang);
+            _routingService.Edit(Rank);
             return Ok();
         }
-        [HttpDelete("DeleteRang")]
+        [HttpDelete("DeleteRank")]
         public IActionResult Delete(int id)
         {
              _routingService.Delete(id);

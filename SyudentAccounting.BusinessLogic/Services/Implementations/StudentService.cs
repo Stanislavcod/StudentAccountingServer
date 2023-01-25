@@ -2,7 +2,6 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using AutoMapper;
-using StudentAccounting.Common.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
@@ -11,33 +10,26 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     {
         private readonly ApplicationDatabaseContext _context;
         private readonly IMapper _mapper;
-        public StudentService(ApplicationDatabaseContext context, IMapper mapper)
+        public StudentService(ApplicationDatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public void Create(StudentDto newStudent)
+        public void Create(Student newStudent)
         {
-            var student = _mapper.Map<Student>(newStudent);
-            _context.Students.Add(student);
+            _context.Students.Add(newStudent);
             _context.SaveChanges();
         }
-        public IEnumerable<StudentDto> Get()
+        public IEnumerable<Student> Get()
         {
-            var students = _context.Students.Include(x => x.Individuals).AsNoTracking().ToList();
-            var studentsDto = _mapper.Map<List<StudentDto>>(students);
-            return studentsDto;
+            return _context.Students.Include(x => x.Individuals).AsNoTracking().ToList();
         }
-        public StudentDto Get(int id)
+        public Student Get(int id)
         {
-            var student = _context.Students.Include(x => x.Individuals).FirstOrDefault(x => x.Id == id);
-            var studentDto = _mapper.Map<StudentDto>(student);
-            return studentDto;
+            return _context.Students.Include(x => x.Individuals).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
-        public void Edit(StudentDto newStudent)
+        public void Edit(Student newStudent)
         {
-            var student = _mapper.Map<Student>(newStudent);
-            _context.Students.Update(student);
+            _context.Students.Update(newStudent);
             _context.SaveChanges();
         }
         public void Delete(int id)

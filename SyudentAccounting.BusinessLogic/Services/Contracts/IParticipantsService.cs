@@ -1,13 +1,13 @@
-﻿using StudentAccounting.Common.ModelsDto;
+﻿using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
     public interface IParticipantsService
     {
-        void Create(ParticipantsDto participantsDto);
-        IEnumerable<ParticipantsDto> Get();
-        ParticipantsDto Get(int id);
-        void Edit(ParticipantsDto participantsDto);
+        void Create(Participants participantsDto);
+        IEnumerable<Participants> Get();
+        Participants Get(int id);
+        void Edit(Participants participantsDto);
         void Delete(int id);
     }
 }

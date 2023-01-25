@@ -2,12 +2,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Common.Mapper;
 using StudentAccounting.Model;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using StudentAccounting.BusinessLogic.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,10 +28,10 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddMvc();
 
-var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-IMapper mapper = mappingConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
+//var mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//IMapper mapper = mappingConfig.CreateMapper();
+//builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>();
 builder.Services.AddTransient<IUserService, UserService>();
@@ -46,7 +45,7 @@ builder.Services.AddTransient<IOrganizationService, OrganizationService>();
 builder.Services.AddTransient<IParticipantsService, ParticipantsService>();
 builder.Services.AddTransient<IPositionService, PositionService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
-builder.Services.AddTransient<IRangService, RangService>();
+builder.Services.AddTransient<IRankService, RankService>();
 builder.Services.AddTransient<IRegulationsService, RegulationsService>();
 builder.Services.AddTransient<IStagesOfProjectsService, StagesOfProjectsService>();
 builder.Services.AddTransient<IStudentService, StudentService>();
