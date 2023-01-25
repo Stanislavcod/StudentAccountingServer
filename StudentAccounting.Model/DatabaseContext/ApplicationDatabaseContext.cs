@@ -126,6 +126,32 @@ namespace StudentAccounting.Model
                     new Position {Id =1, FullName = "Pm", Description = "Главный самый", DepartmentId =1},
                     new Position {Id =2, FullName = "back-end", Description = "Заместитель директора", DepartmentId =2}
                 });
+            modelBuilder.Entity<TrainingCourses>().HasData(
+                new TrainingCourses[]
+                {
+                    new TrainingCourses { Id = 1, Name = "ИИ", Description = "Пускай будет искуственный интелект", Link = "www"},
+                    new TrainingCourses { Id = 2, Name = "MobDev", Description = "Разработка для андройда и айфона", Link = "www"}
+                });
+            modelBuilder.Entity<EducationalPortals>().HasData(
+                new EducationalPortals[]
+                {
+                    new EducationalPortals {Id = 1, DepartmentId = 1, Description = "Искусственный интелект", Name = "ИИ", Link = "www"},
+                    new EducationalPortals {Id = 2, DepartmentId = 2, Description = "Мобильная разработка", Name = "ModelDevelop", Link = "www"}
+                });
+            modelBuilder.Entity<RegistrationForCourses>().HasData(
+                new RegistrationForCourses[]
+                {
+                    new RegistrationForCourses {Id = 1, DateEntry = DateTime.Parse("05.01.2023"), ParticipantsId = 1, TrainingCousresId = 1},
+                    new RegistrationForCourses {Id = 2, DateEntry = DateTime.Parse("10.01.2023"), ParticipantsId = 2, TrainingCousresId = 2}
+                });
+            modelBuilder.Entity<ScheduleOfСlasses>().HasData(
+                new ScheduleOfСlasses[]
+                {
+                    new ScheduleOfСlasses {Id = 1, DateStart = DateTime.Parse("25.01.2023 10:00:00"), DateEnd = DateTime.Parse("25.01.2023 12:00:00"),
+                        Description = "English", WorkSpaceLink = "www", TrainingCoursesId = 1},
+                    new ScheduleOfСlasses {Id = 2, DateStart = DateTime.Parse("25.01.2023 12:15:00"), DateEnd = DateTime.Parse("25.01.2023 14:15:00"),
+                        Description = "MobDev", WorkSpaceLink = "www", TrainingCoursesId = 2}
+                });
 
         }
         public DbSet<ApplicationsInTheProject> ApplicationsInTheProjects { get; set; }
