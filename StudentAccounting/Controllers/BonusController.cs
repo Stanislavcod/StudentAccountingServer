@@ -22,7 +22,7 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_bonusService.Get(id));
         }
-        [HttpGet("nameBonus/{name}", Name = "GetRankBonus")]
+        [HttpGet("nameBonus/{name}", Name = "GetBonusName")]
         public IActionResult Get(string name)
         {
             return Ok(_bonusService.Get(name));
