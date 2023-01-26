@@ -48,7 +48,7 @@ namespace StudentAccounting.Controllers
         [HttpGet("BonusForRangId/{id}", Name = "GetBonusForRangId")]
         public IActionResult GetForRang(int id)
         {
-            return Ok(_bonusService.GetForRank(id));
+            return Ok(_bonusService.GetForRang(id));
         }
     }
 }
