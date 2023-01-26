@@ -33,6 +33,8 @@ x64/
 *_i.c
 *_p.c
 *.ilk
+appsettings.json
+.gitignore
 *.meta
 *.obj
 *.pch
