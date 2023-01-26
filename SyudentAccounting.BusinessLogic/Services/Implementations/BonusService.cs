@@ -40,5 +40,9 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             _context.Bonuses.Remove(bonus);
             _context.SaveChanges();
         }
+        public IEnumerable<Bonus> GetForRank(int id)
+        {
+            return _context.Bonuses.AsNoTracking().Where(x => x.RankId == id);
+        }
     }
 }
