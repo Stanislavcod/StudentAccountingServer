@@ -29,7 +29,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public FinalProject Get(int id)
         {
-            return _context.FinalProjects.FirstOrDefault(x => x.Id == id);
+            return _context.FinalProjects.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(FinalProject finalProject)
         {

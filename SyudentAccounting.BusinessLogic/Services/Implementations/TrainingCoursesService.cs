@@ -2,6 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -19,15 +20,15 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<TrainingCourses> Get()
         {
-            return _context.TrainingCourses.ToList();
+            return _context.TrainingCourses.AsNoTracking().ToList();
         }
         public TrainingCourses Get(string name)
         {
-            return _context.TrainingCourses.FirstOrDefault(x => x.Name == name);
+            return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public TrainingCourses Get(int id)
         {
-            return _context.TrainingCourses.FirstOrDefault(x => x.Id == id);
+            return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(TrainingCourses trainingCourses)
         {

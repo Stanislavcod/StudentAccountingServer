@@ -1,4 +1,5 @@
-﻿using StudentAccounting.BusinessLogic.Services.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -22,11 +23,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public Organization Get(string name)
         {
-            return _context.Organizations.FirstOrDefault(x => x.Fullname == name);
+            return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Fullname == name);
         }
         public Organization Get(int id)
         {
-            return _context.Organizations.FirstOrDefault(x => x.Id == id);
+            return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Organization organization)
         {
