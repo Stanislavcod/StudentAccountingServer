@@ -20,7 +20,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<ApplicationsInTheProject> Get()
         {
-            return _context.ApplicationsInTheProjects.AsNoTracking().ToList();
+            return _context.ApplicationsInTheProjects.Include(x=>x.Vacancy).AsNoTracking().ToList();
         }
         public ApplicationsInTheProject Get(int id)
         {

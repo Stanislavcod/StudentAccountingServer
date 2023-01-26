@@ -44,5 +44,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             return _context.Bonuses.AsNoTracking().Where(x => x.RankId == id);
         }
+
+       
     }
 }

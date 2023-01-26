@@ -45,8 +45,8 @@ namespace StudentAccounting.Controllers
             _bonusService.Delete(id);
             return Ok();
         }
-        [HttpGet("BonusForRangId/{id}", Name = "GetBonusForRangId")]
-        public IActionResult GetForRang(int id)
+        [HttpGet("BonusForRankId/{id}", Name = "GetBonusForRankId")]
+        public IActionResult GetForRank(int id)
         {
             return Ok(_bonusService.GetForRank(id));
         }

@@ -135,8 +135,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<RegistrationForCourses>().HasData(
                 new RegistrationForCourses[]
                 {
-                    new RegistrationForCourses {Id = 1, DateEntry = DateTime.Parse("05.01.2023"), ParticipantsId = 1, TrainingCousresId = 1},
-                    new RegistrationForCourses {Id = 2, DateEntry = DateTime.Parse("10.01.2023"), ParticipantsId = 2, TrainingCousresId = 2}
+                    new RegistrationForCourses {Id = 1, DateEntry = DateTime.Parse("05.01.2023"), ParticipantsId = 1, TrainingCoursesId = 1},
+                    new RegistrationForCourses {Id = 2, DateEntry = DateTime.Parse("10.01.2023"), ParticipantsId = 2, TrainingCoursesId = 2}
                 });
             modelBuilder.Entity<ScheduleOfСlasses>().HasData(
                 new ScheduleOfСlasses[]
