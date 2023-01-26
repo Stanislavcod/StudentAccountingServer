@@ -10,6 +10,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Bonus Get(int id);
         void Edit(Bonus bonus);
         void Delete(int id);
-        IEnumerable<Bonus> GetForRang(int id);
+        IEnumerable<Bonus> GetForRank(int id);
     }
 }

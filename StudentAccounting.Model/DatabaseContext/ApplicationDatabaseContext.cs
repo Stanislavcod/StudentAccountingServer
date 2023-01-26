@@ -38,15 +38,15 @@ namespace StudentAccounting.Model
                 new Participants[]
                 {
                     new Participants{ Id =1, DateEntry = DateTime.Parse("01/09/2002"), GitHub = "https://github.com/Ilya57061", IndividualsId=1, Status = "Cтудент",
-                     UserId = 2, mmr = 10000},
+                     UserId = 2, Mmr = 10000},
                     new Participants{ Id =2, DateEntry = DateTime.Parse("01/09/2002"), GitHub = "https://github.com/Stanislavcod", IndividualsId=2, Status = "Cтудент",
-                     UserId = 1, mmr = 10000}
+                     UserId = 1, Mmr = 10000}
                 });
             modelBuilder.Entity<ApplicationsInTheProject>().HasData(
                 new ApplicationsInTheProject[]
                 {
-                    new ApplicationsInTheProject { Id = 1, DataEntry = DateTime.Parse("10.01.2023"), WorkStatus = "В работе", VacancyId =1, ParticipantsId = 1},
-                    new ApplicationsInTheProject { Id = 2, DataEntry = DateTime.Parse("01.01.2023"), WorkStatus = "Тестирование", VacancyId = 2, ParticipantsId =2}
+                    new ApplicationsInTheProject { Id = 1, DateEntry = DateTime.Parse("10.01.2023"), WorkStatus = "В работе", VacancyId =1, ParticipantsId = 1},
+                    new ApplicationsInTheProject { Id = 2, DateEntry = DateTime.Parse("01.01.2023"), WorkStatus = "Тестирование", VacancyId = 2, ParticipantsId =2}
                 });
             modelBuilder.Entity<Bonus>().HasData(
                 new Bonus[]
