@@ -39,5 +39,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             _context.ScheduleOfСlasses.Remove(schedule);
             _context.SaveChanges();
         }
+
+     
     }
 }
