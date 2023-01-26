@@ -1,63 +1,40 @@
 ﻿using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 
 namespace StudentAccounting.Configuration
 {
-    public class ConfigurationHelper
+    public static class ConfigurationHelper
     {
-        public void ConfigureServices()
+        public static void ConfigureServices(IServiceCollection services)
         {
-
-            var builder = WebApplication.CreateBuilder();
-
-            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
-            builder.Services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
-            opt => opt.MigrationsAssembly("StudentAccounting")));
-
-            builder.Services.AddControllers(options =>
-            {
-                options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
-                options.OutputFormatters.Add(new SystemTextJsonOutputFormatter(new JsonSerializerOptions(JsonSerializerDefaults.Web)
-                {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                }));
-            });
-
-            builder.Services.AddMvc();
-
-            builder.Services.AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>();
-            builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddTransient<IBonusService, BonusService>();
-            builder.Services.AddTransient<ICustomerService, CustomerService>();
-            builder.Services.AddTransient<IDepartamentService, DepartamentService>();
-            builder.Services.AddTransient<IEmploymentService, EmploymentService>();
-            builder.Services.AddTransient<IFinalProjectService, FinalProjectService>();
-            builder.Services.AddTransient<IIndividualsService, IndividualsService>();
-            builder.Services.AddTransient<IOrganizationService, OrganizationService>();
-            builder.Services.AddTransient<IParticipantsService, ParticipantsService>();
-            builder.Services.AddTransient<IPositionService, PositionService>();
-            builder.Services.AddTransient<IProjectService, ProjectService>();
-            builder.Services.AddTransient<IRankService, RankService>();
-            builder.Services.AddTransient<IRegulationsService, RegulationsService>();
-            builder.Services.AddTransient<IStagesOfProjectsService, StagesOfProjectsService>();
-            builder.Services.AddTransient<IStudentService, StudentService>();
-            builder.Services.AddTransient<ITrainingCoursesService, TrainingCoursesService>();
-            builder.Services.AddTransient<IVacanciesService, VacanciesService>();
-
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            services
+                .AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>()
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<IBonusService, BonusService>()
+                .AddTransient<ICustomerService, CustomerService>()
+                .AddTransient<IDepartamentService, DepartamentService>()
+                .AddTransient<IEmploymentService, EmploymentService>()
+                .AddTransient<IFinalProjectService, FinalProjectService>()
+                .AddTransient<IIndividualsService, IndividualsService>()
+                .AddTransient<IOrganizationService, OrganizationService>()
+                .AddTransient<IParticipantsService, ParticipantsService>()
+                .AddTransient<IPositionService, PositionService>()
+                .AddTransient<IProjectService, ProjectService>()
+                .AddTransient<IRankService, RankService>()
+                .AddTransient<IRegulationsService, RegulationsService>()
+                .AddTransient<IStagesOfProjectsService, StagesOfProjectsService>()
+                .AddTransient<IStudentService, StudentService>()
+                .AddTransient<ITrainingCoursesService, TrainingCoursesService>()
+                .AddTransient<IVacanciesService, VacanciesService>()
+                .AddEndpointsApiExplorer()
+                .AddSwaggerGen()
+                .AddMvc()
+                .AddControllersAsServices();
         }
-        public void Configure()
+        public static void Configure(WebApplication app)
         {
-            var builder = WebApplication.CreateBuilder();
-            var app = builder.Build();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -75,12 +52,9 @@ namespace StudentAccounting.Configuration
             }
 
             app.UseHttpsRedirection();
-
+            app.UseRouting();
             app.UseAuthorization();
-
-            app.MapControllers();
-
-            app.Run();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
