@@ -26,11 +26,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public Vacancy Get(string name)
         {
-            return _context.Vacancies.FirstOrDefault(x => x.Name == name);
+            return _context.Vacancies.Include(x=> x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public Vacancy Get(int id)
         {
-            return _context.Vacancies.FirstOrDefault(x => x.Id == id);
+            return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Vacancy vacancy)
         {

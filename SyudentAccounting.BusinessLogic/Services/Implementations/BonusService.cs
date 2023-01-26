@@ -27,7 +27,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public Bonus Get(int id)
         {
-            return _context.Bonuses.FirstOrDefault(x => x.Id == id);
+            return _context.Bonuses.Include(x=> x.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(Bonus bonus)
         {

@@ -21,11 +21,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<RegistrationForCourses> Get()
         {
-            return _context.RegistrationForCourses.AsNoTracking().ToList();
+            return _context.RegistrationForCourses.Include(x=> x.Participants).Include(x=> x.TrainingCourses).AsNoTracking().ToList();
         }
         public RegistrationForCourses Get(int id)
         {
-            return _context.RegistrationForCourses.FirstOrDefault(x => x.Id == id);
+            return _context.RegistrationForCourses.Include(x => x.Participants).Include(x => x.TrainingCourses).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(RegistrationForCourses registrationForCourses)
         {

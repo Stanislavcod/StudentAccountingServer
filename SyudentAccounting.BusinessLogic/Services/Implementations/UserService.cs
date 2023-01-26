@@ -28,7 +28,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public User Get(int id)
         {
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            return _context.Users.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(User newUser)
         {

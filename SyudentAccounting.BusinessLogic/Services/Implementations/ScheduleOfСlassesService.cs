@@ -22,11 +22,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<ScheduleOfСlasses> Get()
         {
-            return _context.ScheduleOfСlasses.AsNoTracking().ToList();
+            return _context.ScheduleOfСlasses.Include(x=> x.TrainingCourses).AsNoTracking().ToList();
         }
         public ScheduleOfСlasses Get(int id)
         {
-            return _context.ScheduleOfСlasses.FirstOrDefault(x => x.Id == id);
+            return _context.ScheduleOfСlasses.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(ScheduleOfСlasses scheduleOfСlasses)
         {

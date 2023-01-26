@@ -20,15 +20,15 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<EducationalPortals> Get()
         {
-            return _context.EducationalPortals.AsNoTracking().ToList();
+            return _context.EducationalPortals.Include(x=> x.Department).AsNoTracking().ToList();
         }
         public EducationalPortals Get(string name)
         {
-            return _context.EducationalPortals.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
         public EducationalPortals Get(int id)
         {
-            return _context.EducationalPortals.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
         public void Edit(EducationalPortals educationalPortals)
         {
