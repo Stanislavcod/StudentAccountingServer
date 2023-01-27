@@ -29,6 +29,10 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             return _context.Users.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
+        public User Get(string login, string password)
+        {
+            return _context.Users.FirstOrDefault(u=>u.Login==login&&u.Password==password);
+        }
         public void Edit(User newUser)
         {
             _context.Users.Update(newUser);

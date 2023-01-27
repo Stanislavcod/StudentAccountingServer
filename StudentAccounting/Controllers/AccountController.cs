@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Model.DataBaseModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using StudentAccounting.Common.ModelsDto;
+
+namespace StudentAccounting.Controllers
+{
+
+    public class AccountController : Controller
+    {
+        readonly IUserService _userService;
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+        [HttpPost("Login")]
+        public IActionResult Login(LoginDTO model)
+        {
+            User user = _userService.Get(model.Login, model.Password);
+            if (user != null)
+            {
+                return Ok(_userService.Get(model.Login));
+            }
+            return BadRequest();
+        }
+
+    }
+}

@@ -13,7 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _scheduleOfСlassesService = scheduleOfСlassesService;
         }
-        [HttpGet("GetBScheduleOfСlasses")]
+        [HttpGet("GetScheduleOfСlasses")]
         public ActionResult<IEnumerable<ScheduleOfСlasses>> Get()
         {
             return Ok(_scheduleOfСlassesService.Get());
