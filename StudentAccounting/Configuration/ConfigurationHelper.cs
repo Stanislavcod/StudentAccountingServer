@@ -4,6 +4,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace StudentAccounting.Configuration
 {
@@ -44,6 +45,12 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Account/Login");
+                });
+
         }
         public static void Configure(WebApplication app)
         {
@@ -65,8 +72,11 @@ namespace StudentAccounting.Configuration
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
+
 }
