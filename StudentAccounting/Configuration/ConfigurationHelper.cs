@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
-using StudentAccounting.Model;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace StudentAccounting.Configuration
 {
@@ -9,6 +11,7 @@ namespace StudentAccounting.Configuration
     {
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services
                 .AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>()
                 .AddTransient<IUserService, UserService>()
@@ -28,10 +31,19 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IStudentService, StudentService>()
                 .AddTransient<ITrainingCoursesService, TrainingCoursesService>()
                 .AddTransient<IVacanciesService, VacanciesService>()
+                .AddTransient<IEducationalPortalsService, EducationalPortalsService>()
+                .AddTransient<IRegistrationForCoursesService, RegistrationForCoursesService>()
+                .AddTransient<IScheduleOfСlassesService, ScheduleOfСlassesService>()
                 .AddEndpointsApiExplorer()
                 .AddSwaggerGen()
-                .AddMvc()
-                .AddControllersAsServices();
+                .AddControllers(options =>
+                {
+                    options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
+                    options.OutputFormatters.Add(new SystemTextJsonOutputFormatter(new JsonSerializerOptions(JsonSerializerDefaults.Web)
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve,
+                    }));
+                });
         }
         public static void Configure(WebApplication app)
         {

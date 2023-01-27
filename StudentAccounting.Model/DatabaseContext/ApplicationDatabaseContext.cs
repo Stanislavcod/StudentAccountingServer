@@ -9,7 +9,7 @@ namespace StudentAccounting.Model
     {
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<ApplicationsInTheProject>().HasData(
                 new ApplicationsInTheProject[]
                 {
-                    new ApplicationsInTheProject { Id = 1, DateEntry = DateTime.Parse("10.01.2023"), WorkStatus = "В работе", VacancyId =1, ParticipantsId = 1},
-                    new ApplicationsInTheProject { Id = 2, DateEntry = DateTime.Parse("01.01.2023"), WorkStatus = "Тестирование", VacancyId = 2, ParticipantsId =2}
+                    new ApplicationsInTheProject { Id = 1, DateEntry = DateTime.Parse("10/01/2023"), WorkStatus = "В работе", VacancyId =1, ParticipantsId = 1},
+                    new ApplicationsInTheProject { Id = 2, DateEntry = DateTime.Parse("01/01/2023"), WorkStatus = "Тестирование", VacancyId = 2, ParticipantsId =2}
                 });
             modelBuilder.Entity<Bonus>().HasData(
                 new Bonus[]
@@ -63,32 +63,32 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Department>().HasData(
                 new Department[]
                 {
-                    new Department {Id = 1, FullName = "Ит отдел", Description = "Айти отдел", DateStart = DateTime.Parse("01.01.2023"), Status = "Функционирует", OrganizationId = 1},
-                    new Department {Id = 2, FullName = "Pm отдел", Description = "Проджект менеджер отдел", DateStart = DateTime.Parse("05.01.2023"), Status = "Функционирует почти", OrganizationId = 2}
+                    new Department {Id = 1, FullName = "Ит отдел", Description = "Айти отдел", DateStart = DateTime.Parse("01/01/2023"), Status = "Функционирует", OrganizationId = 1},
+                    new Department {Id = 2, FullName = "Pm отдел", Description = "Проджект менеджер отдел", DateStart = DateTime.Parse("05/01/2023"), Status = "Функционирует почти", OrganizationId = 2}
                 });
             modelBuilder.Entity<Employment>().HasData(
                 new Employment[]
                 {
-                    new Employment { Id = 1, Status = false, DateStart = DateTime.Parse("01.01.2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 2, PositionId = 1 },
-                    new Employment { Id = 2, Status = false, DateStart = DateTime.Parse("03.01.2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
+                    new Employment { Id = 1, Status = false, DateStart = DateTime.Parse("01/01/2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 2, PositionId = 1 },
+                    new Employment { Id = 2, Status = false, DateStart = DateTime.Parse("03/01/2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
                 });
             modelBuilder.Entity<FinalProject>().HasData(
                 new FinalProject[]
                 {
-                    new FinalProject { Id = 1, DateStart = DateTime.Parse("10.01.2023"), Description = "Хорош", GitHub = "www.github", Links = "www.vk", Name = "МинскТракторЗавод", EmploymentId = 1},
-                    new FinalProject { Id = 2, DateStart = DateTime.Parse("01.01.2023"), Description = "МегаХорош", GitHub = "www.github", Links = "www.vk", Name = "КобинХлеб", EmploymentId = 2}
+                    new FinalProject { Id = 1, DateStart = DateTime.Parse("10/01/2023"), Description = "Хорош", GitHub = "www.github", Links = "www.vk", Name = "МинскТракторЗавод", EmploymentId = 1},
+                    new FinalProject { Id = 2, DateStart = DateTime.Parse("01/01/2023"), Description = "МегаХорош", GitHub = "www.github", Links = "www.vk", Name = "КобинХлеб", EmploymentId = 2}
                 });
             modelBuilder.Entity<Organization>().HasData(
                 new Organization[]
                 {
-                    new Organization {Id=1, Address = "Брест, Советская 13", Contacts = "+375296598412", Fullname = "NikeBrest", WebSite = "www.nike", FoundationDate = DateTime.Parse("01.01.2023")},
-                    new Organization {Id=2, Address = "Кобри, Ленина 59", Contacts = "+375294789615", Fullname = "Молоко кобринское", WebSite = "www.milkkBR", FoundationDate = DateTime.Parse("03.01.2023")}
+                    new Organization {Id=1, Address = "Брест, Советская 13", Contacts = "+375296598412", Fullname = "NikeBrest", WebSite = "www.nike", FoundationDate = DateTime.Parse("01/01/2023")},
+                    new Organization {Id=2, Address = "Кобри, Ленина 59", Contacts = "+375294789615", Fullname = "Молоко кобринское", WebSite = "www.milkkBR", FoundationDate = DateTime.Parse("03/01/2023")}
                 });
             modelBuilder.Entity<Vacancy>().HasData(
                 new Vacancy[]
                 {
-                    new Vacancy {Id =1, Budjet = 12665, DateStart = DateTime.Parse("12.12.2022"), DateEnd = DateTime.Parse("30.12.2022"), Descriptions = "Хорошая работа", Name = "Pm", Responsibilities = "communication", StagesOfProjectId = 1, isOpened = false},
-                    new Vacancy {Id =2, Budjet = 5, DateStart = DateTime.Parse("10.12.2022"), DateEnd = DateTime.Parse("12.12.2022"), Descriptions = "работа", Name = "front-end", Responsibilities = "c#", StagesOfProjectId = 2, isOpened = true}
+                    new Vacancy {Id =1, Budjet = 12665, DateStart = DateTime.Parse("12/12/2022"), DateEnd = DateTime.Parse("30/12/2022"), Descriptions = "Хорошая работа", Name = "Pm", Responsibilities = "communication", StagesOfProjectId = 1, isOpened = false},
+                    new Vacancy {Id =2, Budjet = 5, DateStart = DateTime.Parse("10/12/2022"), DateEnd = DateTime.Parse("12/12/2022"), Descriptions = "работа", Name = "front-end", Responsibilities = "c#", StagesOfProjectId = 2, isOpened = true}
                 });
             modelBuilder.Entity<TrainingCourses>().HasData(
                 new TrainingCourses[]
@@ -99,8 +99,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<StagesOfProject>().HasData(
                 new StagesOfProject[]
                 {
-                    new StagesOfProject {Id= 1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17.11.2022"), ProjectId = 1, Status = "В процессе"},
-                    new StagesOfProject {Id= 2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12.11.2022"), DateEnd = DateTime.Parse("15.12.2022"), ProjectId =2, Status = "Завершено"}
+                    new StagesOfProject {Id= 1, Name = "Тестирование", Description = "TestUnitApp", DateStart = DateTime.Parse("17/11/2022"), ProjectId = 1, Status = "В процессе"},
+                    new StagesOfProject {Id= 2, Name = "Дизайн", Description = "Разработка дизайна", DateStart = DateTime.Parse("12/11/2022"), DateEnd = DateTime.Parse("15/12/2022"), ProjectId =2, Status = "Завершено"}
                 });
             modelBuilder.Entity<Regulation>().HasData(
                 new Regulation[]
@@ -117,8 +117,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Project>().HasData(
                 new Project[]
                 {
-                    new Project {Id = 1, Fullname = "nice", Description = "nice project", DateStart = DateTime.Parse("05.10.2022"), Status = "В разработке", TechnicalSpecification = "Site", CustomerId = 1, idLocalPM = 1},
-                    new Project {Id = 2, Fullname = "bad", Description = "bad project", DateStart = DateTime.Parse("01.12.2022"), DateEnd = DateTime.Parse("05.12.2022"), Status = "Конец", TechnicalSpecification = "Приложение", CustomerId =2, idLocalPM = 2}
+                    new Project {Id = 1, Fullname = "nice", Description = "nice project", DateStart = DateTime.Parse("05/10/2022"), Status = "В разработке", TechnicalSpecification = "Site", CustomerId = 1, idLocalPM = 1},
+                    new Project {Id = 2, Fullname = "bad", Description = "bad project", DateStart = DateTime.Parse("01/12/2022"), DateEnd = DateTime.Parse("05/12/2022"), Status = "Конец", TechnicalSpecification = "Приложение", CustomerId =2, idLocalPM = 2}
                 });
             modelBuilder.Entity<Position>().HasData(
                 new Position[]
@@ -135,15 +135,15 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<RegistrationForCourses>().HasData(
                 new RegistrationForCourses[]
                 {
-                    new RegistrationForCourses {Id = 1, DateEntry = DateTime.Parse("05.01.2023"), ParticipantsId = 1, TrainingCoursesId = 1},
-                    new RegistrationForCourses {Id = 2, DateEntry = DateTime.Parse("10.01.2023"), ParticipantsId = 2, TrainingCoursesId = 2}
+                    new RegistrationForCourses {Id = 1, DateEntry = DateTime.Parse("05/01/2023"), ParticipantsId = 1, TrainingCoursesId = 1},
+                    new RegistrationForCourses {Id = 2, DateEntry = DateTime.Parse("10/01/2023"), ParticipantsId = 2, TrainingCoursesId = 2}
                 });
             modelBuilder.Entity<ScheduleOfСlasses>().HasData(
                 new ScheduleOfСlasses[]
                 {
-                    new ScheduleOfСlasses {Id = 1, DateStart = DateTime.Parse("25.01.2023 10:00:00"), DateEnd = DateTime.Parse("25.01.2023 12:00:00"),
+                    new ScheduleOfСlasses {Id = 1, DateStart = DateTime.Parse("2023/01/25 10:00:00"), DateEnd = DateTime.Parse("2023/01/25 12:00:00"),
                         Description = "English", WorkSpaceLink = "www", TrainingCoursesId = 1},
-                    new ScheduleOfСlasses {Id = 2, DateStart = DateTime.Parse("25.01.2023 12:15:00"), DateEnd = DateTime.Parse("25.01.2023 14:15:00"),
+                    new ScheduleOfСlasses {Id = 2, DateStart = DateTime.Parse("2023/01/25 13:00:00"), DateEnd = DateTime.Parse("2023/01/25 14:15:00"),
                         Description = "MobDev", WorkSpaceLink = "www", TrainingCoursesId = 2}
                 });
 
