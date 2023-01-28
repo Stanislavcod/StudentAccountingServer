@@ -16,7 +16,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         public void Create(Participants newParticipant)
         {
             _context.Participants.Add(newParticipant);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
         }
         public IEnumerable<Participants> Get()
         {

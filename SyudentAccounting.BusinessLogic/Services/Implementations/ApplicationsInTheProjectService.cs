@@ -15,27 +15,61 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(ApplicationsInTheProject applicationsInTheProject)
         {
+            if (applicationsInTheProject == null)
+            {
+                throw new ArgumentNullException(nameof(applicationsInTheProject));
+            }
+            if (_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+            {
+                throw new Exception("Данный идентификатор уже существует в базе данных");
+            }
             _context.ApplicationsInTheProjects.Add(applicationsInTheProject);
             _context.SaveChanges();
         }
         public IEnumerable<ApplicationsInTheProject> Get()
         {
-            return _context.ApplicationsInTheProjects.Include(x=>x.Vacancy).Include(x=> x.Participants).AsNoTracking().ToList();
+            return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().ToList();
         }
         public ApplicationsInTheProject Get(int id)
         {
-            return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            if (id <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(id), "Идентификатор должен быть больше 0");
+            }
+            var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            if (application == null)
+            {
+                throw new Exception("Модель не найдена");
+            }
+            return application;
         }
         public void Edit(ApplicationsInTheProject applicationsInTheProject)
         {
+            if (applicationsInTheProject == null)
+            {
+                throw new ArgumentNullException(nameof(applicationsInTheProject));
+            }
+            if (!_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+            {
+                throw new Exception("Модель не найдена");
+            }
             _context.ApplicationsInTheProjects.Update(applicationsInTheProject);
             _context.SaveChanges();
         }
         public void Delete(int id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(id), "Идентификатор должен быть больше 0");
+            }
             var application = _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
+            if (application == null)
+            {
+                throw new Exception("Модель не найдена");
+            }
             _context.ApplicationsInTheProjects.Remove(application);
             _context.SaveChanges();
         }
     }
 }
+
