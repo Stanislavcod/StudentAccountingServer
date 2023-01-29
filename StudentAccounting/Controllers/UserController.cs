@@ -11,7 +11,6 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
-
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {
