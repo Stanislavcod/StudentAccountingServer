@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
-    public class DepartamentService : IDepartamentService
+    public class DepartmentService : IDepartmentService
     {
         private readonly ApplicationDatabaseContext _context;
-        public DepartamentService(ApplicationDatabaseContext context)
+        public DepartmentService(ApplicationDatabaseContext context)
         {
             _context = context;
         }

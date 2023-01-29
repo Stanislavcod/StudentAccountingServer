@@ -15,40 +15,89 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetBonus")]
         public ActionResult<IEnumerable<Bonus>> Get()
         {
-            return Ok(_bonusService.Get());
+            try
+            {
+                return Ok(_bonusService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpGet("idBonus/{id}", Name = "GetBonusId")]
         public IActionResult Get(int id)
         {
-            return Ok(_bonusService.Get(id));
+            try
+            {
+                return Ok(_bonusService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpGet("nameBonus/{name}", Name = "GetBonusName")]
         public IActionResult Get(string name)
         {
-            return Ok(_bonusService.Get(name));
+            try
+            {
+                return Ok(_bonusService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpPost("CreateBonus")]
         public IActionResult Create(Bonus bonus)
         {
-            _bonusService.Create(bonus);
-            return Ok();
+            try
+            {
+                _bonusService.Create(bonus);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpPut("UpdateBonus")]
         public IActionResult Update(Bonus bonus)
         {
-            _bonusService.Edit(bonus);
-            return Ok();
+            try
+            {
+                _bonusService.Edit(bonus);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpDelete("DeleteBonus")]
         public IActionResult Delete(int id)
         {
-            _bonusService.Delete(id);
-            return Ok();
+            try
+            {
+                _bonusService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
         [HttpGet("BonusForRankId/{id}", Name = "GetBonusForRankId")]
         public IActionResult GetForRank(int id)
         {
-            return Ok(_bonusService.GetForRank(id));
+            try
+            {
+                return Ok(_bonusService.GetForRank(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

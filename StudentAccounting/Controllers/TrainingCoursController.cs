@@ -15,35 +15,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetTrainingCourses")]
         public ActionResult<IEnumerable<TrainingCourses>> Get()
         {
-            return Ok(_trainingCoursesService.Get());
+            try
+            {
+                return Ok(_trainingCoursesService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idTrainingCourses/{id}", Name = "GetTrainingCoursesId")]
         public IActionResult Get(int id)
         {
-            return Ok(_trainingCoursesService.Get(id));
+            try
+            {
+                return Ok(_trainingCoursesService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameTrainingCourses/{name}", Name = "GetTrainingCoursesName")]
         public IActionResult Get(string name)
         {
-            return Ok(_trainingCoursesService.Get(name));
+            try
+            {
+                return Ok(_trainingCoursesService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateTrainingCourses")]
         public IActionResult Create(TrainingCourses trainingCourses)
         {
-            _trainingCoursesService.Create(trainingCourses);
-            return Ok();
+            try
+            {
+                _trainingCoursesService.Create(trainingCourses);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateTrainingCourses")]
         public IActionResult Update(TrainingCourses trainingCourses)
         {
-            _trainingCoursesService.Edit(trainingCourses);
-            return Ok();
+            try
+            {
+                _trainingCoursesService.Edit(trainingCourses);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteTrainingCourses")]
         public IActionResult Delete(int id)
         {
-            _trainingCoursesService.Delete(id);
-            return Ok();
+            try
+            {
+                _trainingCoursesService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

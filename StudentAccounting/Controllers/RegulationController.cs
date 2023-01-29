@@ -15,35 +15,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetRegulation")]
         public ActionResult<IEnumerable<Regulation>> Get()
         {
-            return Ok(_regulationsService.Get());
+            try
+            {
+                return Ok(_regulationsService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idRegulation/{id}", Name = "GetRegulationId")]
         public IActionResult Get(int id)
         {
-            return Ok(_regulationsService.Get(id));
+            try
+            {
+                return Ok(_regulationsService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameRegulation/{name}", Name = "GetRegulationName")]
         public IActionResult Get(string name)
         {
-            return Ok(_regulationsService.Get(name));
+            try
+            {
+                return Ok(_regulationsService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateRegulation")]
         public IActionResult Create(Regulation regulation)
         {
-            _regulationsService.Create(regulation);
-            return Ok();
+            try
+            {
+                _regulationsService.Create(regulation);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateRegulation")]
         public IActionResult Update(Regulation regulation)
         {
-            _regulationsService.Edit(regulation);
-            return Ok();
+            try
+            {
+                _regulationsService.Edit(regulation);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteRegulation")]
         public IActionResult Delete(int id)
         {
-            _regulationsService.Delete(id);
-            return Ok();
+            try
+            {
+                _regulationsService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

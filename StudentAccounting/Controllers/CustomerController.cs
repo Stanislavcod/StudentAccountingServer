@@ -14,35 +14,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetCustomer")]
         public ActionResult<IEnumerable<Customer>> Get()
         {
-            return Ok(_customerService.Get());
+            try
+            {
+                return Ok(_customerService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idCustomer/{id}", Name = "GetCustomerId")]
         public IActionResult Get(int id)
         {
-            return Ok(_customerService.Get(id));
+            try
+            {
+                return Ok(_customerService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameCustomer/{name}", Name = "GetCustomerName")]
         public IActionResult Get(string name)
         {
-            return Ok(_customerService.Get(name));
+            try
+            {
+                return Ok(_customerService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateCustomer")]
         public IActionResult Create(Customer customer)
         {
-            _customerService.Create(customer);
-            return Ok();
+            try
+            {
+                _customerService.Create(customer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateCustomer")]
         public IActionResult Update(Customer customer)
         {
-            _customerService.Edit(customer);
-            return Ok();
+            try
+            {
+                _customerService.Edit(customer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteCustomer")]
         public IActionResult Delete(int id)
         {
-            _customerService.Delete(id);
-            return Ok();
+            try
+            {
+                _customerService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -14,35 +14,78 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetIndividuals")]
         public ActionResult<IEnumerable<Individuals>> Get()
         {
-            return Ok(_individualsService.Get());
+            try
+            {
+                return Ok(_individualsService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("nameIndividual/{name}", Name ="GetIndividualName")]
+        [HttpGet("nameIndividual/{name}", Name = "GetIndividualName")]
         public IActionResult Get(string name)
         {
-            return Ok(_individualsService.Get(name));
+            try
+            {
+                return Ok(_individualsService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("idIndividual/{id}", Name ="GetIndividualId")]
+        [HttpGet("idIndividual/{id}", Name = "GetIndividualId")]
         public IActionResult Get(int id)
         {
-            return Ok(_individualsService.Get(id));
+            try
+            {
+                return Ok(_individualsService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateIndividual")]
         public IActionResult Create(Individuals newIndividuals)
         {
-            _individualsService.Create(newIndividuals);
-            return Ok();
+            try
+            {
+                _individualsService.Create(newIndividuals);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateIndividual")]
         public IActionResult Update(Individuals newIndividuals)
         {
-            _individualsService.Edit(newIndividuals);
-            return Ok();
+            try
+            {
+                _individualsService.Edit(newIndividuals);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeletIndividual")]
         public IActionResult Delete(int id)
         {
-            _individualsService.Delete(id);
-            return Ok();
+            try
+            {
+                _individualsService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
     }
 }

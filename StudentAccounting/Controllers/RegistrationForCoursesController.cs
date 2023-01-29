@@ -16,30 +16,65 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetRegistrationForCourses")]
         public ActionResult<IEnumerable<RegistrationForCourses>> Get()
         {
-            return Ok(_registrationForCoursesService.Get());
+            try
+            {
+                return Ok(_registrationForCoursesService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idRegistrationForCourses/{id}", Name = "GetRegistrationForCoursesId")]
         public IActionResult Get(int id)
         {
-            return Ok(_registrationForCoursesService.Get(id));
+            try
+            {
+                return Ok(_registrationForCoursesService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateRegistrationForCourses")]
         public IActionResult Create(RegistrationForCourses registrationForCourses)
         {
-            _registrationForCoursesService.Create(registrationForCourses);
-            return Ok();
+            try
+            {
+                _registrationForCoursesService.Create(registrationForCourses);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateRegistrationForCourses")]
         public IActionResult Update(RegistrationForCourses registrationForCourses)
         {
-            _registrationForCoursesService.Edit(registrationForCourses);
-            return Ok();
+            try
+            {
+                _registrationForCoursesService.Edit(registrationForCourses);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteRegistrationForCourses")]
         public IActionResult Delete(int id)
         {
-            _registrationForCoursesService.Delete(id);
-            return Ok();
+            try
+            {
+                _registrationForCoursesService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

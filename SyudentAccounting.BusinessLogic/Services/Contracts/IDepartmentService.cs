@@ -3,7 +3,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
-    public interface IDepartamentService
+    public interface IDepartmentService
     {
         void Create(Department department);
         IEnumerable<Department> Get();

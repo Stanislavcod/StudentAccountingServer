@@ -14,35 +14,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetPosition")]
         public ActionResult<IEnumerable<Position>> Get()
         {
-            return Ok(_positionService.Get());
+            try
+            {
+                return Ok(_positionService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idPosition/{id}", Name = "GetPositionId")]
         public IActionResult Get(int id)
         {
-            return Ok(_positionService.Get(id));
+            try
+            {
+                return Ok(_positionService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("namePosition/{name}", Name = "GetPositionName")]
         public IActionResult Get(string name)
         {
-            return Ok(_positionService.Get(name));
+            try
+            {
+                return Ok(_positionService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreatePosition")]
         public IActionResult Create(Position position)
         {
-            _positionService.Create(position);
-            return Ok();
+            try
+            {
+                _positionService.Create(position);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdatePosition")]
         public IActionResult Update(Position position)
         {
-            _positionService.Edit(position);
-            return Ok();
+            try
+            {
+                _positionService.Edit(position);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeletePosition")]
         public IActionResult Delete(int id)
         {
-            _positionService.Delete(id);
-            return Ok();
+            try
+            {
+                _positionService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
