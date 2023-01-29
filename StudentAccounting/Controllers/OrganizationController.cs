@@ -14,35 +14,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetOrganization")]
         public ActionResult<IEnumerable<Organization>> Get()
         {
-            return Ok(_organizationService.Get());
+            try
+            {
+                return Ok(_organizationService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idOrganization/{id}", Name = "GetOrganizationId")]
         public IActionResult Get(int id)
         {
-            return Ok(_organizationService.Get(id));
+            try
+            {
+                return Ok(_organizationService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameOrganization/{name}", Name = "GetOrganizationName")]
         public IActionResult Get(string name)
         {
-            return Ok(_organizationService.Get(name));
+            try
+            {
+                return Ok(_organizationService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateOrganization")]
         public IActionResult Create(Organization organization)
         {
-            _organizationService.Create(organization);
-            return Ok();
+            try
+            {
+                _organizationService.Create(organization);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateOrganization")]
         public IActionResult Update(Organization organization)
         {
-            _organizationService.Edit(organization);
-            return Ok();
+            try
+            {
+                _organizationService.Edit(organization);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteOrganization")]
         public IActionResult Delete(int id)
         {
-            _organizationService.Delete(id);
-            return Ok();
+            try
+            {
+                _organizationService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

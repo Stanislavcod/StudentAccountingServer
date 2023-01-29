@@ -15,35 +15,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetStagesOfProject")]
         public ActionResult<IEnumerable<StagesOfProject>> Get()
         {
-            return Ok(_stagesOfProjectsService.Get());
+            try
+            {
+                return Ok(_stagesOfProjectsService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idStagesOfProject/{id}", Name = "GetStagesOfProjectId")]
         public IActionResult Get(int id)
         {
-            return Ok(_stagesOfProjectsService.Get(id));
+            try
+            {
+                return Ok(_stagesOfProjectsService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameStagesOfProject/{name}", Name = "GetStagesOfProjectName")]
         public IActionResult Get(string name)
         {
-            return Ok(_stagesOfProjectsService.Get(name));
+            try
+            {
+                return Ok(_stagesOfProjectsService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateStagesOfProject")]
         public IActionResult Create(StagesOfProject stagesOfProject)
         {
-            _stagesOfProjectsService.Create(stagesOfProject);
-            return Ok();
+            try
+            {
+                _stagesOfProjectsService.Create(stagesOfProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateStagesOfProject")]
         public IActionResult Update(StagesOfProject stagesOfProject)
         {
-            _stagesOfProjectsService.Edit(stagesOfProject);
-            return Ok();
+            try
+            {
+                _stagesOfProjectsService.Edit(stagesOfProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteStagesOfProject")]
         public IActionResult Delete(int id)
         {
-            _stagesOfProjectsService.Delete(id);
-            return Ok();
+            try
+            {
+                _stagesOfProjectsService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

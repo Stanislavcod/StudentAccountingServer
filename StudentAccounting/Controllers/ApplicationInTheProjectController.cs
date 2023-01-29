@@ -16,30 +16,73 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetAppInTheProject")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> Get()
         {
-            return Ok(_applicationInTheProjectService.Get());
+            try
+            {
+                return Ok(_applicationInTheProjectService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("idAppInTheProject/{id}", Name = "GetAppInTheProjectId")]
+        [HttpGet("idAppInTheProject/{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_applicationInTheProjectService.Get(id));
+            try
+            {
+                return Ok(_applicationInTheProjectService.Get(id));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {
-            _applicationInTheProjectService.Create(applicationsInTheProject);
-            return Ok();
+            try
+            {
+                _applicationInTheProjectService.Create(applicationsInTheProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateAppInTheProject")]
         public IActionResult Update(ApplicationsInTheProject applicationsInTheProject)
         {
-            _applicationInTheProjectService.Edit(applicationsInTheProject);
-            return Ok();
+            try
+            {
+                _applicationInTheProjectService.Edit(applicationsInTheProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteAppInTheProject")]
         public IActionResult Delete(int id)
         {
-            _applicationInTheProjectService.Delete(id);
-            return Ok();
+            try
+            {
+                _applicationInTheProjectService.Delete(id);
+                return Ok();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

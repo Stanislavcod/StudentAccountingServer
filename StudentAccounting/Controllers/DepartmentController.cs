@@ -1,71 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    public class VacancyController : Controller
+    public class DepartmentController : Controller
     {
-        private readonly IVacanciesService _vacanciesService;
-        public VacancyController(IVacanciesService vacanciesService)
+        private readonly IDepartmentService _departmentService;
+        public DepartmentController(IDepartmentService departmentService)
         {
-            _vacanciesService = vacanciesService;
+            _departmentService = departmentService;
         }
-        [HttpGet("GetVacancy")]
-        public ActionResult<IEnumerable<Vacancy>> Get()
+        [HttpGet("GetDepartment")]
+
+        public ActionResult<IEnumerable<Department>> Get()
         {
             try
             {
-                return Ok(_vacanciesService.Get());
+                return Ok(_departmentService.Get());
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("GetVacancyPosition")]
-        public ActionResult<IEnumerable<Vacancy>> GetVacanciesPos(int participantsId)
-        {
-            try
-            {
-                return Ok(_vacanciesService.Get(participantsId));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpGet("idVacancy/{id}", Name = "GetVacancyId")]
+        [HttpGet("idDepartment/{id}", Name = "GetDepartmentId")]
         public IActionResult Get(int id)
         {
             try
             {
-                return Ok(_vacanciesService.Get(id));
+                return Ok(_departmentService.Get(id));
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("nameVacancy/{name}", Name = "GetVacancyName")]
+        [HttpGet("nameDepartment/{name}", Name = "GetDepartmentName")]
         public IActionResult Get(string name)
         {
             try
             {
-                return Ok(_vacanciesService.Get(name));
+                return Ok(_departmentService.Get(name));
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("CreateVacancy")]
-        public IActionResult Create(Vacancy vacancy)
+        [HttpPost("CreateDepartment")]
+        public IActionResult Create(Department department)
         {
             try
             {
-                _vacanciesService.Create(vacancy);
+                _departmentService.Create(department);
                 return Ok();
             }
             catch (Exception ex)
@@ -73,12 +62,12 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("UpdateVacancy")]
-        public IActionResult Update(Vacancy vacancy)
+        [HttpPut("UpdateDepartment")]
+        public IActionResult Update(Department department)
         {
             try
             {
-                _vacanciesService.Edit(vacancy);
+                _departmentService.Edit(department);
                 return Ok();
             }
             catch (Exception ex)
@@ -86,12 +75,12 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("DeleteVacancy")]
+        [HttpDelete("DeleteDepartment")]
         public IActionResult Delete(int id)
         {
             try
             {
-                _vacanciesService.Delete(id);
+                _departmentService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

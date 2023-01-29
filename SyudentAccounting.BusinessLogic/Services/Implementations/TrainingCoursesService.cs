@@ -15,31 +15,73 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(TrainingCourses trainingCourses)
         {
-            _context.TrainingCourses.Add(trainingCourses);
-            _context.SaveChanges();
+            try
+            {
+                _context.TrainingCourses.Add(trainingCourses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<TrainingCourses> Get()
         {
-            return _context.TrainingCourses.AsNoTracking().ToList();
+            try
+            {
+                return _context.TrainingCourses.AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public TrainingCourses Get(string name)
         {
-            return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            try
+            {
+                return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public TrainingCourses Get(int id)
         {
-            return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.TrainingCourses.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(TrainingCourses trainingCourses)
         {
-            _context.TrainingCourses.Update(trainingCourses);
-            _context.SaveChanges();
+            try
+            {
+                _context.TrainingCourses.Update(trainingCourses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var cours = _context.TrainingCourses.FirstOrDefault(x => x.Id == id);
-            _context.TrainingCourses.Remove(cours);
-            _context.SaveChanges();
+            try
+            {
+                var cours = _context.TrainingCourses.FirstOrDefault(x => x.Id == id);
+                _context.TrainingCourses.Remove(cours);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

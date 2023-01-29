@@ -16,35 +16,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetEducationalPortals")]
         public ActionResult<IEnumerable<EducationalPortals>> Get()
         {
-            return Ok(_educationalPortalsService.Get());
+            try
+            {
+                return Ok(_educationalPortalsService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idEducationalPortals/{id}", Name = "GetEducationalPortalsId")]
         public IActionResult Get(int id)
         {
-            return Ok(_educationalPortalsService.Get(id));
+            try
+            {
+                return Ok(_educationalPortalsService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameEducationalPortals/{name}", Name = "GetEducationalPortals")]
         public IActionResult Get(string name)
         {
-            return Ok(_educationalPortalsService.Get(name));
+            try
+            {
+                return Ok(_educationalPortalsService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateEducationalPortals")]
         public IActionResult Create(EducationalPortals educationalPortals)
         {
-            _educationalPortalsService.Create(educationalPortals);
-            return Ok();
+            try
+            {
+                _educationalPortalsService.Create(educationalPortals);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateEducationalPortals")]
         public IActionResult Update(EducationalPortals educationalPortals)
         {
-            _educationalPortalsService.Edit(educationalPortals);
-            return Ok();
+            try
+            {
+                _educationalPortalsService.Edit(educationalPortals);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteEducationalPortals")]
         public IActionResult Delete(int id)
         {
-            _educationalPortalsService.Delete(id);
-            return Ok();
+            try
+            {
+                _educationalPortalsService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

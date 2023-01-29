@@ -14,27 +14,62 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Project project)
         {
-            _context.Projects.Add(project);
-            _context.SaveChanges();
+            try
+            {
+                _context.Projects.Add(project);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Project> Get()
         {
-            return _context.Projects.Include(x => x.Customer).AsNoTracking().ToList();
+            try
+            {
+                return _context.Projects.Include(x => x.Customer).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Project Get(int id)
         {
-            return _context.Projects.Include(x => x.Customer).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Projects.Include(x => x.Customer).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Project project)
         {
-            _context.Projects.Update(project);
-            _context.SaveChanges();
+            try
+            {
+                _context.Projects.Update(project);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var project = _context.Projects.FirstOrDefault(x => x.Id == id);
-            _context.Projects.Remove(project);
-            _context.SaveChanges();
+            try
+            {
+                var project = _context.Projects.FirstOrDefault(x => x.Id == id);
+                _context.Projects.Remove(project);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

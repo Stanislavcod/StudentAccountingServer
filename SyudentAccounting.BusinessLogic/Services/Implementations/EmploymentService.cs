@@ -15,27 +15,62 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Employment employment)
         {
-            _context.Employments.Add(employment);
-            _context.SaveChanges();
+            try
+            {
+                _context.Employments.Add(employment);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Employment> Get()
         {
-            return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x=> x.FinalProjects).AsNoTracking().ToList();
+            try
+            {
+                return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x => x.FinalProjects).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Employment Get(int id)
         {
-            return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x=> x.FinalProjects).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x => x.FinalProjects).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Employment employment)
         {
-            _context.Employments.Update(employment);
-            _context.SaveChanges();
+            try
+            {
+                _context.Employments.Update(employment);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var employment = _context.Employments.FirstOrDefault(x => x.Id == id);
-            _context.Employments.Remove(employment);
-            _context.SaveChanges();
+            try
+            {
+                var employment = _context.Employments.FirstOrDefault(x => x.Id == id);
+                _context.Employments.Remove(employment);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

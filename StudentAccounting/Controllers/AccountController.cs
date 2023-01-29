@@ -20,12 +20,19 @@ namespace StudentAccounting.Controllers
         [HttpPost("Login")]
         public IActionResult Login(LoginDTO model)
         {
-            User user = _userService.Get(model.Login, model.Password);
-            if (user != null)
+            try
             {
-                return Ok(_userService.Get(model.Login));
+                User user = _userService.Get(model.Login, model.Password);
+                if (user != null)
+                {
+                    return Ok(_userService.Get(model.Login));
+                }
+                return BadRequest();
             }
-            return BadRequest();
+            catch (Exception)
+            {
+                return StatusCode(500, "Ошибка");
+            }
         }
 
     }

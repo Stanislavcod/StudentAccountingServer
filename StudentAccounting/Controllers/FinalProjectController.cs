@@ -15,35 +15,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetFinalProject")]
         public ActionResult<IEnumerable<FinalProject>> Get()
         {
-            return Ok(_finalProjectService.Get());
+            try
+            {
+                return Ok(_finalProjectService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idFinalProject/{id}", Name = "GetFinalProjectId")]
         public IActionResult Get(int id)
         {
-            return Ok(_finalProjectService.Get(id));
+            try
+            {
+                return Ok(_finalProjectService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("nameFinalProject/{name}", Name = "GetFinalProjectName")]
         public IActionResult Get(string name)
         {
-            return Ok(_finalProjectService.Get(name));
+            try
+            {
+                return Ok(_finalProjectService.Get(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateFinalProject")]
         public IActionResult Create(FinalProject finalProject)
         {
-            _finalProjectService.Create(finalProject);
-            return Ok();
+            try
+            {
+                _finalProjectService.Create(finalProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateFinalProject")]
         public IActionResult Update(FinalProject finalProject)
         {
-            _finalProjectService.Edit(finalProject);
-            return Ok();
+            try
+            {
+                _finalProjectService.Edit(finalProject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteFinalProject")]
         public IActionResult Delete(int id)
         {
-            _finalProjectService.Delete(id);
-            return Ok();
+            try
+            {
+                _finalProjectService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

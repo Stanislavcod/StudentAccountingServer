@@ -14,30 +14,65 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetProject")]
         public ActionResult<IEnumerable<Project>> Get()
         {
-            return Ok(_projectService.Get());
+            try
+            {
+                return Ok(_projectService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idProject/{id}", Name = "GetProjectId")]
         public IActionResult Get(int id)
         {
-            return Ok(_projectService.Get(id));
+            try
+            {
+                return Ok(_projectService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateProject")]
         public IActionResult Create(Project project)
         {
-            _projectService.Create(project);
-            return Ok();
+            try
+            {
+                _projectService.Create(project);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateProject")]
         public IActionResult Update(Project project)
         {
-            _projectService.Edit(project);
-            return Ok();
+            try
+            {
+                _projectService.Edit(project);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteProject")]
         public IActionResult Delete(int id)
         {
-            _projectService.Delete(id);
-            return Ok();
+            try
+            {
+                _projectService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
