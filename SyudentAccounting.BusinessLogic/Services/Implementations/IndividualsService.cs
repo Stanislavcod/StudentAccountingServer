@@ -15,31 +15,73 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Individuals newIndividuals)
         {
-            _context.Individuals.Add(newIndividuals);
-            _context.SaveChanges();
+            try
+            {
+                _context.Individuals.Add(newIndividuals);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Individuals> Get()
         {
-            return _context.Individuals.AsNoTracking().ToList();
+            try
+            {
+                return _context.Individuals.AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Individuals Get(string name)
         {
-            return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.FIO == name);
+            try
+            {
+                return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.FIO == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Individuals Get(int id)
         {
-            return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Individuals newIndividuals)
         {
-            _context.Individuals.Update(newIndividuals);
-            _context.SaveChanges();
+            try
+            {
+                _context.Individuals.Update(newIndividuals);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var individual = _context.Individuals.FirstOrDefault(x => x.Id == id);
-            _context.Individuals.Remove(individual);
-            _context.SaveChanges();
+            try
+            {
+                var individual = _context.Individuals.FirstOrDefault(x => x.Id == id);
+                _context.Individuals.Remove(individual);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

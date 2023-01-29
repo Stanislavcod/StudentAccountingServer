@@ -17,39 +17,99 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Vacancy vacancy)
         {
-            _context.Vacancies.Add(vacancy);
-            _context.SaveChanges();
+            try
+            {
+                _context.Vacancies.Add(vacancy);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Vacancy> Get()
         {
-            return _context.Vacancies.AsNoTracking().ToList();
+            try
+            {
+                return _context.Vacancies.AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Vacancy Get(string name)
         {
-            return _context.Vacancies.Include(x=> x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Name == name);
+            try
+            {
+                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Name == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Vacancy Get(int id)
         {
-            return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Vacancy vacancy)
         {
-            _context.Vacancies.Update(vacancy);
-            _context.SaveChanges();
+            try
+            {
+                _context.Vacancies.Update(vacancy);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var vacancy = _context.Vacancies.FirstOrDefault(x => x.Id == id);
-            _context.Vacancies.Remove(vacancy);
-            _context.SaveChanges();
+            try
+            {
+                var vacancy = _context.Vacancies.FirstOrDefault(x => x.Id == id);
+                _context.Vacancies.Remove(vacancy);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Vacancy> GetVacanciesPos(int participantsId)
         {
-            //var position = _context.Positions.Where(a => a.Employments.Where(x => x.Status == true && x.ParticipantsId == participants.Id));
-            var position = _context.Positions.Include(x => _context.Employments.Where(a => a.Status == true && a.ParticipantsId == participantsId)).ToList();
-            var vacancy = _context.Vacancies.Where(x => position.Any(a => a.FullName == x.Name));
-            //var vacancy = _context.Vacancies.Where(x => position.Any(a=> a.FullName == x.Name));
-            return vacancy;
+            try
+            {
+                var position = _context.Positions.Include(x => _context.Employments.Where(a => a.Status == true && a.ParticipantsId == participantsId)).ToList();
+                var vacancy = _context.Vacancies.Where(x => position.Any(a => a.FullName == x.Name));
+                return vacancy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
     }
 }

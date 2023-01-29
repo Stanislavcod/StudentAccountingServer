@@ -14,31 +14,79 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Department department)
         {
-            _context.Departments.Add(department);
-            _context.SaveChanges();
+            try
+            {
+                _context.Departments.Add(department);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
         public IEnumerable<Department> Get()
         {
-            return _context.Departments.Include(x => x.Organizations).AsNoTracking().ToList();
+            try
+            {
+                return _context.Departments.Include(x => x.Organizations).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+              
+            }
         }
+
         public Department Get(string name)
         {
-            return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.FullName == name);
+            try
+            {
+                return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.FullName == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
         public Department Get(int id)
         {
-            return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Departments.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
         public void Edit(Department department)
         {
-            _context.Departments.Update(department);
-            _context.SaveChanges();
+            try
+            {
+                _context.Departments.Update(department);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
         public void Delete(int id)
         {
-            var department = _context.Departments.FirstOrDefault(x => x.Id == id);
-            _context.Departments.Remove(department);
-            _context.SaveChanges();
+            try
+            {
+                var department = _context.Departments.FirstOrDefault(x => x.Id == id);
+                _context.Departments.Remove(department);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

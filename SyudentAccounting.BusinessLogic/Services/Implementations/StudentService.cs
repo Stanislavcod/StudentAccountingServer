@@ -16,27 +16,62 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Student newStudent)
         {
-            _context.Students.Add(newStudent);
-            _context.SaveChanges();
+            try
+            {
+                _context.Students.Add(newStudent);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Student> Get()
         {
-            return _context.Students.Include(x => x.Individuals).AsNoTracking().ToList();
+            try
+            {
+                return _context.Students.Include(x => x.Individuals).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Student Get(int id)
         {
-            return _context.Students.Include(x => x.Individuals).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Students.Include(x => x.Individuals).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Student newStudent)
         {
-            _context.Students.Update(newStudent);
-            _context.SaveChanges();
+            try
+            {
+                _context.Students.Update(newStudent);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var student = _context.Students.FirstOrDefault(x => x.Id == id);
-            _context.Students.Remove(student);
-            _context.SaveChanges();
+            try
+            {
+                var student = _context.Students.FirstOrDefault(x => x.Id == id);
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

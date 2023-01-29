@@ -21,7 +21,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             if (_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
             {
-                throw new Exception("Данный идентификатор уже существует в базе данных");
+                throw new Exception();
             }
             _context.ApplicationsInTheProjects.Add(applicationsInTheProject);
             _context.SaveChanges();
@@ -34,12 +34,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(id), "Идентификатор должен быть больше 0");
+                throw new Exception();
             }
             var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (application == null)
             {
-                throw new Exception("Модель не найдена");
+                throw new Exception();
             }
             return application;
         }
@@ -51,7 +51,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             if (!_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
             {
-                throw new Exception("Модель не найдена");
+                throw new Exception();
             }
             _context.ApplicationsInTheProjects.Update(applicationsInTheProject);
             _context.SaveChanges();
@@ -60,12 +60,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(id), "Идентификатор должен быть больше 0");
+                throw new ArgumentOutOfRangeException(nameof(id));
             }
             var application = _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
             if (application == null)
             {
-                throw new Exception("Модель не найдена");
+                throw new Exception();
             }
             _context.ApplicationsInTheProjects.Remove(application);
             _context.SaveChanges();
