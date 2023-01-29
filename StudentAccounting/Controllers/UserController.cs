@@ -7,6 +7,11 @@ namespace StudentAccounting.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {

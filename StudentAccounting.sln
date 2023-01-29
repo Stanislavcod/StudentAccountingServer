@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting.BusinessL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting.Model", "StudentAccounting.Model\StudentAccounting.Model.csproj", "{4A853D4E-08BF-473E-ABD6-60028C5B50EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAccounting.Common", "StudentAccounting.Common\StudentAccounting.Common.csproj", "{502CBFBE-33D7-4829-80C1-73DF850C3297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAccounting.Common", "StudentAccounting.Common\StudentAccounting.Common.csproj", "{502CBFBE-33D7-4829-80C1-73DF850C3297}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Common", "4.Common", "{E2A334F5-AA52-4F9C-A7FD-2F32093B4196}"
 EndProject

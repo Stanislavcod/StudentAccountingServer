@@ -35,7 +35,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Vacancies.AsNoTracking().ToList();
+                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
