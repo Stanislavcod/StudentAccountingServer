@@ -92,7 +92,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.AsNoTracking().Where(x => x.RankId == id);
+                return _context.Bonuses.Include(x=>x.Rank).AsNoTracking().Where(x => x.RankId == id);
             }
             catch (Exception ex)
             {
