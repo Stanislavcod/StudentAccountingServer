@@ -87,7 +87,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [HttpPost("BonusForRankId/{id}", Name = "GetBonusForRankId")]
+        [HttpPost("BonusForRankId")]
         public IActionResult GetForRank(int id)
         {
             try
