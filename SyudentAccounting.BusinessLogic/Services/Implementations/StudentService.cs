@@ -73,5 +73,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public Student GetByIndividuals(int individualsId)
+        {
+            try
+            {
+                return _context.Students.Include(x=>x.Individuals).AsNoTracking().FirstOrDefault(x => x.IndividualsId == individualsId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
