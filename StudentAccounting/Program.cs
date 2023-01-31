@@ -8,13 +8,14 @@ using StudentAccounting.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSystemd();
+
 ConfigurationHelper.ConfigureServices(builder.Services);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
     opt => opt.MigrationsAssembly("StudentAccounting")));
-
 
 var app = builder.Build();
 

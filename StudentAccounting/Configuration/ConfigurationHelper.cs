@@ -5,6 +5,7 @@ using StudentAccounting.BusinessLogic.Services.Implementations;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Configuration
 {
@@ -12,7 +13,6 @@ namespace StudentAccounting.Configuration
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services
                 .AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>()
                 .AddTransient<IUserService, UserService>()
@@ -50,8 +50,8 @@ namespace StudentAccounting.Configuration
                 {
                     options.LoginPath = new PathString("/Account/Login");
                 });
-
         }
+    
         public static void Configure(WebApplication app)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -67,10 +67,10 @@ namespace StudentAccounting.Configuration
             }
             if (!app.Environment.IsDevelopment())
             {
-                app.UseHttpsRedirection();
+                //app.UseHttpsRedirection();
             }
-
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            app.UsePathBase("/polessup");
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
