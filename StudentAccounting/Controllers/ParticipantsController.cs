@@ -74,5 +74,17 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ParticipantByUser")]
+        public IActionResult GetByUser(int userId)
+        {
+            try
+            {
+                return Ok(_participantsService.GetByUser(userId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

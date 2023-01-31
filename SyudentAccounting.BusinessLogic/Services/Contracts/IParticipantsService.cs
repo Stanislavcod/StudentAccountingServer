@@ -9,5 +9,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Participants Get(int id);
         void Edit(Participants participantsDto);
         void Delete(int id);
+        Participants GetByUser(int userId);
     }
 }

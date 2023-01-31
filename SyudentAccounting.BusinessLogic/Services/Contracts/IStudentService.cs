@@ -10,5 +10,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Student Get(int id);
         void Edit(Student studentDto);
         void Delete(int id);
+        Student GetByIndividuals(int individualsId);
     }
 }
