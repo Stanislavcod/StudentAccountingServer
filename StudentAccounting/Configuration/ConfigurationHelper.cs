@@ -4,16 +4,30 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using AutoMapper;
+using StudentAccounting.Common.Helpers.Mapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using StudentAccounting.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.Configuration
 {
     public static class ConfigurationHelper
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            string connection = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
+                opt => opt.MigrationsAssembly("StudentAccounting")));
+            var mappingConfig = new MapperConfiguration(x => x.AddProfile(new MapperProfile()));
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddMvc();
             services
+                .AddTransient<ITokenService, TokenService>()
+                .AddTransient<IAuthService, AuthService>()
                 .AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>()
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<IBonusService, BonusService>()
@@ -36,7 +50,35 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IRegistrationForCoursesService, RegistrationForCoursesService>()
                 .AddTransient<IScheduleOfСlassesService, ScheduleOfСlassesService>()
                 .AddEndpointsApiExplorer()
-                .AddSwaggerGen()
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "My Api",
+                        Version = "v1"
+                    });
+                    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                        Description = "Please insert JWT with Bearer into field",
+                        Name = "Authorization",
+                        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+                    });
+                    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+                        }
+                    });
+                })
                 .AddControllers(options =>
                 {
                     options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
@@ -45,12 +87,6 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/Account/Login");
-                });
-
         }
         public static void Configure(WebApplication app)
         {
@@ -67,13 +103,14 @@ namespace StudentAccounting.Configuration
             }
             if (!app.Environment.IsDevelopment())
             {
-                app.UseHttpsRedirection();
+                //app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.MapControllers();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }

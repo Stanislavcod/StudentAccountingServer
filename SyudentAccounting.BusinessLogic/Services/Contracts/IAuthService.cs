@@ -1,13 +1,14 @@
-﻿using StudentAccounting.Model.DataBaseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using StudentAccounting.Common.ModelsDto;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
-    internal class IAuthService
+    public interface IAuthService
     {
+        TokenDto Login(LoginDTO loginDTO);
+        TokenDto Refresh(RefreshTokenDto refreshTokenDto);
+        bool Register(RegisterDto registerDto);
+        bool UserExists(string login);
     }
 }

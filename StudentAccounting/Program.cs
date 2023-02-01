@@ -1,20 +1,21 @@
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.EntityFrameworkCore;
-using StudentAccounting.Model;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using StudentAccounting.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var configure = builder.Configuration;
 
-ConfigurationHelper.ConfigureServices(builder.Services);
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
+               AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+               {
+                   ValidateIssuerSigningKey = true,
+                   ValidateIssuer = false,
+                   IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:TokenKey"])),
+                   ValidateAudience = false
+               });
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
-    opt => opt.MigrationsAssembly("StudentAccounting")));
-
+ConfigurationHelper.ConfigureServices(builder.Services, configure);
 
 var app = builder.Build();
 

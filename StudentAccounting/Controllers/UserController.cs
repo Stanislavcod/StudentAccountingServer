@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -11,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
+        [Authorize]
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {
@@ -23,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
@@ -35,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
@@ -60,6 +64,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateUser")]
         public IActionResult Update(User user)
         {
@@ -73,6 +78,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeletUser")]
         public IActionResult Delete(int id)
         {
