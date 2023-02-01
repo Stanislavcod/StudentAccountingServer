@@ -17,29 +17,64 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(ScheduleOfСlasses scheduleOfСlasses)
         {
-            _context.ScheduleOfСlasses.Add(scheduleOfСlasses);
-            _context.SaveChanges();
+            try
+            {
+                _context.ScheduleOfСlasses.Add(scheduleOfСlasses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<ScheduleOfСlasses> Get()
         {
-            return _context.ScheduleOfСlasses.Include(x=> x.TrainingCourses).AsNoTracking().ToList();
+            try
+            {
+                return _context.ScheduleOfСlasses.Include(x => x.TrainingCourses).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public ScheduleOfСlasses Get(int id)
         {
-            return _context.ScheduleOfСlasses.Include(x=> x.TrainingCourses).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.ScheduleOfСlasses.Include(x => x.TrainingCourses).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(ScheduleOfСlasses scheduleOfСlasses)
         {
-            _context.ScheduleOfСlasses.Update(scheduleOfСlasses);
-            _context.SaveChanges();
+            try
+            {
+                _context.ScheduleOfСlasses.Update(scheduleOfСlasses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var schedule = _context.ScheduleOfСlasses.FirstOrDefault(x => x.Id == id);
-            _context.ScheduleOfСlasses.Remove(schedule);
-            _context.SaveChanges();
+            try
+            {
+                var schedule = _context.ScheduleOfСlasses.FirstOrDefault(x => x.Id == id);
+                _context.ScheduleOfСlasses.Remove(schedule);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-     
+
     }
 }

@@ -14,31 +14,85 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Organization organization)
         {
-            _context.Organizations.Add(organization);
-            _context.SaveChanges();
+            try
+            {
+                _context.Organizations.Add(organization);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Organization> Get()
         {
-            return _context.Organizations.ToList();
+            try
+            {
+                return _context.Organizations.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Organization Get(string name)
         {
-            return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Fullname == name);
+            try
+            {
+                return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Fullname == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Organization Get(int id)
         {
-            return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Organizations.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Organization organization)
         {
-            _context.Organizations.Update(organization);
-            _context.SaveChanges();
+            try
+            {
+                _context.Organizations.Update(organization);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var organization = _context.Organizations.FirstOrDefault(x => x.Id == id);
-            _context.Organizations.Remove(organization);
-            _context.SaveChanges();
+            try
+            {
+                var organization = _context.Organizations.FirstOrDefault(x => x.Id == id);
+                _context.Organizations.Remove(organization);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

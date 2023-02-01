@@ -14,30 +14,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetParticipants")]
         public ActionResult<IEnumerable<Participants>> Get()
         {
-            return Ok(_participantsService.Get());
+            try
+            {
+                return Ok(_participantsService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("idParticipant/{id}", Name ="GetPartisipantsId")]
+        [HttpGet("idParticipant/{id}", Name = "GetPartisipantsId")]
         public IActionResult Get(int id)
         {
-            return Ok(_participantsService.Get(id));
+            try
+            {
+                return Ok(_participantsService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateParticipant")]
         public IActionResult Create(Participants participants)
         {
-            _participantsService.Create(participants);
-            return Ok();
+            try
+            {
+                _participantsService.Create(participants);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateParticipant")]
         public IActionResult Update(Participants participants)
         {
-            _participantsService.Edit(participants);
-            return Ok();
+            try
+            {
+                _participantsService.Edit(participants);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteParticipant")]
         public IActionResult Delete(int id)
         {
-            _participantsService.Delete(id);
-            return Ok();
+            try
+            {
+                _participantsService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ParticipantByUser")]
+        public IActionResult GetByUser(int userId)
+        {
+            try
+            {
+                return Ok(_participantsService.GetByUser(userId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

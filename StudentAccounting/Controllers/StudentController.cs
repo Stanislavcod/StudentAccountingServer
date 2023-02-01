@@ -14,30 +14,77 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetStudents")]
         public ActionResult<IEnumerable<Student>> Get()
         {
-            return Ok(_studentService.Get());
+            try
+            {
+                return Ok(_studentService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("idStudent/{id}", Name ="GetStudentId")]
+        [HttpGet("idStudent/{id}", Name = "GetStudentId")]
         public IActionResult Get(int id)
         {
-            return Ok(_studentService.Get(id));
+            try
+            {
+                return Ok(_studentService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateStudent")]
         public IActionResult Create(Student student)
         {
-            _studentService.Create(student);
-            return Ok();
+            try
+            {
+                _studentService.Create(student);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateStudent")]
         public IActionResult Update(Student student)
         {
-            _studentService.Edit(student);
-            return Ok();
+            try
+            {
+                _studentService.Edit(student);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteStudent")]
         public IActionResult Delete(int id)
         {
-            _studentService.Delete(id);
-            return Ok();
+            try
+            {
+                _studentService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("StudentByIndividuals")]
+        public IActionResult StudentByIndividuals(int individualsId)
+        {
+            try
+            {
+                return Ok(_studentService.GetByIndividuals(individualsId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -15,30 +15,65 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetEmployments")]
         public ActionResult<IEnumerable<Employment>> Get()
         {
-            return Ok(_employmentService.Get());
+            try
+            {
+                return Ok(_employmentService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idEmployment/{id}", Name = "GetEmploymentId")]
         public IActionResult Get(int id)
         {
-            return Ok(_employmentService.Get(id));
+            try
+            {
+                return Ok(_employmentService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateEmployment")]
         public IActionResult Create(Employment employment)
         {
-            _employmentService.Create(employment);
-            return Ok();
+            try
+            {
+                _employmentService.Create(employment);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateEmployment")]
         public IActionResult Update(Employment employment)
         {
-            _employmentService.Edit(employment);
-            return Ok();
+            try
+            {
+                _employmentService.Edit(employment);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteEmployment")]
         public IActionResult Delete(int id)
         {
-            _employmentService.Delete(id);
-            return Ok();
+            try
+            {
+                _employmentService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

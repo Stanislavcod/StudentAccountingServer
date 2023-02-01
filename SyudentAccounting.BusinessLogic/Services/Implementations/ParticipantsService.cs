@@ -15,27 +15,74 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Participants newParticipant)
         {
-            _context.Participants.Add(newParticipant);
-            _context.SaveChanges();
+            try
+            {
+                _context.Participants.Add(newParticipant);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Participants> Get()
         {
-            return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().ToList();
+            try
+            {
+                return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Participants Get(int id)
         {
-            return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Participants newParticipants)
         {
-            _context.Participants.Update(newParticipants);
-            _context.SaveChanges();
+            try
+            {
+                _context.Participants.Update(newParticipants);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var participant = _context.Participants.FirstOrDefault(x => x.Id == id);
-            _context.Participants.Remove(participant);
-            _context.SaveChanges();
+            try
+            {
+                var participant = _context.Participants.FirstOrDefault(x => x.Id == id);
+                _context.Participants.Remove(participant);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public Participants GetByUser(int userId)
+        {
+            try
+            {
+                return _context.Participants.Include(x => x.Individuals).Include(x => x.User).AsNoTracking().FirstOrDefault(x => x.UserId == userId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

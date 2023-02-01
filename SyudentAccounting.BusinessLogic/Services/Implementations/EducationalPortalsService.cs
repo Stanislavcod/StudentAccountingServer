@@ -15,33 +15,75 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(EducationalPortals educationalPortal)
         {
-            _context.EducationalPortals.Add(educationalPortal);
-            _context.SaveChanges();
+            try
+            {
+                _context.EducationalPortals.Add(educationalPortal);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<EducationalPortals> Get()
         {
-            return _context.EducationalPortals.Include(x=> x.Department).AsNoTracking().ToList();
+            try
+            {
+                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public EducationalPortals Get(string name)
         {
-            return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Name == name);
+            try
+            {
+                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Name == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public EducationalPortals Get(int id)
         {
-            return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(EducationalPortals educationalPortals)
         {
-            _context.EducationalPortals.Update(educationalPortals);
-            _context.SaveChanges();
+            try
+            {
+                _context.EducationalPortals.Update(educationalPortals);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var educationPortal = _context.EducationalPortals.FirstOrDefault(x => x.Id == id);
-            _context.EducationalPortals.Remove(educationPortal);
-            _context.SaveChanges();
+            try
+            {
+                var educationPortal = _context.EducationalPortals.FirstOrDefault(x => x.Id == id);
+                _context.EducationalPortals.Remove(educationPortal);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-     
+
     }
 }

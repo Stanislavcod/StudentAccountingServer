@@ -16,27 +16,62 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(RegistrationForCourses registrationForCourses)
         {
-            _context.RegistrationForCourses.Add(registrationForCourses);
-            _context.SaveChanges();
+            try
+            {
+                _context.RegistrationForCourses.Add(registrationForCourses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<RegistrationForCourses> Get()
         {
-            return _context.RegistrationForCourses.Include(x=> x.Participants).Include(x=> x.TrainingCourses).AsNoTracking().ToList();
+            try
+            {
+                return _context.RegistrationForCourses.Include(x => x.Participants).Include(x => x.TrainingCourses).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public RegistrationForCourses Get(int id)
         {
-            return _context.RegistrationForCourses.Include(x => x.Participants).Include(x => x.TrainingCourses).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.RegistrationForCourses.Include(x => x.Participants).Include(x => x.TrainingCourses).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(RegistrationForCourses registrationForCourses)
         {
-            _context.RegistrationForCourses.Update(registrationForCourses);
-            _context.SaveChanges();
+            try
+            {
+                _context.RegistrationForCourses.Update(registrationForCourses);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var registration = _context.RegistrationForCourses.FirstOrDefault(x => x.Id == id);
-            _context.RegistrationForCourses.Remove(registration);
-            _context.SaveChanges();
+            try
+            {
+                var registration = _context.RegistrationForCourses.FirstOrDefault(x => x.Id == id);
+                _context.RegistrationForCourses.Remove(registration);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

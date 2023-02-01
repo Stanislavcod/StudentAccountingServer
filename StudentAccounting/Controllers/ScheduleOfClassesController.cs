@@ -16,30 +16,65 @@ namespace StudentAccounting.Controllers
         [HttpGet("GetScheduleOfСlasses")]
         public ActionResult<IEnumerable<ScheduleOfСlasses>> Get()
         {
-            return Ok(_scheduleOfСlassesService.Get());
+            try
+            {
+                return Ok(_scheduleOfСlassesService.Get());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("idScheduleOfСlasses/{id}", Name = "GetScheduleOfСlassesId")]
         public IActionResult Get(int id)
         {
-            return Ok(_scheduleOfСlassesService.Get(id));
+            try
+            {
+                return Ok(_scheduleOfСlassesService.Get(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateScheduleOfСlasses")]
         public IActionResult Create(ScheduleOfСlasses schedule)
         {
-            _scheduleOfСlassesService.Create(schedule);
-            return Ok();
+            try
+            {
+                _scheduleOfСlassesService.Create(schedule);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateScheduleOfСlasses")]
         public IActionResult Update(ScheduleOfСlasses schedule)
         {
-            _scheduleOfСlassesService.Edit(schedule);
-            return Ok();
+            try
+            {
+                _scheduleOfСlassesService.Edit(schedule);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteScheduleOfСlasses")]
         public IActionResult Delete(int id)
         {
-            _scheduleOfСlassesService.Delete(id);
-            return Ok();
+            try
+            {
+                _scheduleOfСlassesService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

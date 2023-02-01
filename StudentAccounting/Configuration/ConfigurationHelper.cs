@@ -18,7 +18,7 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<IBonusService, BonusService>()
                 .AddTransient<ICustomerService, CustomerService>()
-                .AddTransient<IDepartamentService, DepartamentService>()
+                .AddTransient<IDepartmentService, DepartmentService>()
                 .AddTransient<IEmploymentService, EmploymentService>()
                 .AddTransient<IFinalProjectService, FinalProjectService>()
                 .AddTransient<IIndividualsService, IndividualsService>()

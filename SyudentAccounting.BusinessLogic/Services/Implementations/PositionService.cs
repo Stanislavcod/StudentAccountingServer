@@ -14,31 +14,73 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void Create(Position position)
         {
-            _context.Positions.Add(position);
-            _context.SaveChanges();
+            try
+            {
+                _context.Positions.Add(position);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public IEnumerable<Position> Get()
         {
-            return _context.Positions.Include(x=> x.Department).AsNoTracking().ToList();
+            try
+            {
+                return _context.Positions.Include(x => x.Department).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Position Get(string name)
         {
-            return _context.Positions.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.FullName == name);
+            try
+            {
+                return _context.Positions.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.FullName == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public Position Get(int id)
         {
-            return _context.Positions.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _context.Positions.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Edit(Position position)
         {
-            _context.Positions.Update(position);
-            _context.SaveChanges();
+            try
+            {
+                _context.Positions.Update(position);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public void Delete(int id)
         {
-            var position = _context.Positions.FirstOrDefault(x => x.Id == id);
-            _context.Positions.Remove(position);
-            _context.SaveChanges();
+            try
+            {
+                var position = _context.Positions.FirstOrDefault(x => x.Id == id);
+                _context.Positions.Remove(position);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
