@@ -61,17 +61,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception($"Произошла ошибка при получении пользователя по идентификатору {id}", ex);
             }
         }
-        public User Get(string login, string password)
-        {
-            try
-            {
-                return _context.Users.AsNoTracking().FirstOrDefault(u => u.Login == login && u.Password == password);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Произошла ошибка при получении пользователя по логину и паролю", ex);
-            }
-        }
+        //public User Get(string login, string password)
+        //{
+        //    try
+        //    {
+        //        //return _context.Users.AsNoTracking().FirstOrDefault(u => u.Login == login && u.Password == password);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Произошла ошибка при получении пользователя по логину и паролю", ex);
+        //    }
+        //}
         public void Edit(User newUser)
         {
             try

@@ -17,23 +17,23 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
-        [HttpPost("Login")]
-        public IActionResult Login(LoginDTO model)
-        {
-            try
-            {
-                User user = _userService.Get(model.Login, model.Password);
-                if (user != null)
-                {
-                    return Ok(_userService.Get(model.Login));
-                }
-                return BadRequest();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Ошибка");
-            }
-        }
+        //[HttpPost("Login")]
+        //public IActionResult Login(LoginDTO model)
+        //{
+        //    try
+        //    {
+        //        User user = _userService.Get(model.Login, model.Password);
+        //        if (user != null)
+        //        {
+        //            return Ok(_userService.Get(model.Login));
+        //        }
+        //        return BadRequest();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Ошибка");
+        //    }
+        //}
 
     }
 }
