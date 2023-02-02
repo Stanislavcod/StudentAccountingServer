@@ -5,8 +5,7 @@ using StudentAccounting.Common.ModelsDto;
 
 namespace StudentAccounting.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
@@ -15,7 +14,7 @@ namespace StudentAccounting.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public IActionResult Login(LoginDTO loginDto)
         {
             return Ok(_authService.Login(loginDto));
