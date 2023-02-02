@@ -7,6 +7,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class RegistrationForCoursesController : Controller
     {
         private readonly IRegistrationForCoursesService _registrationForCoursesService;
@@ -14,7 +15,6 @@ namespace StudentAccounting.Controllers
         {
             _registrationForCoursesService = registrationForCoursesService;
         }
-        [Authorize]
         [HttpGet("GetRegistrationForCourses")]
         public ActionResult<IEnumerable<RegistrationForCourses>> Get()
         {
@@ -27,7 +27,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idRegistrationForCourses/{id}", Name = "GetRegistrationForCoursesId")]
         public IActionResult Get(int id)
         {
@@ -40,7 +39,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateRegistrationForCourses")]
         public IActionResult Create(RegistrationForCourses registrationForCourses)
         {
@@ -54,7 +52,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateRegistrationForCourses")]
         public IActionResult Update(RegistrationForCourses registrationForCourses)
         {
@@ -68,7 +65,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteRegistrationForCourses")]
         public IActionResult Delete(int id)
         {

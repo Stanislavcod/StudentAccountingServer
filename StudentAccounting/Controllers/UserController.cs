@@ -6,6 +6,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -13,7 +14,6 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
-        [Authorize]
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {
@@ -26,7 +26,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
@@ -39,7 +38,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
@@ -52,7 +50,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {
@@ -66,13 +63,12 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateUser")]
-        public IActionResult Update(EditUserDto editUserDto)
+        public IActionResult Update(User user)
         {
             try
             {
-                _userService.Edit(editUserDto);
+                _userService.Edit(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -80,7 +76,19 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
+        [HttpPut("UpdatePasswordUser")]
+        public IActionResult UpdatePassword(EditPasswordUserDto editPasswordUserDto)
+        {
+            try
+            {
+                _userService.EditPassword(editPasswordUserDto);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpDelete("DeletUser")]
         public IActionResult Delete(int id)
         {

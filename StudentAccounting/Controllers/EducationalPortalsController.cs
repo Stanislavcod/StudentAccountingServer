@@ -7,14 +7,14 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class EducationalPortalsController : Controller
     {
-       private readonly IEducationalPortalsService _educationalPortalsService;
+        private readonly IEducationalPortalsService _educationalPortalsService;
         public EducationalPortalsController(IEducationalPortalsService educationalPortalsService)
         {
             _educationalPortalsService = educationalPortalsService;
         }
-        [Authorize]
         [HttpGet("GetEducationalPortals")]
         public ActionResult<IEnumerable<EducationalPortals>> Get()
         {
@@ -27,7 +27,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idEducationalPortals/{id}", Name = "GetEducationalPortalsId")]
         public IActionResult Get(int id)
         {
@@ -40,7 +39,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("nameEducationalPortals/{name}", Name = "GetEducationalPortals")]
         public IActionResult Get(string name)
         {
@@ -53,7 +51,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateEducationalPortals")]
         public IActionResult Create(EducationalPortals educationalPortals)
         {
@@ -67,7 +64,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateEducationalPortals")]
         public IActionResult Update(EducationalPortals educationalPortals)
         {
@@ -81,7 +77,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteEducationalPortals")]
         public IActionResult Delete(int id)
         {

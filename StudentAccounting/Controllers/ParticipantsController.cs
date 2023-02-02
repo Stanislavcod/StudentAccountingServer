@@ -5,6 +5,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class ParticipantsController : Controller
     {
         private readonly IParticipantsService _participantsService;
@@ -12,7 +13,6 @@ namespace StudentAccounting.Controllers
         {
             _participantsService = participantsService;
         }
-        [Authorize]
         [HttpGet("GetParticipants")]
         public ActionResult<IEnumerable<Participants>> Get()
         {
@@ -25,7 +25,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idParticipant/{id}", Name = "GetPartisipantsId")]
         public IActionResult Get(int id)
         {
@@ -38,7 +37,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateParticipant")]
         public IActionResult Create(Participants participants)
         {
@@ -52,7 +50,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateParticipant")]
         public IActionResult Update(Participants participants)
         {
@@ -66,7 +63,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteParticipant")]
         public IActionResult Delete(int id)
         {
@@ -80,7 +76,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("ParticipantByUser")]
         public IActionResult GetByUser(int userId)
         {

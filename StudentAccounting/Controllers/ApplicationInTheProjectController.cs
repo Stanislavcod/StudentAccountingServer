@@ -5,6 +5,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class ApplicationInTheProjectController : Controller
     {
         private readonly IApplicationInTheProjectService _applicationInTheProjectService;
@@ -13,7 +14,6 @@ namespace StudentAccounting.Controllers
         {
             _applicationInTheProjectService = applicationInTheProjectService;
         }
-        [Authorize]
         [HttpGet("GetAppInTheProject")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> Get()
         {
@@ -26,7 +26,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idAppInTheProject/{id}")]
         public IActionResult Get(int id)
         {
@@ -43,7 +42,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -57,7 +55,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateAppInTheProject")]
         public IActionResult Update(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -71,7 +68,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteAppInTheProject")]
         public IActionResult Delete(int id)
         {

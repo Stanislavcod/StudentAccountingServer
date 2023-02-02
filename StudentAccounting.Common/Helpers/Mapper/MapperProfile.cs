@@ -12,7 +12,7 @@ namespace StudentAccounting.Common.Helpers.Mapper
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<RegisterDto, User>().ReverseMap();
-            CreateMap<EditUserDto, User>().ReverseMap();
+            CreateMap<EditPasswordUserDto, User>().ReverseMap();
         }
     }
 }

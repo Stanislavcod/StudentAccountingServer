@@ -6,6 +6,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class StagesOfProjectController : Controller
     {
         private readonly IStagesOfProjectsService _stagesOfProjectsService;
@@ -13,7 +14,6 @@ namespace StudentAccounting.Controllers
         {
             _stagesOfProjectsService = stagesOfProjectsService;
         }
-        [Authorize]
         [HttpGet("GetStagesOfProject")]
         public ActionResult<IEnumerable<StagesOfProject>> Get()
         {
@@ -26,7 +26,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idStagesOfProject/{id}", Name = "GetStagesOfProjectId")]
         public IActionResult Get(int id)
         {
@@ -39,7 +38,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("nameStagesOfProject/{name}", Name = "GetStagesOfProjectName")]
         public IActionResult Get(string name)
         {
@@ -52,7 +50,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateStagesOfProject")]
         public IActionResult Create(StagesOfProject stagesOfProject)
         {
@@ -66,7 +63,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateStagesOfProject")]
         public IActionResult Update(StagesOfProject stagesOfProject)
         {
@@ -80,7 +76,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteStagesOfProject")]
         public IActionResult Delete(int id)
         {

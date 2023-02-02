@@ -6,6 +6,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
@@ -13,7 +14,6 @@ namespace StudentAccounting.Controllers
         {
             _departmentService = departmentService;
         }
-        [Authorize]
         [HttpGet("GetDepartment")]
         public ActionResult<IEnumerable<Department>> Get()
         {
@@ -26,7 +26,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("idDepartment/{id}", Name = "GetDepartmentId")]
         public IActionResult Get(int id)
         {
@@ -39,7 +38,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("nameDepartment/{name}", Name = "GetDepartmentName")]
         public IActionResult Get(string name)
         {
@@ -52,7 +50,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPost("CreateDepartment")]
         public IActionResult Create(Department department)
         {
@@ -66,7 +63,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut("UpdateDepartment")]
         public IActionResult Update(Department department)
         {
@@ -80,7 +76,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpDelete("DeleteDepartment")]
         public IActionResult Delete(int id)
         {

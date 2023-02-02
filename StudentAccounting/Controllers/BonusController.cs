@@ -5,6 +5,7 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
+    [Authorize]
     public class BonusController : Controller
     {
         private readonly IBonusService _bonusService;
@@ -12,7 +13,6 @@ namespace StudentAccounting.Controllers
         {
             _bonusService = bonusService;
         }
-        [Authorize]
         [HttpGet("GetBonus")]
         public ActionResult<IEnumerable<Bonus>> Get()
         {
@@ -25,7 +25,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpGet("idBonus/{id}", Name = "GetBonusId")]
         public IActionResult Get(int id)
         {
@@ -38,7 +37,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpGet("nameBonus/{name}", Name = "GetBonusName")]
         public IActionResult Get(string name)
         {
@@ -51,7 +49,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpPost("CreateBonus")]
         public IActionResult Create(Bonus bonus)
         {
@@ -65,7 +62,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpPut("UpdateBonus")]
         public IActionResult Update(Bonus bonus)
         {
@@ -79,7 +75,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpDelete("DeleteBonus")]
         public IActionResult Delete(int id)
         {
@@ -93,7 +88,6 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [Authorize]
         [HttpPost("BonusForRankId")]
         public IActionResult GetForRank(int id)
         {

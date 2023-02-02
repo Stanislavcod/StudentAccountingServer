@@ -66,12 +66,28 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception($"Произошла ошибка при получении пользователя по идентификатору {id}", ex);
             }
         }
-        public void Edit(EditUserDto editUserDto)
+        public void Edit(User user)
         {
             try
             {
-                var user = _mapper.Map<User>(editUserDto);
-                PasswordHasher.CreatePasswordHash(editUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                _context.Users.Update(user);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("Произошла ошибка при обновлении пользователя", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка", ex);
+            }
+        }
+        public void EditPassword(EditPasswordUserDto editPasswordUserDto)
+        {
+            try
+            {
+                var user = _mapper.Map<User>(editPasswordUserDto);
+                PasswordHasher.CreatePasswordHash(editPasswordUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordSalt = passwordSalt;
                 user.PasswordHash = passwordHash;
                 _context.Users.Update(user);
