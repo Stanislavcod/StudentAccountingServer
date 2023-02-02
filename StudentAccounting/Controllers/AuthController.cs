@@ -13,7 +13,6 @@ namespace StudentAccounting.Controllers
         {
             _authService = authService;
         }
-
         [HttpPost("Login")]
         public IActionResult Login(LoginDTO loginDto)
         {

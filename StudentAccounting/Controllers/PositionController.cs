@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -11,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _positionService = positionService;
         }
+        [Authorize]
         [HttpGet("GetPosition")]
         public ActionResult<IEnumerable<Position>> Get()
         {
@@ -23,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idPosition/{id}", Name = "GetPositionId")]
         public IActionResult Get(int id)
         {
@@ -35,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("namePosition/{name}", Name = "GetPositionName")]
         public IActionResult Get(string name)
         {
@@ -47,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreatePosition")]
         public IActionResult Create(Position position)
         {
@@ -60,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdatePosition")]
         public IActionResult Update(Position position)
         {
@@ -73,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeletePosition")]
         public IActionResult Delete(int id)
         {

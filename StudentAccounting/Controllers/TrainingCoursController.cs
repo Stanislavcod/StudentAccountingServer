@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
@@ -12,6 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _trainingCoursesService = trainingCoursesService;
         }
+        [Authorize]
         [HttpGet("GetTrainingCourses")]
         public ActionResult<IEnumerable<TrainingCourses>> Get()
         {
@@ -24,6 +26,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idTrainingCourses/{id}", Name = "GetTrainingCoursesId")]
         public IActionResult Get(int id)
         {
@@ -36,6 +39,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameTrainingCourses/{name}", Name = "GetTrainingCoursesName")]
         public IActionResult Get(string name)
         {
@@ -48,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateTrainingCourses")]
         public IActionResult Create(TrainingCourses trainingCourses)
         {
@@ -61,6 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateTrainingCourses")]
         public IActionResult Update(TrainingCourses trainingCourses)
         {
@@ -74,6 +80,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeleteTrainingCourses")]
         public IActionResult Delete(int id)
         {

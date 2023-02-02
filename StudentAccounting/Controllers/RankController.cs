@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -11,7 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _routingService = routingService;
         }
-
+        [Authorize]
         [HttpGet("GetRank")]
         public ActionResult<IEnumerable<Rank>> Get()
         {
@@ -24,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idRank/{id}", Name = "GetRankId")]
         public IActionResult Get(int id)
         {
@@ -36,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameRank/{name}", Name = "GetRankName")]
         public IActionResult Get(string name)
         {
@@ -48,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateRank")]
         public IActionResult Create(Rank Rank)
         {
@@ -61,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateRank")]
         public IActionResult Update(Rank Rank)
         {
@@ -74,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeleteRank")]
         public IActionResult Delete(int id)
         {

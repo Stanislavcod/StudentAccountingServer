@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DatabaseModels;
@@ -13,6 +14,7 @@ namespace StudentAccounting.Controllers
         {
             _scheduleOfСlassesService = scheduleOfСlassesService;
         }
+        [Authorize]
         [HttpGet("GetScheduleOfСlasses")]
         public ActionResult<IEnumerable<ScheduleOfСlasses>> Get()
         {
@@ -25,6 +27,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idScheduleOfСlasses/{id}", Name = "GetScheduleOfСlassesId")]
         public IActionResult Get(int id)
         {
@@ -37,6 +40,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateScheduleOfСlasses")]
         public IActionResult Create(ScheduleOfСlasses schedule)
         {
@@ -50,6 +54,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateScheduleOfСlasses")]
         public IActionResult Update(ScheduleOfСlasses schedule)
         {
@@ -63,6 +68,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeleteScheduleOfСlasses")]
         public IActionResult Delete(int id)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
@@ -12,6 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _employmentService = employmentService;
         }
+        [Authorize]
         [HttpGet("GetEmployments")]
         public ActionResult<IEnumerable<Employment>> Get()
         {
@@ -24,6 +26,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idEmployment/{id}", Name = "GetEmploymentId")]
         public IActionResult Get(int id)
         {
@@ -36,6 +39,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateEmployment")]
         public IActionResult Create(Employment employment)
         {
@@ -49,6 +53,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateEmployment")]
         public IActionResult Update(Employment employment)
         {
@@ -62,6 +67,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeleteEmployment")]
         public IActionResult Delete(int id)
         {

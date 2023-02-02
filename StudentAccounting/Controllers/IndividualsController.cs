@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -11,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _individualsService = individualsService;
         }
+        [Authorize]
         [HttpGet("GetIndividuals")]
         public ActionResult<IEnumerable<Individuals>> Get()
         {
@@ -23,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameIndividual/{name}", Name = "GetIndividualName")]
         public IActionResult Get(string name)
         {
@@ -35,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idIndividual/{id}", Name = "GetIndividualId")]
         public IActionResult Get(int id)
         {
@@ -47,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateIndividual")]
         public IActionResult Create(Individuals newIndividuals)
         {
@@ -60,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateIndividual")]
         public IActionResult Update(Individuals newIndividuals)
         {
@@ -73,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeletIndividual")]
         public IActionResult Delete(int id)
         {
