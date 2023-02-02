@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -11,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
+        [Authorize]
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {

@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using StudentAccounting.Common.ModelsDto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using StudentAccounting.Utilities;
+using System.IdentityModel.Tokens.Jwt;
+using System;
 
 namespace StudentAccounting.Controllers
 {
@@ -17,17 +22,27 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
+        
         [HttpPost("Login")]
         public IActionResult Login(LoginDTO model)
         {
             try
             {
                 User user = _userService.Get(model.Login, model.Password);
-                if (user != null)
+                if (user == null)
                 {
-                    return Ok(_userService.Get(model.Login));
+                    return BadRequest();
                 }
-                return BadRequest();
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Login) };
+                var jwt = new JwtSecurityToken( issuer: AuthOptions.ISSUER,audience: AuthOptions.AUDIENCE, claims: claims,
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                UserToken userToken = new UserToken { User = user, Token = encodedJwt };
+           
+                return Ok(userToken);
+
             }
             catch (Exception)
             {
