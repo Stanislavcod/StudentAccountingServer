@@ -69,7 +69,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 UserId = user.Id,
                 Token = encodedJwt,
                 RefreshToken = refreshToken.Id,
-                UserName = user.Login, //!!!
                 User = mappedUser,
                 ValidFrom = token.ValidFrom,
                 ValidTo = token.ValidTo
