@@ -69,7 +69,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 UserId = user.Id,
                 Token = encodedJwt,
                 RefreshToken = refreshToken.Id,
-                UserName = user.Login,
                 User = mappedUser,
                 ValidFrom = token.ValidFrom,
                 ValidTo = token.ValidTo
@@ -77,13 +76,14 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public TokenDto Refresh(RefreshTokenDto refreshTokenDto)
         {
-            var refreshToken = _context.RefreshToken.FirstOrDefault(x=> x.Id == refreshTokenDto.RefreshToken);
+            var refreshToken = _context.RefreshToken.FirstOrDefault(x => x.Id == refreshTokenDto.RefreshToken);
 
             if (refreshToken == null) throw new Exception("refreshIsExpired");
             if (refreshToken.ValidTo < DateTime.UtcNow) throw new Exception("refreshIsExpired");
 
             var user = _context.Users.FirstOrDefault(x => x.Login == refreshTokenDto.Login);
             if (user == null) throw new Exception("Пользователь не найден");
+
             _context.RefreshToken.Remove(refreshToken);
             _context.SaveChanges();
             return GetToken(user);

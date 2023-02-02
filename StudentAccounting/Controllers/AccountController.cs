@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using StudentAccounting.Common.ModelsDto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using StudentAccounting.Utilities;
+using System.IdentityModel.Tokens.Jwt;
+using System;
 
 namespace StudentAccounting.Controllers
 {

@@ -27,10 +27,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
 
             if (user == null) throw new Exception("Пользователь не найден.");
 
-            if (PasswordHasher.VerifyPassordHash(
-                user.PasswordSalt,
-                user.PasswordHash,
-                loginDTO.Password))
+            if (PasswordHasher.VerifyPassordHash(user.PasswordSalt,user.PasswordHash,loginDTO.Password))
             {
                 return user;
             }
@@ -52,8 +49,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         public bool Register(RegisterDto registerDto)
         {
             var user = _mapper.Map<User>(registerDto);
-            PasswordHasher.CreatePasswordHash(registerDto.Password, out byte[] passwordHash,
-                out byte[] passwordSalt);
+            PasswordHasher.CreatePasswordHash(registerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
             _context.Users.Add(user);

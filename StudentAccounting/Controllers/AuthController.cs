@@ -20,7 +20,7 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_authService.Login(loginDto));
         }
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public IActionResult Register(RegisterDto registerModel)
         {
             if (_authService.UserExists(registerModel.Login))

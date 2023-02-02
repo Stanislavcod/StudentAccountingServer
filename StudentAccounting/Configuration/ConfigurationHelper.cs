@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace StudentAccounting.Configuration
 {
@@ -87,6 +88,8 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
+    
+
         }
         public static void Configure(WebApplication app)
         {
@@ -110,7 +113,6 @@ namespace StudentAccounting.Configuration
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapControllers();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
