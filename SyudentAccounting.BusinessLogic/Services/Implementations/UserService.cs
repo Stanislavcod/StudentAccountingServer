@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentAccounting.Common.Helpers.Criptography;
 using StudentAccounting.Common.ModelsDto;
 using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -66,10 +67,14 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception($"Произошла ошибка при получении пользователя по идентификатору {id}", ex);
             }
         }
-        public void Edit(User user)
+        public void Edit(User model)
         {
             try
             {
+                User user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
+                user.Login=model.Login;
+                user.isGlobalPM=model.isGlobalPM;
+                user.IsAdmin = model.IsAdmin;
                 _context.Users.Update(user);
                 _context.SaveChanges();
             }
@@ -86,7 +91,8 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                var user = _mapper.Map<User>(editPasswordUserDto);
+           
+                User user = _context.Users.FirstOrDefault(x=>x.Id==editPasswordUserDto.Id);
                 PasswordHasher.CreatePasswordHash(editPasswordUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordSalt = passwordSalt;
                 user.PasswordHash = passwordHash;

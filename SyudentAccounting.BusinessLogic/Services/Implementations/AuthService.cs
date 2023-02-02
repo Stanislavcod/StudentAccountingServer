@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.Helpers.Criptography;
