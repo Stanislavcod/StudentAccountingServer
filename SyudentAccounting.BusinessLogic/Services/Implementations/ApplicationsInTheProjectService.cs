@@ -28,7 +28,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public IEnumerable<ApplicationsInTheProject> Get()
         {
-            return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().ToList();
+            return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).Include(x=> x.Participants.Individuals).AsNoTracking().ToList();
         }
         public ApplicationsInTheProject Get(int id)
         {

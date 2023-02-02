@@ -29,7 +29,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x => x.FinalProjects).AsNoTracking().ToList();
+                return _context.Employments.Include(x => x.Position).Include(x => x.Participants).Include(x=> x.Participants.Individuals).Include(x => x.FinalProjects).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {

@@ -30,7 +30,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.RegistrationForCourses.Include(x => x.Participants).Include(x => x.TrainingCourses).AsNoTracking().ToList();
+                return _context.RegistrationForCourses.Include(x => x.Participants).Include(x=> x.Participants.Individuals).Include(x => x.TrainingCourses).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
