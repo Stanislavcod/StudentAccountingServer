@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
@@ -51,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {
@@ -66,11 +68,11 @@ namespace StudentAccounting.Controllers
         }
         [Authorize]
         [HttpPut("UpdateUser")]
-        public IActionResult Update(User user)
+        public IActionResult Update(EditUserDto editUserDto)
         {
             try
             {
-                _userService.Edit(user);
+                _userService.Edit(editUserDto);
                 return Ok();
             }
             catch (Exception ex)

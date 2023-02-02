@@ -37,7 +37,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 issuer: _config["JWT:Issuer"],
                 audience: _config["JWT:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: creds,
                 notBefore: DateTime.UtcNow
                 );
@@ -50,7 +50,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 Id = new JwtSecurityTokenHandler().WriteToken(CreateToken(user)),
                 UserId = user.Id,
-                ValidTo = now.AddDays(1),
+                ValidTo = now.AddDays(2),
                 ValidFrom = now
             };
             _context.RefreshToken.Add(token);

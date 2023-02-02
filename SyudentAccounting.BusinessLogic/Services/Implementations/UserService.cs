@@ -2,15 +2,20 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccounting.Common.Helpers.Criptography;
+using StudentAccounting.Common.ModelsDto;
+using AutoMapper;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         private readonly ApplicationDatabaseContext _context;
-        public UserService(ApplicationDatabaseContext context)
+        public UserService(ApplicationDatabaseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public void Create(User newUser)
         {
@@ -61,22 +66,15 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception($"Произошла ошибка при получении пользователя по идентификатору {id}", ex);
             }
         }
-        //public User Get(string login, string password)
-        //{
-        //    try
-        //    {
-        //        //return _context.Users.AsNoTracking().FirstOrDefault(u => u.Login == login && u.Password == password);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Произошла ошибка при получении пользователя по логину и паролю", ex);
-        //    }
-        //}
-        public void Edit(User newUser)
+        public void Edit(EditUserDto editUserDto)
         {
             try
             {
-                _context.Users.Update(newUser);
+                var user = _mapper.Map<User>(editUserDto);
+                PasswordHasher.CreatePasswordHash(editUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordSalt = passwordSalt;
+                user.PasswordHash = passwordHash;
+                _context.Users.Update(user);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
