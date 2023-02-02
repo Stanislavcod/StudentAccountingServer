@@ -8,7 +8,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<User> Get();
         User Get(string name);
         User Get(int id);
-        User Get(string login, string password);
+        //User Get(string login, string password);
         void Edit(User userDto);
         void Delete(int id);
     }

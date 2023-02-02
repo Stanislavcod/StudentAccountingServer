@@ -22,33 +22,23 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
-        
-        [HttpPost("Login")]
-        public IActionResult Login(LoginDTO model)
-        {
-            try
-            {
-                User user = _userService.Get(model.Login, model.Password);
-                if (user == null)
-                {
-                    return BadRequest();
-                }
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Login) };
-                var jwt = new JwtSecurityToken( issuer: AuthOptions.ISSUER,audience: AuthOptions.AUDIENCE, claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-                UserToken userToken = new UserToken { User = user, Token = encodedJwt };
-           
-                return Ok(userToken);
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Ошибка");
-            }
-        }
+        //[HttpPost("Login")]
+        //public IActionResult Login(LoginDTO model)
+        //{
+        //    try
+        //    {
+        //        User user = _userService.Get(model.Login, model.Password);
+        //        if (user != null)
+        //        {
+        //            return Ok(_userService.Get(model.Login));
+        //        }
+        //        return BadRequest();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Ошибка");
+        //    }
+        //}
 
     }
 }

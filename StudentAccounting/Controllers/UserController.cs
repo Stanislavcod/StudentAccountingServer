@@ -25,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
@@ -37,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
@@ -62,6 +64,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("UpdateUser")]
         public IActionResult Update(User user)
         {
@@ -75,6 +78,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("DeletUser")]
         public IActionResult Delete(int id)
         {

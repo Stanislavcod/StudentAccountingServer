@@ -15,8 +15,4 @@
     <ProjectReference Include="..\StudentAccounting.Model\StudentAccounting.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapper\" />
-  </ItemGroup>
-
 </Project>
