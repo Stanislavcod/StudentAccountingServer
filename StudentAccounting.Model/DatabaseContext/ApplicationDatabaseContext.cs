@@ -14,18 +14,18 @@ namespace StudentAccounting.Model
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
-                new User[]
-                {
-                    new User { Id =1, IsAdmin = true, Login = "Stas", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123456"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2427"),  isGlobalPM = true },
-                    new User { Id =2, IsAdmin = true, Login = "Ilya", PasswordHash = System.Text.Encoding.UTF8.GetBytes("12345"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2538"),isGlobalPM = true},
-                    new User { Id =3, IsAdmin = true, Login = "Pavel", PasswordHash = System.Text.Encoding.UTF8.GetBytes("1234"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("151515"), isGlobalPM = true},
-                    new User { Id=4, IsAdmin = false, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515"),isGlobalPM = false}
-                });
+            //modelBuilder.Entity<User>().HasData(
+            //    new User[]
+            //    {
+            //        new User { Id =1, IsAdmin = true, Login = "Stas", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123456"),
+            //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2427"),  isGlobalPM = true },
+            //        new User { Id =2, IsAdmin = true, Login = "Ilya", PasswordHash = System.Text.Encoding.UTF8.GetBytes("12345"),
+            //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2538"),isGlobalPM = true},
+            //        new User { Id =3, IsAdmin = true, Login = "Pavel", PasswordHash = System.Text.Encoding.UTF8.GetBytes("1234"),
+            //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("151515"), isGlobalPM = true},
+            //        new User { Id=4, IsAdmin = false, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
+            //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515"),isGlobalPM = false}
+            //    });
             //modelBuilder.Entity<Individuals>().HasData(
             //    new Individuals[]
             //    {
