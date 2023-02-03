@@ -35,7 +35,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             };
             if (user.IsAdmin == true)
             {
-                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin");
+            }
+            if(user.isGlobalPM == true && user.IsAdmin == true)
+            {
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "GlobalPm");
             }
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
             var Jwt = new JwtSecurityToken(
