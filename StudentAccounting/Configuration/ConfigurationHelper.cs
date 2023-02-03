@@ -9,7 +9,6 @@ using StudentAccounting.Common.Helpers.Mapper;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace StudentAccounting.Configuration
 {
@@ -86,11 +85,6 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/Account/Login");
-                });
 
         }
 
@@ -110,15 +104,14 @@ namespace StudentAccounting.Configuration
             if (!app.Environment.IsDevelopment())
             {
                 //app.UseHttpsRedirection();
-                //app.UseHttpsRedirection();
-                app.UsePathBase("/polessup");
-                app.UseHttpsRedirection();
-                app.UseRouting();
-                app.UseAuthentication();
-                app.UseAuthorization();
-
-                app.UseEndpoints(endpoints => endpoints.MapControllers());
             }
+            //app.UsePathBase("/polessup");
+            //app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
     }
