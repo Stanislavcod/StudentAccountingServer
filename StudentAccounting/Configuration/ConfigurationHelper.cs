@@ -111,14 +111,14 @@ namespace StudentAccounting.Configuration
             {
                 //app.UseHttpsRedirection();
                 //app.UseHttpsRedirection();
-                app.UsePathBase("/polessup");
-                app.UseHttpsRedirection();
-                app.UseRouting();
-                app.UseAuthentication();
-                app.UseAuthorization();
-
-                app.UseEndpoints(endpoints => endpoints.MapControllers());
+                //app.UsePathBase("/polessup");
             }
+            //app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
     }
