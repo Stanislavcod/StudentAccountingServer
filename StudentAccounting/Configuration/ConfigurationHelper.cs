@@ -6,8 +6,6 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using AutoMapper;
 using StudentAccounting.Common.Helpers.Mapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
@@ -88,9 +86,14 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
-    
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Account/Login");
+                });
 
         }
+
         public static void Configure(WebApplication app)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -107,15 +110,16 @@ namespace StudentAccounting.Configuration
             if (!app.Environment.IsDevelopment())
             {
                 //app.UseHttpsRedirection();
+                //app.UseHttpsRedirection();
+                app.UsePathBase("/polessup");
+                app.UseHttpsRedirection();
+                app.UseRouting();
+                app.UseAuthentication();
+                app.UseAuthorization();
+
+                app.UseEndpoints(endpoints => endpoints.MapControllers());
             }
-
-            //app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
-    }
 
+    }
 }
