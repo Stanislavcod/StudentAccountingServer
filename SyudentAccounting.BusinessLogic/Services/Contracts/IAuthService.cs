@@ -9,6 +9,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         TokenDto Login(LoginDTO loginDTO);
         TokenDto Refresh(RefreshTokenDto refreshTokenDto);
         bool Register(RegisterDto registerDto);
+        public bool RegisterAdmin();
         bool UserExists(string login);
     }
 }

@@ -53,5 +53,22 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             _context.Users.Add(user);
             return _context.SaveChanges() > 0 ? true : false;
         }
+        public bool RegisterAdmin()
+        {
+            User admin=_context.Users.FirstOrDefault(x=>x.Login=="admin");
+            if (admin==null)
+            {
+                PasswordHasher.CreatePasswordHash("admin", out byte[] passwordHash, out byte[] passwordSalt);
+                admin.Login = "admin";
+                admin.isGlobalPM = true;
+                admin.IsAdmin = true;
+                admin.PasswordSalt = passwordSalt;
+                admin.PasswordHash = passwordHash;
+                _context.Users.Add(admin);
+                return _context.SaveChanges() > 0 ? true : false;
+            }
+            
+            return false;
+        }
     }
 }

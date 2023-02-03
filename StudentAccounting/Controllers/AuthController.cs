@@ -13,6 +13,11 @@ namespace StudentAccounting.Controllers
         {
             _authService = authService;
         }
+        [HttpPost("RegisterAdmin")]
+        public IActionResult RegisterAdmin()
+        {
+            return Ok(_authService.RegisterAdmin());
+        }
         [HttpPost("Login")]
         public IActionResult Login(LoginDTO loginDto)
         {
