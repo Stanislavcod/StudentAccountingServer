@@ -55,9 +55,10 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public bool RegisterAdmin()
         {
-            User admin=_context.Users.FirstOrDefault(x=>x.Login=="admin");
-            if (admin==null)
+           
+            if (!UserExists("admin"))
             {
+                User admin = new User();
                 PasswordHasher.CreatePasswordHash("admin", out byte[] passwordHash, out byte[] passwordSalt);
                 admin.Login = "admin";
                 admin.isGlobalPM = true;
@@ -65,9 +66,9 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 admin.PasswordSalt = passwordSalt;
                 admin.PasswordHash = passwordHash;
                 _context.Users.Add(admin);
-                return _context.SaveChanges() > 0 ? true : false;
+                _context.SaveChanges();
+                return true;
             }
-            
             return false;
         }
     }
