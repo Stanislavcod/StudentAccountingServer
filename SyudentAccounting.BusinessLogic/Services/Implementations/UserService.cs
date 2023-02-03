@@ -11,12 +11,10 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IMapper _mapper;
         private readonly ApplicationDatabaseContext _context;
-        public UserService(ApplicationDatabaseContext context, IMapper mapper)
+        public UserService(ApplicationDatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         public void Create(User newUser)
         {
@@ -73,8 +71,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 User user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
                 user.Login=model.Login;
-                user.isGlobalPM=model.isGlobalPM;
-                user.IsAdmin = model.IsAdmin;
+                user.RoleId = model.RoleId;
                 _context.Users.Update(user);
                 _context.SaveChanges();
             }

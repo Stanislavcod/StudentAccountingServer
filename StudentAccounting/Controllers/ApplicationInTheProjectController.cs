@@ -14,6 +14,7 @@ namespace StudentAccounting.Controllers
         {
             _applicationInTheProjectService = applicationInTheProjectService;
         }
+        [Authorize(Roles = "User")]
         [HttpGet("GetAppInTheProject")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> Get()
         {
@@ -26,6 +27,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles ="Admin")]
         [HttpGet("idAppInTheProject/{id}")]
         public IActionResult Get(int id)
         {
@@ -42,6 +44,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles ="GlobalPm")]
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -55,6 +58,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [AllowAnonymous]
+        [Authorize]
         [HttpPut("UpdateAppInTheProject")]
         public IActionResult Update(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -68,6 +73,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles ="LocalPm")]
         [HttpDelete("DeleteAppInTheProject")]
         public IActionResult Delete(int id)
         {

@@ -5,7 +5,6 @@ namespace StudentAccounting.Common.ModelsDto
     {
         public int Id { get; set; }
         public string Login { get; set; } = string.Empty;
-        public bool IsAdmin { get; set; }
-        public bool isGlobalPM { get; set; }
+        public int RoleId { get; set; }
     }
 }

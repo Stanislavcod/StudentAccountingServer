@@ -1,4 +1,6 @@
 ﻿
+using StudentAccounting.Common.ModelsDto;
+
 namespace StudentAccounting.Common.Constants
 {
     public enum RoleType
@@ -6,6 +8,6 @@ namespace StudentAccounting.Common.Constants
         User = 1,
         Admin = 2,
         GlobalPm = 3,
-        LocalPm = 4
+        LocalPm = 4,
     }
 }

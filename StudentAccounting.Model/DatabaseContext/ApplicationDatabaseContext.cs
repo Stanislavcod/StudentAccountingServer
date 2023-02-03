@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.Constants;
+using StudentAccounting.Common.Seeds;
 using StudentAccounting.Model.DatabaseModels;
 using StudentAccounting.Model.DataBaseModels;
 
@@ -7,24 +9,36 @@ namespace StudentAccounting.Model
 {
     public class ApplicationDatabaseContext : DbContext
     {
-        public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options): base(options)
+        public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options) : base(options)
         {
             //Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.Role)
+              .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId);
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User { Id =1, IsAdmin = true, Login = "Stas", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123456"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2427"),  isGlobalPM = true },
-                    new User { Id =2, IsAdmin = true, Login = "Ilya", PasswordHash = System.Text.Encoding.UTF8.GetBytes("12345"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2538"),isGlobalPM = true},
-                    new User { Id =3, IsAdmin = true, Login = "Pavel", PasswordHash = System.Text.Encoding.UTF8.GetBytes("1234"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("151515"), isGlobalPM = true},
-                    new User { Id=4, IsAdmin = false, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
-                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515"),isGlobalPM = false}
+                    new User { Id =1, RoleId = 1, Login = "Stas", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123456"),
+                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2427") },
+                    new User { Id =2, RoleId = 3, Login = "Ilya", PasswordHash = System.Text.Encoding.UTF8.GetBytes("12345"),
+                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("2538")},
+                    new User { Id =3,RoleId = 3, Login = "Pavel", PasswordHash = System.Text.Encoding.UTF8.GetBytes("1234"),
+                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("151515")},
+                    new User { Id=4,RoleId =4, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
+                        PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515")}
+                });
+            modelBuilder.Entity<Role>().HasData(
+                new Role[]
+                {
+                    new Role { Id = 1, Name = RoleType.User, NormalName = RoleDescription.Get(RoleType.User)},
+                    new Role { Id = 2, Name = RoleType.Admin, NormalName = RoleDescription.Get(RoleType.Admin) },
+                    new Role { Id = 3, Name = RoleType.GlobalPm, NormalName = RoleDescription.Get(RoleType.GlobalPm) },
+                    new Role { Id = 4, Name = RoleType.LocalPm, NormalName = RoleDescription.Get(RoleType.LocalPm) }
                 });
             modelBuilder.Entity<Individuals>().HasData(
                 new Individuals[]
@@ -169,10 +183,11 @@ namespace StudentAccounting.Model
         public DbSet<Position> Positions { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Rank> Ranks { get; set; }
-        public DbSet<Student> Students {get; set;}
+        public DbSet<Student> Students { get; set; }
         public DbSet<EducationalPortals> EducationalPortals { get; set; }
         public DbSet<RegistrationForCourses> RegistrationForCourses { get; set; }
         public DbSet<ScheduleOfСlasses> ScheduleOfСlasses { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

@@ -18,29 +18,19 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         private readonly IConfiguration _config;
         private readonly ApplicationDatabaseContext _context;
         private readonly SymmetricSecurityKey _key;
-        private readonly IMapper _mapper;
-        public TokenService(IConfiguration config, ApplicationDatabaseContext context, IMapper mapper)
+        public TokenService(IConfiguration config, ApplicationDatabaseContext context)
         {
             _config = config;
             _context = context;
             _key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["JWT:TokenKey"]));
-            _mapper = mapper;
         }
         public JwtSecurityToken CreateToken(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Login),
-               
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name.ToString()),
             };
-            if (user.IsAdmin == true)
-            {
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin");
-            }
-            if(user.isGlobalPM == true && user.IsAdmin == true)
-            {
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "GlobalPm");
-            }
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
             var Jwt = new JwtSecurityToken(
                 issuer: _config["JWT:Issuer"],
@@ -72,13 +62,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             var tokenHandler = new JwtSecurityTokenHandler();
             var encodedJwt = tokenHandler.WriteToken(token);
             var refreshToken = AddRefreshToken(user);
-            var mappedUser = _mapper.Map<User, UserDto>(user);
+            UserDto userDto = new UserDto()
+            {
+                Login = user.Login,
+                RoleId = user.RoleId
+            };
             return new TokenDto
             {
                 UserId = user.Id,
                 Token = encodedJwt,
                 RefreshToken = refreshToken.Id,
-                User = mappedUser,
+                User = userDto,
                 ValidFrom = token.ValidFrom,
                 ValidTo = token.ValidTo
             };

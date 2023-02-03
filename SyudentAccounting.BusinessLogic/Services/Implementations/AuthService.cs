@@ -10,18 +10,16 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class AuthService : IAuthService
     {
-        private readonly IMapper _mapper;
         private readonly ApplicationDatabaseContext _context;
         private readonly ITokenService _tokenService;
-        public AuthService(ApplicationDatabaseContext context, ITokenService tokenService, IMapper mapper)
+        public AuthService(ApplicationDatabaseContext context, ITokenService tokenService)
         {
             _context = context;
             _tokenService = tokenService;
-            _mapper = mapper;   
         }
         private User AuthUser(LoginDTO loginDTO)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Login == loginDTO.Login);
+            var user = _context.Users.Include(x=> x.Role).SingleOrDefault(x => x.Login == loginDTO.Login);
 
             if (user == null) throw new Exception("Пользователь не найден.");
 
@@ -46,7 +44,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public bool Register(RegisterDto registerDto)
         {
-            var user = _mapper.Map<User>(registerDto);
+ 
+            User user = new User()
+            {
+                Login = registerDto.Login,
+                RoleId = registerDto.RoleId
+            };
             PasswordHasher.CreatePasswordHash(registerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
@@ -56,13 +59,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         public bool RegisterAdmin()
         {
            
-            if (!UserExists("admin"))
+            if (!UserExists("admin57061"))
             {
                 User admin = new User();
                 PasswordHasher.CreatePasswordHash("admin", out byte[] passwordHash, out byte[] passwordSalt);
-                admin.Login = "admin";
-                admin.isGlobalPM = true;
-                admin.IsAdmin = true;
+                admin.Login = "admin57061";
+                admin.RoleId = 2;
                 admin.PasswordSalt = passwordSalt;
                 admin.PasswordHash = passwordHash;
                 _context.Users.Add(admin);
