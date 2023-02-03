@@ -31,10 +31,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Login),
-                new Claim(ClaimTypes.Role, "Admin"),
-                new Claim(ClaimTypes.Role, "GlobalPM"),
-                new Claim(ClaimTypes.Role, "HeadOfDepartment")
+               
             };
+            if (user.IsAdmin == true)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
             var Jwt = new JwtSecurityToken(
                 issuer: _config["JWT:Issuer"],

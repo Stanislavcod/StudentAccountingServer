@@ -14,7 +14,7 @@ namespace StudentAccountin.Model.DatabaseModels
         public string Responsibilities { get; set; } = string.Empty;
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public int Budjet { get; set; }
+        public double Budjet { get; set; }
         public List<ApplicationsInTheProject>? ApplicationsInTheProjects { get; set; } = new();
         public StagesOfProject? StagesOfProject { get; set; }
         public int StagesOfProjectId { get; set; } 
