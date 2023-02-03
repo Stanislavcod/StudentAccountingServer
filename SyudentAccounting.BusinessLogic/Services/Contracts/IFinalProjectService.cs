@@ -11,5 +11,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         FinalProject Get(int id);
         void Edit(FinalProject finalProject);
         void Delete(int id);
+        IEnumerable<FinalProject> GetForEmployment(int id);
     }
 }

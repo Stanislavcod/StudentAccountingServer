@@ -37,6 +37,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public IEnumerable<FinalProject> GetForEmployment(int id)
+        {
+            try
+            {
+                return _context.FinalProjects.Include(x => x.Employment).AsNoTracking().Where(x => x.EmploymentId == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public FinalProject Get(string name)
         {
             try

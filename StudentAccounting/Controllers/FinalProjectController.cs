@@ -26,6 +26,18 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut("GetFinalProjectForEmploymentId")]
+        public ActionResult<IEnumerable<FinalProject>> GetForEmployment(int id)
+        {
+            try
+            {
+                return Ok(_finalProjectService.GetForEmployment(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet("idFinalProject/{id}", Name = "GetFinalProjectId")]
         public IActionResult Get(int id)
         {
