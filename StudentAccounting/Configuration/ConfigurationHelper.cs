@@ -4,14 +4,9 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using AutoMapper;
-using StudentAccounting.Common.Helpers.Mapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace StudentAccounting.Configuration
 {
@@ -19,12 +14,10 @@ namespace StudentAccounting.Configuration
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+           
             string connection = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
                 opt => opt.MigrationsAssembly("StudentAccounting")));
-            var mappingConfig = new MapperConfiguration(x => x.AddProfile(new MapperProfile()));
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
             services.AddMvc();
             services
                 .AddTransient<ITokenService, TokenService>()
@@ -88,9 +81,8 @@ namespace StudentAccounting.Configuration
                         ReferenceHandler = ReferenceHandler.Preserve,
                     }));
                 });
-    
-
         }
+
         public static void Configure(WebApplication app)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -108,7 +100,7 @@ namespace StudentAccounting.Configuration
             {
                 //app.UseHttpsRedirection();
             }
-
+            //app.UsePathBase("/polessup");
             //app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
@@ -117,5 +109,4 @@ namespace StudentAccounting.Configuration
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
-
 }

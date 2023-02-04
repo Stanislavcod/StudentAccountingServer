@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DatabaseModels;

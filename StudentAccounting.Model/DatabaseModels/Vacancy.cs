@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StudentAccountin.Model.DatabaseModels
+﻿namespace StudentAccountin.Model.DatabaseModels
 {
     public class Vacancy
     {

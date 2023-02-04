@@ -1,7 +1,6 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
@@ -9,7 +8,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class StudentService : IStudentService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly IMapper _mapper;
         public StudentService(ApplicationDatabaseContext context)
         {
             _context = context;

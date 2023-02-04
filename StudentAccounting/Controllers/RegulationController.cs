@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class RegulationController : Controller
     {
        private readonly IRegulationsService _regulationsService;
@@ -14,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _regulationsService = regulationsService;
         }
+        [Authorize]
         [HttpGet("GetRegulation")]
         public ActionResult<IEnumerable<Regulation>> Get()
         {
@@ -26,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idRegulation/{id}", Name = "GetRegulationId")]
         public IActionResult Get(int id)
         {
@@ -38,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameRegulation/{name}", Name = "GetRegulationName")]
         public IActionResult Get(string name)
         {
@@ -50,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateRegulation")]
         public IActionResult Create(Regulation regulation)
         {
@@ -63,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateRegulation")]
         public IActionResult Update(Regulation regulation)
         {
@@ -76,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteRegulation")]
         public IActionResult Delete(int id)
         {

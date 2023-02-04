@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DatabaseModels;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class EducationalPortalsController : Controller
     {
         private readonly IEducationalPortalsService _educationalPortalsService;
@@ -15,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _educationalPortalsService = educationalPortalsService;
         }
+        [Authorize]
         [HttpGet("GetEducationalPortals")]
         public ActionResult<IEnumerable<EducationalPortals>> Get()
         {
@@ -27,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idEducationalPortals/{id}", Name = "GetEducationalPortalsId")]
         public IActionResult Get(int id)
         {
@@ -39,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameEducationalPortals/{name}", Name = "GetEducationalPortals")]
         public IActionResult Get(string name)
         {
@@ -51,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateEducationalPortals")]
         public IActionResult Create(EducationalPortals educationalPortals)
         {
@@ -64,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateEducationalPortals")]
         public IActionResult Update(EducationalPortals educationalPortals)
         {
@@ -77,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteEducationalPortals")]
         public IActionResult Delete(int id)
         {

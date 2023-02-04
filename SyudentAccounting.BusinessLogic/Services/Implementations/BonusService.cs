@@ -99,6 +99,5 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-
     }
 }

@@ -11,8 +11,4 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\StudentAccounting.Model\StudentAccounting.Model.csproj" />
-  </ItemGroup>
-
 </Project>
