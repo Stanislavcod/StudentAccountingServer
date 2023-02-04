@@ -27,7 +27,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [HttpPut("GetFinalProjectForEmploymentId")]
-        public ActionResult<IEnumerable<FinalProject>> GetForEmployment(int id)
+        public ActionResult GetForEmployment(int id)
         {
             try
             {
