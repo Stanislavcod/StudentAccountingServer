@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DatabaseModels;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {

@@ -4,8 +4,6 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.Common.Helpers.Criptography;
 using StudentAccounting.Common.ModelsDto;
-using AutoMapper;
-using AutoMapper.Configuration.Annotations;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {

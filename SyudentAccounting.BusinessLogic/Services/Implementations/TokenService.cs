@@ -1,7 +1,4 @@
-﻿
-
-using AutoMapper;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.ModelsDto;

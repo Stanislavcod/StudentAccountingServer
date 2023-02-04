@@ -1,9 +1,6 @@
-﻿
-using StudentAccounting.Model.DataBaseModels;
-using StudentAccounting.Model;
+﻿using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations

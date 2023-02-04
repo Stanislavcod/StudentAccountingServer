@@ -1,5 +1,4 @@
 ﻿using StudentAccounting.Model.DatabaseModels;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
