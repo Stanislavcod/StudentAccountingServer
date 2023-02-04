@@ -6,7 +6,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
     public interface IUserService
     {
         void Create(User user);
-        IEnumerable<User> Get();
+        IEnumerable<UserDto> Get();
         User Get(string name);
         User Get(int id);
         void EditPassword(EditPasswordUserDto editPasswordUserDto);

@@ -15,7 +15,7 @@ namespace StudentAccounting.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpGet("GetUsers")]
-        public ActionResult<IEnumerable<User>> Get()
+        public ActionResult Get()
         {
             try
             {
