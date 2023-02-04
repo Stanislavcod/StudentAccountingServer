@@ -43,6 +43,7 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IEducationalPortalsService, EducationalPortalsService>()
                 .AddTransient<IRegistrationForCoursesService, RegistrationForCoursesService>()
                 .AddTransient<IScheduleOfСlassesService, ScheduleOfСlassesService>()
+                .AddTransient<IRoleService, RoleService>()
                 .AddEndpointsApiExplorer()
                 .AddSwaggerGen(c =>
                 {

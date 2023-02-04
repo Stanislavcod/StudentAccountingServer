@@ -30,11 +30,18 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception("Ошибка", ex);
             }
         }
-        public IEnumerable<User> Get()
+        public IEnumerable<UserDto> Get()
         {
             try
             {
-                return _context.Users.AsNoTracking().ToList();
+                var userDtos = _context.Users.Include(x => x.Role).AsNoTracking().Select(u => new UserDto
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    RoleId = u.RoleId,
+                    Role = u.Role != null ? new RoleDto { Id = u.Role.Id, Name = u.Role.Name.ToString() } : null
+                }).ToList();
+                return userDtos;
             }
             catch (Exception ex)
             {
