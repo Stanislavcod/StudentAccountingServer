@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DatabaseModels;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class RegistrationForCoursesController : Controller
     {
         private readonly IRegistrationForCoursesService _registrationForCoursesService;
@@ -15,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _registrationForCoursesService = registrationForCoursesService;
         }
+        [Authorize]
         [HttpGet("GetRegistrationForCourses")]
         public ActionResult<IEnumerable<RegistrationForCourses>> Get()
         {
@@ -27,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idRegistrationForCourses/{id}", Name = "GetRegistrationForCoursesId")]
         public IActionResult Get(int id)
         {
@@ -39,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateRegistrationForCourses")]
         public IActionResult Create(RegistrationForCourses registrationForCourses)
         {
@@ -52,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateRegistrationForCourses")]
         public IActionResult Update(RegistrationForCourses registrationForCourses)
         {
@@ -65,6 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteRegistrationForCourses")]
         public IActionResult Delete(int id)
         {

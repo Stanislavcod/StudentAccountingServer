@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class FinalProjectController : Controller
     {
         private readonly IFinalProjectService _finalProjectService;
@@ -14,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _finalProjectService = finalProjectService;
         }
+        [Authorize]
         [HttpGet("GetFinalProject")]
         public ActionResult<IEnumerable<FinalProject>> Get()
         {
@@ -26,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut("GetFinalProjectForEmploymentId")]
         public ActionResult<IEnumerable<FinalProject>> GetForEmployment(int id)
         {
@@ -38,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idFinalProject/{id}", Name = "GetFinalProjectId")]
         public IActionResult Get(int id)
         {
@@ -50,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameFinalProject/{name}", Name = "GetFinalProjectName")]
         public IActionResult Get(string name)
         {
@@ -62,6 +64,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateFinalProject")]
         public IActionResult Create(FinalProject finalProject)
         {
@@ -75,6 +78,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateFinalProject")]
         public IActionResult Update(FinalProject finalProject)
         {
@@ -88,6 +92,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteFinalProject")]
         public IActionResult Delete(int id)
         {

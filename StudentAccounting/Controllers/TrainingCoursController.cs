@@ -6,7 +6,6 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class TrainingCoursController : Controller
     {
         private readonly ITrainingCoursesService _trainingCoursesService;
@@ -14,6 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _trainingCoursesService = trainingCoursesService;
         }
+        [Authorize]
         [HttpGet("GetTrainingCourses")]
         public ActionResult<IEnumerable<TrainingCourses>> Get()
         {
@@ -26,6 +26,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idTrainingCourses/{id}", Name = "GetTrainingCoursesId")]
         public IActionResult Get(int id)
         {
@@ -38,6 +39,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameTrainingCourses/{name}", Name = "GetTrainingCoursesName")]
         public IActionResult Get(string name)
         {
@@ -50,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateTrainingCourses")]
         public IActionResult Create(TrainingCourses trainingCourses)
         {
@@ -63,6 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateTrainingCourses")]
         public IActionResult Update(TrainingCourses trainingCourses)
         {
@@ -76,6 +80,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteTrainingCourses")]
         public IActionResult Delete(int id)
         {

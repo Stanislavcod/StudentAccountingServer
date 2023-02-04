@@ -6,7 +6,6 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -14,6 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> Get()
         {
@@ -26,6 +26,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
@@ -38,6 +39,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
@@ -50,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {
@@ -63,6 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateUser")]
         public IActionResult Update(User user)
         {
@@ -76,6 +80,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdatePasswordUser")]
         public IActionResult UpdatePassword(EditPasswordUserDto editPasswordUserDto)
         {
@@ -89,6 +94,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeletUser")]
         public IActionResult Delete(int id)
         {

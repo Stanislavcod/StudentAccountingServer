@@ -1,10 +1,7 @@
-﻿
-using StudentAccounting.Model.DataBaseModels;
-using StudentAccounting.Model;
+﻿using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {

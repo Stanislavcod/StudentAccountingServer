@@ -9,7 +9,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<Rank> Get();
         Rank Get(string name);
         Rank Get(int id);
-
         void Edit(Rank Rank);
         void Delete(int id);
     }

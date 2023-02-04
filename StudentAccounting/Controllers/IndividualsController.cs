@@ -5,7 +5,6 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class IndividualsController : Controller
     {
         private readonly IIndividualsService _individualsService;
@@ -13,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _individualsService = individualsService;
         }
+        [Authorize]
         [HttpGet("GetIndividuals")]
         public ActionResult<IEnumerable<Individuals>> Get()
         {
@@ -25,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameIndividual/{name}", Name = "GetIndividualName")]
         public IActionResult Get(string name)
         {
@@ -37,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idIndividual/{id}", Name = "GetIndividualId")]
         public IActionResult Get(int id)
         {
@@ -49,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateIndividual")]
         public IActionResult Create(Individuals newIndividuals)
         {
@@ -62,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateIndividual")]
         public IActionResult Update(Individuals newIndividuals)
         {
@@ -75,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeletIndividual")]
         public IActionResult Delete(int id)
         {

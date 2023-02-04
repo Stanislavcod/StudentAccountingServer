@@ -5,14 +5,14 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class OrganizationController : Controller
     {
-       private readonly IOrganizationService _organizationService;
+        private readonly IOrganizationService _organizationService;
         public OrganizationController(IOrganizationService organizationService)
         {
             _organizationService = organizationService;
         }
+        [Authorize]
         [HttpGet("GetOrganization")]
         public ActionResult<IEnumerable<Organization>> Get()
         {
@@ -25,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idOrganization/{id}", Name = "GetOrganizationId")]
         public IActionResult Get(int id)
         {
@@ -37,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameOrganization/{name}", Name = "GetOrganizationName")]
         public IActionResult Get(string name)
         {
@@ -49,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPost("CreateOrganization")]
         public IActionResult Create(Organization organization)
         {
@@ -62,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPut("UpdateOrganization")]
         public IActionResult Update(Organization organization)
         {
@@ -75,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpDelete("DeleteOrganization")]
         public IActionResult Delete(int id)
         {

@@ -5,7 +5,6 @@ using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class ProjectController : Controller
     {
         private readonly IProjectService _projectService;
@@ -13,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _projectService = projectService;
         }
+        [Authorize]
         [HttpGet("GetProject")]
         public ActionResult<IEnumerable<Project>> Get()
         {
@@ -25,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idProject/{id}", Name = "GetProjectId")]
         public IActionResult Get(int id)
         {
@@ -37,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPost("CreateProject")]
         public IActionResult Create(Project project)
         {
@@ -50,6 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPut("UpdateProject")]
         public IActionResult Update(Project project)
         {
@@ -63,6 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpDelete("DeleteProject")]
         public IActionResult Delete(int id)
         {

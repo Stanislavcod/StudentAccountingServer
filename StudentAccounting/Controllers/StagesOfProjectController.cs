@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
-using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class StagesOfProjectController : Controller
     {
         private readonly IStagesOfProjectsService _stagesOfProjectsService;
@@ -14,6 +12,7 @@ namespace StudentAccounting.Controllers
         {
             _stagesOfProjectsService = stagesOfProjectsService;
         }
+        [Authorize]
         [HttpGet("GetStagesOfProject")]
         public ActionResult<IEnumerable<StagesOfProject>> Get()
         {
@@ -26,6 +25,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("idStagesOfProject/{id}", Name = "GetStagesOfProjectId")]
         public IActionResult Get(int id)
         {
@@ -38,6 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("nameStagesOfProject/{name}", Name = "GetStagesOfProjectName")]
         public IActionResult Get(string name)
         {
@@ -50,6 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPost("CreateStagesOfProject")]
         public IActionResult Create(StagesOfProject stagesOfProject)
         {
@@ -63,6 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPut("UpdateStagesOfProject")]
         public IActionResult Update(StagesOfProject stagesOfProject)
         {
@@ -76,6 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpDelete("DeleteStagesOfProject")]
         public IActionResult Delete(int id)
         {

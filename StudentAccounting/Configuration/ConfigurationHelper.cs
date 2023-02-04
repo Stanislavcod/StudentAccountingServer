@@ -4,11 +4,9 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.BusinessLogic.Services.Implementations;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using AutoMapper;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace StudentAccounting.Configuration
 {
@@ -110,6 +108,5 @@ namespace StudentAccounting.Configuration
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-using StudentAccounting.Common.ModelsDto;
+﻿using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
