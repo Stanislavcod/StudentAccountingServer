@@ -61,6 +61,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             var refreshToken = AddRefreshToken(user);
             UserDto userDto = new UserDto()
             {
+                Id=user.Id,
                 Login = user.Login,
                 RoleId = user.RoleId
             };

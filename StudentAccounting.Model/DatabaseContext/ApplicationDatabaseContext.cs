@@ -87,8 +87,8 @@ namespace StudentAccounting.Model
             modelBuilder.Entity<Employment>().HasData(
                 new Employment[]
                 {
-                    new Employment { Id = 1, Status = false, DateStart = DateTime.Parse("01/01/2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 2, PositionId = 1 },
-                    new Employment { Id = 2, Status = false, DateStart = DateTime.Parse("03/01/2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
+                    new Employment { Id = 1, Status = "Устроен", DateStart = DateTime.Parse("01/01/2023"), StatusDescription = "Проджект менеджер", ParticipantsId= 2, PositionId = 1 },
+                    new Employment { Id = 2, Status = "Неа", DateStart = DateTime.Parse("03/01/2023"), StatusDescription = "Фронт" , ParticipantsId = 2, PositionId = 2}
                 });
             modelBuilder.Entity<FinalProject>().HasData(
                 new FinalProject[]

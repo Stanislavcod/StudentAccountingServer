@@ -58,11 +58,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         public bool RegisterAdmin()
         {
            
-            if (!UserExists("admin57061"))
+            if (!UserExists("admin"))
             {
                 User admin = new User();
                 PasswordHasher.CreatePasswordHash("admin", out byte[] passwordHash, out byte[] passwordSalt);
-                admin.Login = "admin57061";
+                admin.Login = "admin";
                 admin.RoleId = 2;
                 admin.PasswordSalt = passwordSalt;
                 admin.PasswordHash = passwordHash;
