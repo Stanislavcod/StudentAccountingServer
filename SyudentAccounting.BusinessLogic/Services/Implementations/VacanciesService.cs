@@ -98,7 +98,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                var position = _context.Positions.Include(x => _context.Employments.Where(a => a.Status == true && a.ParticipantsId == participantsId)).ToList();
+                var position = _context.Positions.Include(x => _context.Employments.Where(a => a.Status == "Трудоустроен" && a.ParticipantsId == participantsId)).ToList();
                 var vacancy = _context.Vacancies.Where(x => position.Any(a => a.FullName == x.Name));
                 return vacancy;
             }
