@@ -14,7 +14,6 @@ namespace StudentAccounting.Configuration
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-           
             string connection = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
                 opt => opt.MigrationsAssembly("StudentAccounting")));
@@ -44,6 +43,7 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IRegistrationForCoursesService, RegistrationForCoursesService>()
                 .AddTransient<IScheduleOfСlassesService, ScheduleOfСlassesService>()
                 .AddTransient<IRoleService, RoleService>()
+                .AddTransient<IEmailService, EmailService>()
                 .AddEndpointsApiExplorer()
                 .AddSwaggerGen(c =>
                 {

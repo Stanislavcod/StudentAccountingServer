@@ -7,15 +7,15 @@ namespace StudentAccounting.Controllers
     [Authorize]
     public class RoleController : Controller
     {
-        private readonly IRoleService service;
+        private readonly IRoleService _roleService;
         public RoleController(IRoleService service)
         {
-            this.service = service;
+            _roleService = service;
         }
         [HttpGet("GetRoles")]
         public ActionResult Get()
         {
-            return Ok(service.Get());
+            return Ok(_roleService.Get());
         }
     }
 }

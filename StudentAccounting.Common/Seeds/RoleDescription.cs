@@ -11,7 +11,7 @@ namespace StudentAccounting.Common.Seeds
                 RoleType.User => "Application user",
                 RoleType.Admin => "User with additional rights",
                 RoleType.GlobalPm => "Pm which has limited access to the table",
-                RoleType.LocalPm => "Has limited access to one table"
+                RoleType.LocalPm => "Local Pm has limited access to one table"
             };
             return description;
         }
