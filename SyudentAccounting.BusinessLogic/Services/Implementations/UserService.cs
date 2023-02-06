@@ -101,8 +101,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 user.PasswordHash = passwordHash;
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                //string email = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
-                string email = "stas.dryk@gmail.com";
+                string email = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
                 string subject = "New password PolessUp";
                 string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
                 _emailService.SendEmailMessage(email,subject, message);
@@ -116,21 +115,21 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception("Ошибка", ex);
             }
         }
-        public void ForgotPassword()
+        public void ForgotPassword(string login)
         {
             try
             {
-                User user = _context.Users.FirstOrDefault(x => x.Id == editPasswordUserDto.Id);
-                PasswordHasher.CreatePasswordHash(editPasswordUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                string email = _context.Participants.Include(x => x.Individuals).Include(x => x.User).FirstOrDefault(x => x.User.Login == login).Individuals.Mail;
+                string subject = "New password PolessUp";
+                string password = RandomPassword.RandomUserPassword();
+                string message = $"Здравствуйте! Ваш новый пароль {password}";
+                _emailService.SendEmailMessage(email, subject, message);
+                User user = _context.Users.FirstOrDefault(x => x.Login == login);
+                PasswordHasher.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordSalt = passwordSalt;
                 user.PasswordHash = passwordHash;
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                //string email = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
-                string email = "stas.dryk@gmail.com";
-                string subject = "New password PolessUp";
-                string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
-                _emailService.SendEmailMessage(email, subject, message);
             }
             catch (DbUpdateConcurrencyException ex)
             {

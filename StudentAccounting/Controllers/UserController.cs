@@ -52,6 +52,19 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut("ForgotPassword")]
+        public IActionResult ForgotPassword(string login)
+        {
+            try
+            {
+                _userService.ForgotPassword(login);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [Authorize(Roles = "Admin")]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
