@@ -101,7 +101,7 @@ namespace StudentAccounting.Configuration
             {
                 //app.UseHttpsRedirection();
             }
-            //app.UsePathBase("/polessup");
+            app.UsePathBase("/polessup");
             //app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();

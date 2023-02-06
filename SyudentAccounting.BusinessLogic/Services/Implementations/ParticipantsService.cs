@@ -2,6 +2,8 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccountin.Model.DatabaseModels;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
