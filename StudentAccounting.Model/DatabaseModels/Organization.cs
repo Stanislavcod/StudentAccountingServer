@@ -10,6 +10,8 @@ namespace StudentAccounting.Model.DataBaseModels
         public string Address { get; set; } = string.Empty;
         public string Contacts { get; set; } = string.Empty;
         public string? WebSite { get; set; } = string.Empty;
+        public double? BSR { get; set; }
+        public double? BSO { get; set; }
         public DateTime? FoundationDate { get; set; }
         public List<Department>? Departments { get; set; } = new();
         public List<Regulation>? Regulations { get; set; } = new();

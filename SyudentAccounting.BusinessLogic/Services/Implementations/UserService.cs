@@ -36,14 +36,14 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                var userDtos = _context.Users.Include(x => x.Role).AsNoTracking().Select(u => new UserDto
+                var userDto = _context.Users.Include(x => x.Role).AsNoTracking().Select(u => new UserDto
                 {
                     Id = u.Id,
                     Login = u.Login,
                     RoleId = u.RoleId,
                     Role = u.Role != null ? new RoleDto { Id = u.Role.Id, Name = u.Role.Name.ToString() } : null
                 }).ToList();
-                return userDtos;
+                return userDto;
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Users.AsNoTracking().FirstOrDefault(x => x.Login == name);
+                return _context.Users.Include(x=> x.Role).AsNoTracking().FirstOrDefault(x => x.Login == name);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Users.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Users.Include(x=> x.Role).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -102,9 +102,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 _context.Users.Update(user);
                 _context.SaveChanges();
                 string email = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
-                string subject = "New password PolessUp";
-                string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
-                _emailService.SendEmailMessage(email,subject, message);
+                if(email != null)
+                {
+                    string subject = "New password PolessUp";
+                    string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
+                    _emailService.SendEmailMessage(email, subject, message);
+                }
             }
             catch (DbUpdateConcurrencyException ex)
             {

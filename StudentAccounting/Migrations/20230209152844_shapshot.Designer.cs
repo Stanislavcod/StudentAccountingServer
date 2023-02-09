@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAccounting.Model;
 
@@ -11,9 +12,11 @@ using StudentAccounting.Model;
 namespace StudentAccounting.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230209152844_shapshot")]
+    partial class shapshot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,20 +36,15 @@ namespace StudentAccounting.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsAccepted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ParticipantsId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StatusDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("VacancyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WorkStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -236,6 +234,9 @@ namespace StudentAccounting.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("Budjet")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
 
@@ -249,12 +250,6 @@ namespace StudentAccounting.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("PaymentRatio")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("RatingCoefficient")
-                        .HasColumnType("float");
 
                     b.Property<string>("Responsibilities")
                         .IsRequired()
@@ -418,12 +413,6 @@ namespace StudentAccounting.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("BSO")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("BSR")
-                        .HasColumnType("float");
 
                     b.Property<string>("Contacts")
                         .IsRequired()
