@@ -5,7 +5,6 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 
 namespace StudentAccounting.Controllers
 {
-    [Authorize]
     public class ApplicationInTheProjectController : Controller
     {
         private readonly IApplicationInTheProjectService _applicationInTheProjectService;

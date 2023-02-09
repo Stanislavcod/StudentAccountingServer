@@ -13,7 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _authService = authService;
         }
-        [HttpPost("RegisterAdmin")]
+        [HttpGet("RegisterAdmin")]
         public IActionResult RegisterAdmin()
         {
             return Ok(_authService.RegisterAdmin());

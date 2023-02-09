@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using StudentAccounting.Configuration;
-
+using StudentAccounting.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSystemd();
