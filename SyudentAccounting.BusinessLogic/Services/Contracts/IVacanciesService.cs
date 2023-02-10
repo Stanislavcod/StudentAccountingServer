@@ -9,6 +9,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<Vacancy> Get();
         Vacancy Get(string name);
         Vacancy Get(int id);
+        IEnumerable<Vacancy> GetForStagesId(int stagesId);
         void Edit(Vacancy vacancy);
         void Delete(int id);
         IEnumerable<Vacancy> GetVacanciesPos(int participantsId);

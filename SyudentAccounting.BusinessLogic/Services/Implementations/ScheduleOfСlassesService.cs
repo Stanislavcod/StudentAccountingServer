@@ -48,6 +48,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public IEnumerable<ScheduleOfСlasses> GetForCoursesId(int coursesId)
+        {
+            try
+            {
+                return _context.ScheduleOfСlasses.Include(x => x.TrainingCourses).Where(x=> x.TrainingCoursesId == coursesId).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void Edit(ScheduleOfСlasses scheduleOfСlasses)
         {
             try

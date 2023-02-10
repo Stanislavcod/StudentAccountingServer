@@ -7,5 +7,6 @@ namespace StudentAccounting.Common.Constants
         Admin = 2,
         GlobalPm = 3,
         LocalPm = 4,
+
     }
 }

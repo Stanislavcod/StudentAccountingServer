@@ -17,6 +17,24 @@ namespace StudentAccounting.Model
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+            .Entity<Rank>()//Courses == Rank , Students == Bonus
+            .HasMany(c => c.Bonuses)
+            .WithMany(s => s.Ranks)
+            .UsingEntity<RankBonus>(
+               j => j
+                .HasOne(pt => pt.Bonus)
+                .WithMany(t => t.RankBonus)
+                .HasForeignKey(pt => pt.BonusId),
+            j => j
+                .HasOne(pt => pt.Rank)
+                .WithMany(p => p.RankBonus)
+                .HasForeignKey(pt => pt.RankId),
+            j =>
+            {
+                j.HasKey(t => new { t.RankId, t.BonusId });
+                j.ToTable("RankBonus");
+            });
             //modelBuilder.Entity<User>()
             //.HasOne(u => u.Role)
             //  .WithMany(r => r.Users)
@@ -190,5 +208,6 @@ namespace StudentAccounting.Model
         public DbSet<ScheduleOfСlasses> ScheduleOfСlasses { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<RankBonus> RankBonus { get; set; }
     }
 }

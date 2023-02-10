@@ -61,6 +61,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public IEnumerable<Vacancy> GetForStagesId(int stagesId)
+        {
+            try
+            {
+                return _context.Vacancies.Include(x => x.StagesOfProject).Where(x=> x.StagesOfProjectId == stagesId).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void Edit(Vacancy vacancy)
         {
             try

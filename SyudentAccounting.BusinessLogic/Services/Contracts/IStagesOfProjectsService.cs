@@ -9,6 +9,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         public IEnumerable<StagesOfProject> Get();
         public StagesOfProject Get(string name);
         public StagesOfProject Get(int id);
+        public IEnumerable<StagesOfProject> GetForProjectId (int projectId);
         public void Edit(StagesOfProject stages);
         void Delete(int id);
     }

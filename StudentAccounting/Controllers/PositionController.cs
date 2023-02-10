@@ -26,6 +26,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpPost("GetPositionForDepartmentId")]
+        public ActionResult<IEnumerable<Position>> GetForDepartmentId(int departmentId)
+        {
+            try
+            {
+                return Ok(_positionService.GetForDepartmentId(departmentId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("idPosition/{id}", Name = "GetPositionId")]
         public IActionResult Get(int id)
         {

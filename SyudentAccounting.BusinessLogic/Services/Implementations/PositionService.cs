@@ -57,6 +57,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public IEnumerable<Position> GetForDepartment(int departmentId)
+        {
+            try
+            {
+                return _context.Positions.Include(x => x.Department).Where(x=> x.DepartmentId == departmentId).AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void Edit(Position position)
         {
             try

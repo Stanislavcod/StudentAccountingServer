@@ -27,6 +27,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpPost("GetAppInTheProjectForVacancyId")]
+        public ActionResult<IEnumerable<ApplicationsInTheProject>> GetForVacancyId(int vacancyId)
+        {
+            try
+            {
+                return Ok(_applicationInTheProjectService.GetForVacancyId(vacancyId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("idAppInTheProject/{id}")]
         public IActionResult Get(int id)
         {

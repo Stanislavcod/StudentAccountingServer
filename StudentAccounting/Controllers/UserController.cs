@@ -27,7 +27,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize(Roles = "Admin")]
-        [HttpGet("loginUser/{login}", Name = "GetUserLogin")]
+        [HttpPut("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
             try
@@ -40,7 +40,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize(Roles = "Admin")]
-        [HttpGet("idUser/{id}", Name = "GetUserId")]
+        [HttpPut("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
             try

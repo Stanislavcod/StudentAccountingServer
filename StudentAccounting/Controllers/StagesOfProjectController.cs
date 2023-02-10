@@ -26,6 +26,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpPost("StagesOfProjectForProjectId")]
+        public ActionResult<IEnumerable<StagesOfProject>> GetForProjectId(int projectId)
+        {
+            try
+            {
+                return Ok(_stagesOfProjectsService.GetForProjectId(projectId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("idStagesOfProject/{id}", Name = "GetStagesOfProjectId")]
         public IActionResult Get(int id)
         {

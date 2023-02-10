@@ -8,6 +8,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<Position> Get();
         Position Get(string name);
         Position Get(int id);
+        IEnumerable<Position> GetForDepartmentId(int departmentId);
         void Edit(Position position);
         void Delete(int id);
     }

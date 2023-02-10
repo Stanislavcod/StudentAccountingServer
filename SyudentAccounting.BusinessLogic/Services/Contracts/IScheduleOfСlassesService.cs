@@ -8,6 +8,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<ScheduleOfСlasses> Get();
         ScheduleOfСlasses Get(int id);
         void Edit(ScheduleOfСlasses scheduleOfСlasses);
+        IEnumerable<ScheduleOfСlasses> GetForCoursesId(int coursesId);
         void Delete(int id);
     }
 }

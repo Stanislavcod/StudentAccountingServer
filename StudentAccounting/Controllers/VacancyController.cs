@@ -26,6 +26,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpGet("GetVacancyForStagesId")]
+        public ActionResult<IEnumerable<Vacancy>> GetForStagesId(int stagesId)
+        {
+            try
+            {
+                return Ok(_vacanciesService.GetForStagesId(stagesId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("GetVacancyPosition")]
         public ActionResult<IEnumerable<Vacancy>> GetVacanciesPos(int participantsId)
         {
