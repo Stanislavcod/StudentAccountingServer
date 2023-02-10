@@ -4,10 +4,10 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
     public interface IProjectService
     {
-        public void Create(Project project);
+        void Create(Project project);
         IEnumerable<Project> Get();
-        public Project Get(int id);
-        public void Edit(Project project);
-        public void Delete(int id);
+        Project Get(int id);
+        void Edit(Project project);
+        void Delete(int id);
     }
 }

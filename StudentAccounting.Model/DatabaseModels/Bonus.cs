@@ -9,6 +9,6 @@ namespace StudentAccounting.Model.DataBaseModels
         public string BonusName { get; set; } = string.Empty;
         public string BonusDescription { get; set; } = string.Empty;
         public List<Rank>? Ranks { get; set; } = new();
-        public List<RankBonus> RankBonus { get; set; } = new();
+        public List<RankBonus>? RankBonus { get; set; } = new();
     }
 }

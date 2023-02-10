@@ -5,12 +5,12 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
     public interface IStagesOfProjectsService
     {
-        public void Create(StagesOfProject stagesOfProject);
-        public IEnumerable<StagesOfProject> Get();
-        public StagesOfProject Get(string name);
-        public StagesOfProject Get(int id);
-        public IEnumerable<StagesOfProject> GetForProjectId (int projectId);
-        public void Edit(StagesOfProject stages);
+        void Create(StagesOfProject stagesOfProject);
+        IEnumerable<StagesOfProject> Get();
+        StagesOfProject Get(string name);
+        StagesOfProject Get(int id);
+        IEnumerable<StagesOfProject> GetForProjectId (int projectId);
+        void Edit(StagesOfProject stages);
         void Delete(int id);
     }
 }

@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPost("StagesOfProjectForProjectId")]
+        [HttpPost("GetStagesOfProjectForProjectId")]
         public ActionResult<IEnumerable<StagesOfProject>> GetForProjectId(int projectId)
         {
             try

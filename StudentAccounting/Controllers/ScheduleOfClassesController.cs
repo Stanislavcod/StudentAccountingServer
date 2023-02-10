@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPost("ScheduleOfClassesForCoursesId")]
+        [HttpPost("GetScheduleOfClassesForCoursesId")]
         public ActionResult<IEnumerable<ScheduleOfСlasses>> GetForCoursesId(int coursesId)
         {
             try

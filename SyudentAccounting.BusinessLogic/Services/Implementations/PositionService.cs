@@ -57,7 +57,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IEnumerable<Position> GetForDepartment(int departmentId)
+        public IEnumerable<Position> GetForDepartmentId(int departmentId)
         {
             try
             {

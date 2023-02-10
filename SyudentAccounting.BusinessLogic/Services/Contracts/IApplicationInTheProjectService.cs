@@ -7,6 +7,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Create(ApplicationsInTheProject applicationsInTheProject);
         IEnumerable<ApplicationsInTheProject> Get();
         ApplicationsInTheProject Get(int id);
+        IEnumerable<ApplicationsInTheProject> GetForVacancyId(int vacancyId);
         void Edit(ApplicationsInTheProject applicationsInTheProject);
         void Delete(int id);
     }
