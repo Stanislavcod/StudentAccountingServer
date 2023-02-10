@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAccounting.Model;
 
@@ -11,9 +12,11 @@ using StudentAccounting.Model;
 namespace StudentAccounting.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230210231523_EditDataBaseAndAddNewTable")]
+    partial class EditDataBaseAndAddNewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -763,44 +766,6 @@ namespace StudentAccounting.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = 1,
-                            NormalName = "Application user"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = 2,
-                            NormalName = "User with additional rights"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = 3,
-                            NormalName = "Pm which has limited access to the table"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = 4,
-                            NormalName = "Local Pm has limited access to one table"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = 5,
-                            NormalName = "Has access to editing the tables of his department"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = 6,
-                            NormalName = "Has access to editing the tables of his department and registration users"
-                        });
                 });
 
             modelBuilder.Entity("StudentAccounting.Model.DatabaseModels.ScheduleOfСlasses", b =>
