@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpGet("GetVacancyForStagesId")]
+        [HttpPut("GetVacancyForStagesId")]
         public ActionResult<IEnumerable<Vacancy>> GetForStagesId(int stagesId)
         {
             try

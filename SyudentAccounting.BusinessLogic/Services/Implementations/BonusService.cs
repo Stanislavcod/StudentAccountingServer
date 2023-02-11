@@ -2,6 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -29,7 +30,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).AsNoTracking().ToList();
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
@@ -41,7 +42,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
             }
             catch (Exception ex)
             {
@@ -53,7 +54,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -88,16 +89,19 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
         }
 
-        public IEnumerable<Bonus> GetForRank(int id)
+        public IEnumerable<Bonus> GetForRank(int rankId)
         {
-            try
+            var rank = _context.Ranks
+                .Include(r => r.RankBonus)
+                .ThenInclude(rb => rb.Bonus)
+                .SingleOrDefault(r => r.Id == rankId);
+
+            if (rank == null)
             {
-                return _context.Bonuses.AsNoTracking().Include(x => x.RankBonus.Where(x => x.RankId == id)).ToList();
+                throw new Exception("Rank not found");
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            return rank.RankBonus.Select(rb => rb.Bonus).ToList();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPost("GetAppInTheProjectForVacancyId")]
+        [HttpPut("GetAppInTheProjectForVacancyId")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> GetForVacancyId(int vacancyId)
         {
             try

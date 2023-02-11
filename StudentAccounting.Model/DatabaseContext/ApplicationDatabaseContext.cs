@@ -18,7 +18,7 @@ namespace StudentAccounting.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-            .Entity<Rank>()//Courses == Rank , Students == Bonus
+            .Entity<Rank>()
             .HasMany(c => c.Bonuses)
             .WithMany(s => s.Ranks)
             .UsingEntity<RankBonus>(
@@ -51,6 +51,56 @@ namespace StudentAccounting.Model
             //        new User { Id=4,RoleId =4, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
             //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515")}
             //    });
+            modelBuilder.Entity<Rank>().HasData(
+        new Rank
+        {
+            Id = 1,
+            RankName = "Rank 1",
+            Description = "Description for Rank 1",
+            MaxMmr = 1000,
+            MinMmr = 0,
+            OrganizationId = 1
+        },
+        new Rank
+        {
+            Id = 2,
+            RankName = "Rank 2",
+            Description = "Description for Rank 2",
+            MaxMmr = 2000,
+            MinMmr = 1001,
+            OrganizationId = 1
+        }
+    );
+
+            modelBuilder.Entity<Bonus>().HasData(
+                new Bonus
+                {
+                    Id = 1,
+                    BonusName = "Bonus 1",
+                    BonusDescription = "Description for Bonus 1"
+                },
+                new Bonus
+                {
+                    Id = 2,
+                    BonusName = "Bonus 2",
+                    BonusDescription = "Description for Bonus 2"
+                }
+            );
+
+            modelBuilder.Entity<RankBonus>().HasData(
+                new RankBonus
+                {
+                    Id= 1,
+                    RankId = 2,
+                    BonusId = 1
+                },
+                new RankBonus
+                {
+                    Id = 2,
+                    RankId = 2,
+                    BonusId = 2
+                }
+            );
             modelBuilder.Entity<Role>().HasData(
                 new Role[]
                 {

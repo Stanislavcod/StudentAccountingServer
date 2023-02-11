@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPost("GetPositionForDepartmentId")]
+        [HttpPut("GetPositionForDepartmentId")]
         public ActionResult<IEnumerable<Position>> GetForDepartmentId(int departmentId)
         {
             try

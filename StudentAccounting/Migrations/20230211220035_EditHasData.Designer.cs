@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAccounting.Model;
 
@@ -11,9 +12,11 @@ using StudentAccounting.Model;
 namespace StudentAccounting.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230211220035_EditHasData")]
+    partial class EditHasData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,7 +254,7 @@ namespace StudentAccounting.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Budget")
+                    b.Property<double?>("Bydget")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("DateEnd")
@@ -725,9 +728,6 @@ namespace StudentAccounting.Migrations
                     b.Property<int>("BonusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.HasKey("RankId", "BonusId");
 
                     b.HasIndex("BonusId");
@@ -738,14 +738,12 @@ namespace StudentAccounting.Migrations
                         new
                         {
                             RankId = 2,
-                            BonusId = 1,
-                            Id = 1
+                            BonusId = 1
                         },
                         new
                         {
                             RankId = 2,
-                            BonusId = 2,
-                            Id = 2
+                            BonusId = 2
                         });
                 });
 

@@ -44,6 +44,7 @@ namespace StudentAccounting.Configuration
                 .AddTransient<IScheduleOfСlassesService, ScheduleOfСlassesService>()
                 .AddTransient<IRoleService, RoleService>()
                 .AddTransient<IEmailService, EmailService>()
+                .AddTransient<IRankBonusService, RankBonusService>()
                 .AddEndpointsApiExplorer()
                 .AddSwaggerGen(c =>
                 {
