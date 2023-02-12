@@ -37,6 +37,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public Participants GetByIndividualName(string name)
+        {
+            try
+            {
+                return _context.Participants.AsNoTracking().Include(x => x.Individuals).FirstOrDefault(x => x.Individuals.FIO == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public Participants Get(int id)
         {
             try

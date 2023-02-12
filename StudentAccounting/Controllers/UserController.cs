@@ -93,7 +93,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdatePasswordUser")]
         public IActionResult UpdatePassword(EditPasswordUserDto editPasswordUserDto)
         {
