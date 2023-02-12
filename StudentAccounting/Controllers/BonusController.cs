@@ -94,7 +94,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPost("BonusForRankId")]
+        [HttpPut("GetBonusForRankId")]
         public IActionResult GetForRank(int id)
         {
             try
