@@ -56,7 +56,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles ="Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm,LocalPm")]
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -70,7 +70,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPut("UpdateAppInTheProject")]
         public IActionResult Update(ApplicationsInTheProject applicationsInTheProject)
         {
@@ -84,7 +84,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteAppInTheProject")]
         public IActionResult Delete(int id)
         {

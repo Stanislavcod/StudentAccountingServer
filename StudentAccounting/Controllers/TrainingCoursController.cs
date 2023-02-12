@@ -51,7 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("CreateTrainingCourses")]
         public IActionResult Create(TrainingCourses trainingCourses)
         {
@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("UpdateTrainingCourses")]
         public IActionResult Update(TrainingCourses trainingCourses)
         {

@@ -38,7 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("CreateParticipant")]
         public IActionResult Create(Participants participants)
         {
@@ -52,7 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("UpdateParticipant")]
         public IActionResult Update(Participants participants)
         {

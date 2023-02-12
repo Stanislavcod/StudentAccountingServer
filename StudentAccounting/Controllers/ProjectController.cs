@@ -38,7 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPost("CreateProject")]
         public IActionResult Create(Project project)
         {
@@ -52,7 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPut("UpdateProject")]
         public IActionResult Update(Project project)
         {
@@ -66,7 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteProject")]
         public IActionResult Delete(int id)
         {

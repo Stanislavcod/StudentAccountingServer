@@ -10,25 +10,27 @@ namespace StudentAccounting.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Budjet",
-                table: "Vacancies");
+            //???
+            //migrationBuilder.DropColumn(
+            //    name: "Budjet",
+            //    table: "Vacancies");
 
-            migrationBuilder.DropColumn(
-                name: "WorkStatus",
-                table: "ApplicationsInTheProjects");
+            //???
+            //migrationBuilder.DropColumn(
+            //    name: "WorkStatus",
+            //    table: "ApplicationsInTheProjects");
 
             migrationBuilder.AddColumn<double>(
                 name: "PaymentRatio",
                 table: "Vacancies",
                 type: "float",
                 nullable: true);
-
-            migrationBuilder.AddColumn<double>(
-                name: "RatingCoefficient",
-                table: "Vacancies",
-                type: "float",
-                nullable: true);
+            //???
+            //migrationBuilder.AddColumn<double>(
+            //    name: "RatingCoefficient",
+            //    table: "Vacancies",
+            //    type: "float",
+            //    nullable: true);
 
             migrationBuilder.AddColumn<double>(
                 name: "BSO",

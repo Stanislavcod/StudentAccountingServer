@@ -38,7 +38,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm")]
         [HttpPost("CreateEmployment")]
         public IActionResult Create(Employment employment)
         {
@@ -52,7 +52,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm")]
         [HttpPut("UpdateEmployment")]
         public IActionResult Update(Employment employment)
         {
@@ -66,7 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm")]
         [HttpDelete("DeleteEmployment")]
         public IActionResult Delete(int id)
         {

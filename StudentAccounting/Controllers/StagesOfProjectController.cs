@@ -92,7 +92,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteStagesOfProject")]
         public IActionResult Delete(int id)
         {

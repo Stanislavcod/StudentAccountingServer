@@ -51,7 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPost("CreateCustomer")]
         public IActionResult Create(Customer customer)
         {
@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,GlobalPm")]
         [HttpPut("UpdateCustomer")]
         public IActionResult Update(Customer customer)
         {

@@ -13,7 +13,7 @@ namespace StudentAccounting.Controllers
         {
             _userService = userService;
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpGet("GetUsers")]
         public ActionResult Get()
         {
@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("loginUser/{login}", Name = "GetUserLogin")]
         public IActionResult Get(string login)
         {
@@ -39,7 +39,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("idUser/{id}", Name = "GetUserId")]
         public IActionResult Get(int id)
         {
@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {
@@ -79,7 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("UpdateUser")]
         public IActionResult Update(User user)
         {
@@ -93,7 +93,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("UpdatePasswordUser")]
         public IActionResult UpdatePassword(EditPasswordUserDto editPasswordUserDto)
         {

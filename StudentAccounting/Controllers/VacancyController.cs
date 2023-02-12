@@ -77,7 +77,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPost("CreateVacancy")]
         public IActionResult Create(Vacancy vacancy)
         {
@@ -91,7 +91,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPut("UpdateVacancy")]
         public IActionResult Update(Vacancy vacancy)
         {
@@ -105,7 +105,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteVacancy")]
         public IActionResult Delete(int id)
         {
