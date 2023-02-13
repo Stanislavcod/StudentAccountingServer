@@ -32,7 +32,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().ToList();
+                return _context.Vacancies.Include(x => x.StagesOfProject.Project).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Name == name);
+                return _context.Vacancies.Include(x => x.StagesOfProject.Project).AsNoTracking().FirstOrDefault(x => x.Name == name);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Vacancies.Include(x => x.StagesOfProject).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Vacancies.Include(x => x.StagesOfProject.Project).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Vacancies.Include(x => x.StagesOfProject).Where(x=> x.StagesOfProjectId == stagesId).AsNoTracking().ToList();
+                return _context.Vacancies.Include(x => x.StagesOfProject.Project).Where(x=> x.StagesOfProjectId == stagesId).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {

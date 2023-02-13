@@ -26,7 +26,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
-        [HttpPut("FIOParticipant/{FIO}", Name = "GetParticipantByIndividualFIO")]
+        [HttpPut("GetByIndividualsFIO")]
         public IActionResult GetByIndividualsFIO(string name)
         {
             try

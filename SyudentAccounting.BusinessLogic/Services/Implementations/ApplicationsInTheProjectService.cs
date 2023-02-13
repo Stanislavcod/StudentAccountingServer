@@ -29,7 +29,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).Include(x => x.Participants.Individuals).AsNoTracking().ToList();
+                return _context.ApplicationsInTheProjects.Include(x => x.Vacancy.StagesOfProject.Project).Include(x => x.Participants).Include(x => x.Participants.Individuals).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Where(x => x.VacancyId == vacancyId).Include(x => x.Participants)
+                return _context.ApplicationsInTheProjects.Include(x => x.Vacancy.StagesOfProject.Project).Where(x => x.VacancyId == vacancyId).Include(x => x.Participants)
                     .Include(x => x.Participants.Individuals).AsNoTracking().ToList();
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception();
             }
-            var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy.StagesOfProject.Project).Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (application == null)
             {
                 throw new Exception();
