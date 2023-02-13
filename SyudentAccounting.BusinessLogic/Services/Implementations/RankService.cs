@@ -28,7 +28,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Ranks.Include(x => x.Organizations).AsNoTracking().ToList();
+                return _context.Ranks.Include(x => x.Organizations).Include(x=> x.RankBonus).ThenInclude(x=> x.Bonus).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Ranks.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Ranks.Include(x => x.Organizations).Include(x => x.RankBonus).ThenInclude(x => x.Bonus).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Ranks.Include(x => x.Organizations).AsNoTracking().FirstOrDefault(x => x.RankName == name);
+                return _context.Ranks.Include(x => x.Organizations).Include(x => x.RankBonus).ThenInclude(x => x.Bonus).AsNoTracking().FirstOrDefault(x => x.RankName == name);
             }
             catch (Exception ex)
             {

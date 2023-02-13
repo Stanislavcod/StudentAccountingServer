@@ -30,7 +30,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).ThenInclude(rb => rb.Bonuses).AsNoTracking().ToList();
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().ToList();
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).ThenInclude(rb=> rb.Bonuses).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).ThenInclude(rb=> rb.Bonuses).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
