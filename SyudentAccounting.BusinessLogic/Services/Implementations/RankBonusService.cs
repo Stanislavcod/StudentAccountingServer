@@ -60,11 +60,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public void Delete(int id)
+        public void Delete(int rankId, int bonusId)
         {
             try
             {
-                var rankBonus = _context.RankBonus.FirstOrDefault(x => x.Id == id);
+                var rankBonus = _context.RankBonus.FirstOrDefault(x => x.RankId == rankId && x.BonusId == bonusId);
                 _context.RankBonus.Remove(rankBonus);
                 _context.SaveChanges();
             }

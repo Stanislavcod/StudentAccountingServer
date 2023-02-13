@@ -70,11 +70,11 @@ namespace StudentAccounting.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteRankBonus")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int rankId, int bonusId)
         {
             try
             {
-                _rankBonusService.Delete(id);
+                _rankBonusService.Delete(rankId,bonusId);
                 return Ok();
             }
             catch (Exception ex)
