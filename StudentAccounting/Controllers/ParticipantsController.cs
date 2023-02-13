@@ -26,6 +26,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpGet("FIOParticipant/{FIO}", Name = "GetParticipantByIndividualFIO")]
+        public IActionResult GetByIndividualsFIO(string name)
+        {
+            try
+            {
+                return Ok(_participantsService.GetByIndividualName(name));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("idParticipant/{id}", Name = "GetPartisipantsId")]
         public IActionResult Get(int id)
         {
