@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {

@@ -23,7 +23,7 @@ namespace StudentAccounting.Controllers
         {
             return Ok(_authService.Login(loginDto));
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("Register")]
         public IActionResult Register(RegisterDto registerModel)
         {
