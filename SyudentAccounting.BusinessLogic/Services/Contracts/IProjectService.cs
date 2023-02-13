@@ -9,5 +9,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Project Get(int id);
         void Edit(Project project);
         void Delete(int id);
+        List<Project> GetForParticipantsId(int participantsId);
     }
 }

@@ -26,6 +26,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpGet("GetProjectForParticipantId")]
+        public ActionResult<List<Project>> GetForParticipantId(int participantsId)
+        {
+            try
+            {
+                return Ok(_projectService.GetForParticipantsId(participantsId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("idProject/{id}", Name = "GetProjectId")]
         public IActionResult Get(int id)
         {

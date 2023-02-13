@@ -9,7 +9,11 @@ namespace StudentAccounting.Controllers
     public class RankBonusController : Controller
     {
         private readonly IRankBonusService _rankBonusService;
-        
+        public RankBonusController(IRankBonusService rankBonusService)
+        {
+            _rankBonusService = rankBonusService;
+        }
+
         [Authorize]
         [HttpGet("GetRankBonus")]
         public ActionResult<IEnumerable<RankBonus>> Get()
@@ -36,7 +40,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateRankBonus")]
         public IActionResult Create(RankBonus rankBonus)
         {
@@ -50,7 +54,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateRankBonus")]
         public IActionResult Update(RankBonus rankBonus)
         {
@@ -64,7 +68,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteRankBonus")]
         public IActionResult Delete(int id)
         {

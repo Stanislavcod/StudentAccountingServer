@@ -46,6 +46,61 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public List<Project> GetForParticipantsId(int participantId)
+        {
+            try
+            {
+                List<Project> result = new List<Project>();
+                var projects = _context.Projects.ToList();
+                foreach (var project in projects)
+                {
+                    if (project.StagesOfProjects != null)
+                    {
+                        foreach (var stage in project.StagesOfProjects)
+                        {
+                            if (stage.Vacancy != null)
+                            {
+                                foreach (var vacancy in stage.Vacancy)
+                                {
+                                    if (vacancy.ApplicationsInTheProjects != null)
+                                    {
+                                        foreach (var application in vacancy.ApplicationsInTheProjects)
+                                        {
+                                            if (application.Participants != null && application.Participants.Id == participantId)
+                                            {
+                                                result.Add(project);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        //public List<Project> GetForParticipantsId(int participantId)
+        //{
+        //    try
+        //    {
+        //        var projects = _context.ApplicationsInTheProjects
+        //                    .Where(a => a.ParticipantsId == participantId)
+        //                    .Select(a => a.Vacancy.StagesOfProject.Project)
+        //                    .Distinct()
+        //                    .ToList();
+        //        return projects;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
         public void Edit(Project project)
         {
             try
