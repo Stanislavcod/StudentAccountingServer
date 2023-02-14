@@ -12,33 +12,43 @@ namespace StudentAccounting.Model
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options) : base(options)
         {
             //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
             Database.Migrate();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-            .Entity<Rank>()
-            .HasMany(c => c.Bonuses)
-            .WithMany(s => s.Ranks)
-            .UsingEntity<RankBonus>(
-               j => j
-                .HasOne(pt => pt.Bonus)
-                .WithMany(t => t.RankBonus)
-                .HasForeignKey(pt => pt.BonusId),
-            j => j
-                .HasOne(pt => pt.Rank)
-                .WithMany(p => p.RankBonus)
-                .HasForeignKey(pt => pt.RankId),
-            j =>
-            {
-                j.HasKey(t => new { t.RankId, t.BonusId });
-                j.ToTable("RankBonus");
-            });
             //modelBuilder.Entity<User>()
             //.HasOne(u => u.Role)
             //  .WithMany(r => r.Users)
             //    .HasForeignKey(u => u.RoleId);
+            //modelBuilder.Entity<Role>().HasData(
+            //    new Role[]
+            //    {
+            //        new Role { Id = 1, Name = RoleType.User, NormalName = RoleDescription.Get(RoleType.User)},
+            //        new Role { Id = 2, Name = RoleType.Admin, NormalName = RoleDescription.Get(RoleType.Admin) },
+            //        new Role { Id = 3, Name = RoleType.GlobalPm, NormalName = RoleDescription.Get(RoleType.GlobalPm) },
+            //        new Role { Id = 4, Name = RoleType.LocalPm, NormalName = RoleDescription.Get(RoleType.LocalPm) },
+            //        new Role {Id = 5, Name = RoleType.Director, NormalName = RoleDescription.Get(RoleType.Director)},
+            //        new Role {Id = 6, Name = RoleType.DirectorOrganizational, NormalName = RoleDescription.Get(RoleType.DirectorOrganizational)}
+            //    });
+            //modelBuilder
+            //.Entity<Rank>()
+            //.HasMany(c => c.Bonuses)
+            //.WithMany(s => s.Ranks)
+            //.UsingEntity<RankBonus>(
+            //   j => j
+            //    .HasOne(pt => pt.Bonus)
+            //    .WithMany(t => t.RankBonus)
+            //    .HasForeignKey(pt => pt.BonusId),
+            //j => j
+            //    .HasOne(pt => pt.Rank)
+            //    .WithMany(p => p.RankBonus)
+            //    .HasForeignKey(pt => pt.RankId),
+            //j =>
+            //{
+            //    j.HasKey(t => new { t.RankId, t.BonusId });
+            //    j.ToTable("RankBonus");
+            //});
             //modelBuilder.Entity<User>().HasData(
             //    new User[]
             //    {
@@ -51,66 +61,56 @@ namespace StudentAccounting.Model
             //        new User { Id=4,RoleId =4, Login = "Roman", PasswordHash = System.Text.Encoding.UTF8.GetBytes("123"),
             //            PasswordSalt =System.Text.Encoding.UTF8.GetBytes("5515")}
             //    });
-            modelBuilder.Entity<Rank>().HasData(
-        new Rank
-        {
-            Id = 1,
-            RankName = "Rank 1",
-            Description = "Description for Rank 1",
-            MaxMmr = 1000,
-            MinMmr = 0,
-            OrganizationId = 1
-        },
-        new Rank
-        {
-            Id = 2,
-            RankName = "Rank 2",
-            Description = "Description for Rank 2",
-            MaxMmr = 2000,
-            MinMmr = 1001,
-            OrganizationId = 1
-        }
-    );
+            //        modelBuilder.Entity<Rank>().HasData(
+            //    new Rank
+            //    {
+            //        Id = 1,
+            //        RankName = "Rank 1",
+            //        Description = "Description for Rank 1",
+            //        MaxMmr = 1000,
+            //        MinMmr = 0,
+            //        OrganizationId = 1
+            //    },
+            //    new Rank
+            //    {
+            //        Id = 2,
+            //        RankName = "Rank 2",
+            //        Description = "Description for Rank 2",
+            //        MaxMmr = 2000,
+            //        MinMmr = 1001,
+            //        OrganizationId = 1
+            //    }
+            //);
 
-            modelBuilder.Entity<Bonus>().HasData(
-                new Bonus
-                {
-                    Id = 1,
-                    BonusName = "Bonus 1",
-                    BonusDescription = "Description for Bonus 1"
-                },
-                new Bonus
-                {
-                    Id = 2,
-                    BonusName = "Bonus 2",
-                    BonusDescription = "Description for Bonus 2"
-                }
-            );
+            //        modelBuilder.Entity<Bonus>().HasData(
+            //            new Bonus
+            //            {
+            //                Id = 1,
+            //                BonusName = "Bonus 1",
+            //                BonusDescription = "Description for Bonus 1"
+            //            },
+            //            new Bonus
+            //            {
+            //                Id = 2,
+            //                BonusName = "Bonus 2",
+            //                BonusDescription = "Description for Bonus 2"
+            //            }
+            //        );
 
-            modelBuilder.Entity<RankBonus>().HasData(
-                new RankBonus
-                {
-                    Id= 1,
-                    RankId = 2,
-                    BonusId = 1
-                },
-                new RankBonus
-                {
-                    Id = 2,
-                    RankId = 2,
-                    BonusId = 2
-                }
-            );
-            modelBuilder.Entity<Role>().HasData(
-                new Role[]
-                {
-                    new Role { Id = 1, Name = RoleType.User, NormalName = RoleDescription.Get(RoleType.User)},
-                    new Role { Id = 2, Name = RoleType.Admin, NormalName = RoleDescription.Get(RoleType.Admin) },
-                    new Role { Id = 3, Name = RoleType.GlobalPm, NormalName = RoleDescription.Get(RoleType.GlobalPm) },
-                    new Role { Id = 4, Name = RoleType.LocalPm, NormalName = RoleDescription.Get(RoleType.LocalPm) },
-                    new Role {Id = 5, Name = RoleType.Director, NormalName = RoleDescription.Get(RoleType.Director)},
-                    new Role {Id = 6, Name = RoleType.DirectorOrganizational, NormalName = RoleDescription.Get(RoleType.DirectorOrganizational)}
-                });
+            //        modelBuilder.Entity<RankBonus>().HasData(
+            //            new RankBonus
+            //            {
+            //                Id= 1,
+            //                RankId = 2,
+            //                BonusId = 1
+            //            },
+            //            new RankBonus
+            //            {
+            //                Id = 2,
+            //                RankId = 2,
+            //                BonusId = 2
+            //            }
+            //        );
             //modelBuilder.Entity<Individuals>().HasData(
             //    new Individuals[]
             //    {

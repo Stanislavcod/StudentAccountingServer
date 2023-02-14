@@ -4,7 +4,7 @@ using StudentAccounting.Configuration;
 using StudentAccounting.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Host.UseSystemd();
+builder.Host.UseSystemd();
 var configure = builder.Configuration;
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
