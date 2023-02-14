@@ -12,8 +12,8 @@ using StudentAccounting.Model;
 namespace StudentAccounting.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    [Migration("20230211215103_AddRoles")]
-    partial class AddRoles
+    [Migration("20230214190402_AddRoleHasData")]
+    partial class AddRoleHasData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace StudentAccounting.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BonusRank", b =>
+                {
+                    b.Property<int>("BonusesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RanksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BonusesId", "RanksId");
+
+                    b.HasIndex("RanksId");
+
+                    b.ToTable("BonusRank");
+                });
 
             modelBuilder.Entity("StudentAccountin.Model.DatabaseModels.ApplicationsInTheProject", b =>
                 {
@@ -254,7 +269,7 @@ namespace StudentAccounting.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Bydget")
+                    b.Property<double?>("Budget")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("DateEnd")
@@ -310,20 +325,6 @@ namespace StudentAccounting.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bonuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BonusDescription = "Description for Bonus 1",
-                            BonusName = "Bonus 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BonusDescription = "Description for Bonus 2",
-                            BonusName = "Bonus 2"
-                        });
                 });
 
             modelBuilder.Entity("StudentAccounting.Model.DataBaseModels.Customer", b =>
@@ -607,26 +608,6 @@ namespace StudentAccounting.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Ranks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Description for Rank 1",
-                            MaxMmr = 1000,
-                            MinMmr = 0,
-                            OrganizationId = 1,
-                            RankName = "Rank 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Description for Rank 2",
-                            MaxMmr = 2000,
-                            MinMmr = 1001,
-                            OrganizationId = 1,
-                            RankName = "Rank 2"
-                        });
                 });
 
             modelBuilder.Entity("StudentAccounting.Model.DataBaseModels.Student", b =>
@@ -722,29 +703,25 @@ namespace StudentAccounting.Migrations
 
             modelBuilder.Entity("StudentAccounting.Model.DatabaseModels.RankBonus", b =>
                 {
-                    b.Property<int>("RankId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BonusId")
                         .HasColumnType("int");
 
-                    b.HasKey("RankId", "BonusId");
+                    b.Property<int>("RankId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BonusId");
 
-                    b.ToTable("RankBonus", (string)null);
+                    b.HasIndex("RankId");
 
-                    b.HasData(
-                        new
-                        {
-                            RankId = 1,
-                            BonusId = 1
-                        },
-                        new
-                        {
-                            RankId = 2,
-                            BonusId = 2
-                        });
+                    b.ToTable("RankBonus");
                 });
 
             modelBuilder.Entity("StudentAccounting.Model.DatabaseModels.RefreshToken", b =>
@@ -880,6 +857,21 @@ namespace StudentAccounting.Migrations
                     b.HasIndex("TrainingCoursesId");
 
                     b.ToTable("ScheduleOfСlasses");
+                });
+
+            modelBuilder.Entity("BonusRank", b =>
+                {
+                    b.HasOne("StudentAccounting.Model.DataBaseModels.Bonus", null)
+                        .WithMany()
+                        .HasForeignKey("BonusesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentAccounting.Model.DataBaseModels.Rank", null)
+                        .WithMany()
+                        .HasForeignKey("RanksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentAccountin.Model.DatabaseModels.ApplicationsInTheProject", b =>

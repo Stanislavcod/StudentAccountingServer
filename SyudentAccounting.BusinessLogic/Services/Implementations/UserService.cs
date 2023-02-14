@@ -4,6 +4,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using StudentAccounting.Common.Helpers.Criptography;
 using StudentAccounting.Common.ModelsDto;
+using System.Text.RegularExpressions;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -101,12 +102,24 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 user.PasswordHash = passwordHash;
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                string email = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
-                if(email != null)
+                const string pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
+                string emailDatabase = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
+                var email = emailDatabase.Trim().ToLowerInvariant();
+                if (email != null)
                 {
-                    string subject = "New password PolessUp";
-                    string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
-                    _emailService.SendEmailMessage(email, subject, message);
+                    if (email != null)
+                    {
+                        if (Regex.Match(email, pattern).Success)
+                        {
+                            string subject = "New password PolessUp";
+                            string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
+                            _emailService.SendEmailMessage(email, subject, message);
+                        }
+                        else
+                        {
+                            throw new Exception("Неверный email");
+                        }
+                    }
                 }
             }
             catch (DbUpdateConcurrencyException ex)
@@ -122,11 +135,23 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                string email = _context.Participants.Include(x => x.Individuals).Include(x => x.User).FirstOrDefault(x => x.User.Login == login).Individuals.Mail;
+                string emailDatabase = _context.Participants.Include(x => x.Individuals).Include(x => x.User).FirstOrDefault(x => x.User.Login == login).Individuals.Mail;
                 string subject = "New password PolessUp";
                 string password = RandomPassword.RandomUserPassword();
                 string message = $"Здравствуйте! Ваш новый пароль {password}";
-                _emailService.SendEmailMessage(email, subject, message);
+                const string pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
+                var email = emailDatabase.Trim().ToLowerInvariant();
+                if (email != null)
+                {
+                    if (Regex.Match(email, pattern).Success)
+                    {
+                        _emailService.SendEmailMessage(email, subject, message);
+                    }
+                    else
+                    {
+                        throw new Exception("Неверный email");
+                    }
+                }
                 User user = _context.Users.FirstOrDefault(x => x.Login == login);
                 PasswordHasher.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordSalt = passwordSalt;
