@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("CreateUser")]
         public IActionResult Create(User user)
         {
@@ -94,7 +94,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize(Roles = "Admin")]
-        [HttpPut("UpdatePasswordUser")]
+        [HttpPut("UpdatePasswordUser,DirectorOrganizational")]
         public IActionResult UpdatePassword(EditPasswordUserDto editPasswordUserDto)
         {
             try

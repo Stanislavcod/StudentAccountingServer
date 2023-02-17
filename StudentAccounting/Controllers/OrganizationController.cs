@@ -51,7 +51,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateOrganization")]
         public IActionResult Create(Organization organization)
         {
@@ -65,7 +65,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateOrganization")]
         public IActionResult Update(Organization organization)
         {
@@ -79,7 +79,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteOrganization")]
         public IActionResult Delete(int id)
         {

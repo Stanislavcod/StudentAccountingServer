@@ -56,7 +56,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm,LocalPm,LocalPm")]
+        [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm,LocalPm,User")]
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {

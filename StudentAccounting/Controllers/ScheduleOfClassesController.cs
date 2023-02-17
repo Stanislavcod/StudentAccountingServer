@@ -51,8 +51,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,DirectorOrganizational")]
-        [HttpPost("CreateScheduleOfСlasses")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("CreateScheduleOfСlasses,DirectorOrganizational")]
         public IActionResult Create(ScheduleOfСlasses schedule)
         {
             try
@@ -65,8 +65,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,DirectorOrganizational")]
-        [HttpPut("UpdateScheduleOfСlasses")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("UpdateScheduleOfСlasses,DirectorOrganizational")]
         public IActionResult Update(ScheduleOfСlasses schedule)
         {
             try
@@ -80,7 +80,7 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteScheduleOfСlasses")]
+        [HttpDelete("DeleteScheduleOfСlasses,DirectorOrganizational")]
         public IActionResult Delete(int id)
         {
             try
