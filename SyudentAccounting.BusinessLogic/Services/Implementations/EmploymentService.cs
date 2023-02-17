@@ -46,6 +46,17 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public Employment GetByParticipants(int participantsId)
+        {
+            try
+            {
+                return _context.Employments.AsNoTracking().Include(x=> x.Position).ThenInclude(x=> x.Department).FirstOrDefault(x => x.ParticipantsId == participantsId);
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void Edit(Employment employment)
         {
             try

@@ -38,6 +38,19 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
+        [HttpPost("GetByParticipants")]
+        public IActionResult GetByParticipants(int participantsId)
+        {
+            try
+            {
+                return Ok(_employmentService.GetByParticipants(participantsId));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm")]
         [HttpPost("CreateEmployment")]
         public IActionResult Create(Employment employment)

@@ -56,7 +56,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 {
                     if (project.StagesOfProjects != null)
                     {
-                        foreach (var stage in project.StagesOfProjects)
+                        foreach (var stage in _context.StagesOfProjects.Where(x => x.ProjectId == project.Id).ToList())
                         {
                             if (stage.Vacancy != null)
                             {
