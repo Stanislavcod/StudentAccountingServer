@@ -6,14 +6,16 @@ namespace StudentAccounting.Common.Helpers.Criptography
     {
         public static string RandomUserPassword()
         {
-            Random random = new Random();
-            int passwordLength = random.Next(8, 12);
-            string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            StringBuilder sb = new StringBuilder();
+            var random = new Random();
+            var passwordLength = random.Next(8, 12);
+            var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var sb = new StringBuilder();
+            
             for (int i = 0; i < passwordLength; i++)
             {
                 sb.Append(chars[random.Next(chars.Length)]);
             }
+            
             return sb.ToString();
         }
     }
