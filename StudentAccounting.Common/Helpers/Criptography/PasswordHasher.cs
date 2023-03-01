@@ -11,7 +11,8 @@ namespace StudentAccounting.Common.Helpers.Criptography
             passwordSalt = hmac.Key;
             passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
         }
-        public static bool VerifyPassordHash(byte[] passwordSalt, byte[] passwordHash, string password)
+        
+        public static bool VerifyPasswordHash(byte[] passwordSalt, byte[] passwordHash, string password)
         {
             var hmac = new HMACSHA512(passwordSalt);
             var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));

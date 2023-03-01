@@ -6,7 +6,7 @@ namespace StudentAccounting.Common.Seeds
     {
         public static string Get(RoleType role)
         {
-            string description = role switch
+            var description = role switch
             {
                 RoleType.User => "Application user",
                 RoleType.Admin => "User with additional rights",
@@ -15,6 +15,7 @@ namespace StudentAccounting.Common.Seeds
                 RoleType.Director => "Has access to editing the tables of his department",
                 RoleType.DirectorOrganizational => "Has access to editing the tables of his department and registration users"
             };
+            
             return description;
         }
     }

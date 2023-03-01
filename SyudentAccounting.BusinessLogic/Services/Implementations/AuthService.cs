@@ -24,7 +24,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
 
             if (user == null) throw new Exception("Пользователь не найден.");
 
-            if (PasswordHasher.VerifyPassordHash(user.PasswordSalt,user.PasswordHash,loginDTO.Password))
+            if (PasswordHasher.VerifyPasswordHash(user.PasswordSalt,user.PasswordHash,loginDTO.Password))
             {
                 return user;
             }

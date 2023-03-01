@@ -15,9 +15,12 @@ namespace StudentAccounting.Configuration
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             string connection = configuration.GetConnectionString("DefaultConnection");
+            
             services.AddDbContext<ApplicationDatabaseContext>(options => options.UseSqlServer(connection,
                 opt => opt.MigrationsAssembly("StudentAccounting")));
+            
             services.AddMvc();
+            
             services
                 .AddTransient<ITokenService, TokenService>()
                 .AddTransient<IAuthService, AuthService>()
