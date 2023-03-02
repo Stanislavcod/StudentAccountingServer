@@ -7,11 +7,15 @@ namespace StudentAccounting.Controllers
 {
     public class BonusController : Controller
     {
+        private readonly ILogger<BonusController> _logger;
         private readonly IBonusService _bonusService;
-        public BonusController(IBonusService bonusService)
+        
+        public BonusController(IBonusService bonusService, ILogger<BonusController> logger)
         {
+            _logger = logger;
             _bonusService = bonusService;
         }
+        
         [Authorize]
         [HttpGet("GetBonus")]
         public ActionResult<IEnumerable<Bonus>> Get()
@@ -25,6 +29,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        
         [Authorize]
         [HttpGet("idBonus/{id}", Name = "GetBonusId")]
         public IActionResult Get(int id)
@@ -38,6 +43,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        
         [Authorize]
         [HttpGet("nameBonus/{name}", Name = "GetBonusName")]
         public IActionResult Get(string name)
@@ -51,6 +57,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpPost("CreateBonus")]
         public IActionResult Create(Bonus bonus)
@@ -58,13 +65,19 @@ namespace StudentAccounting.Controllers
             try
             {
                 _bonusService.Create(bonus);
+                
+                _logger.LogInformation($"{DateTime.Now}: Create new bonus");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpPut("UpdateBonus")]
         public IActionResult Update(Bonus bonus)
@@ -72,13 +85,19 @@ namespace StudentAccounting.Controllers
             try
             {
                 _bonusService.Edit(bonus);
+                
+                _logger.LogInformation($"{DateTime.Now}: Edit bonus with {bonus.Id}");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteBonus")]
         public IActionResult Delete(int id)
@@ -86,13 +105,19 @@ namespace StudentAccounting.Controllers
             try
             {
                 _bonusService.Delete(id);
+                
+                _logger.LogInformation($"{DateTime.Now}: Delete bonus with {id}");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
+        
         [Authorize]
         [HttpPut("GetBonusForRankId")]
         public IActionResult GetForRank(int id)
@@ -103,7 +128,9 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
     }
