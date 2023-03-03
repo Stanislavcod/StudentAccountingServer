@@ -61,7 +61,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
 
-                return null;
+                return new Bonus();
             }
         }
 
