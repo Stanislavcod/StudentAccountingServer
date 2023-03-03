@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DatabaseModels;
@@ -8,10 +9,14 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class EducationalPortalsService : IEducationalPortalsService
     {
         private readonly ApplicationDatabaseContext _context;
-        public EducationalPortalsService(ApplicationDatabaseContext context)
+        private readonly Logger<EducationalPortalsService> _logger;
+
+        public EducationalPortalsService(ApplicationDatabaseContext context, Logger<EducationalPortalsService> logger)
         {
+            _logger = logger;
             _context = context;
         }
+        
         public void Create(EducationalPortals educationalPortal)
         {
             try
@@ -21,42 +26,68 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
+        
         public IEnumerable<EducationalPortals> Get()
         {
             try
             {
-                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().ToList();
+                var educationalPortals = _context.EducationalPortals.Include(x => x.Department).AsNoTracking().ToList();
+                
+                return educationalPortals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new List<EducationalPortals>();
             }
         }
+        
         public EducationalPortals Get(string name)
         {
             try
             {
-                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Name == name);
+                var educationalPortals = _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Name == name);
+
+                if (educationalPortals == null)
+                {
+                    return new EducationalPortals();
+                }
+                
+                return educationalPortals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new EducationalPortals();
             }
         }
+        
         public EducationalPortals Get(int id)
         {
             try
             {
-                return _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                var educationalPortals = _context.EducationalPortals.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                
+                if (educationalPortals == null)
+                {
+                    return new EducationalPortals();
+                }
+                
+                return educationalPortals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new EducationalPortals();
             }
         }
+        
         public void Edit(EducationalPortals educationalPortals)
         {
             try
@@ -66,23 +97,26 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
+        
         public void Delete(int id)
         {
             try
             {
                 var educationPortal = _context.EducationalPortals.FirstOrDefault(x => x.Id == id);
-                _context.EducationalPortals.Remove(educationPortal);
-                _context.SaveChanges();
+
+                if (educationPortal != null)
+                {
+                    _context.EducationalPortals.Remove(educationPortal);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
-
-
     }
 }
