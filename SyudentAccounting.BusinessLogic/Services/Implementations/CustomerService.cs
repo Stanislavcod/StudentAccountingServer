@@ -50,7 +50,14 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Customers.AsNoTracking().FirstOrDefault(x => x.FullName == name);
+                var customer = _context.Customers.AsNoTracking().FirstOrDefault(x => x.FullName == name);
+                    
+                if (customer == null)
+                {
+                    return new Customer();
+                }
+
+                return customer;
             }
             catch (Exception ex)
             {

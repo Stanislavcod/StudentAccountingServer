@@ -54,7 +54,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 var bonus = _context.Bonuses.Include(x => x.RankBonus).
                     ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
-
+                
+                if (bonus == null)
+                {
+                    return new Bonus();
+                }
+                
                 return bonus;
             }
             catch (Exception ex)
@@ -71,7 +76,12 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 var bonus = _context.Bonuses.Include(x => x.RankBonus).
                     ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
-
+                
+                if (bonus == null)
+                {
+                    return new Bonus();
+                }
+                
                 return bonus;
             }
             catch (Exception ex)
