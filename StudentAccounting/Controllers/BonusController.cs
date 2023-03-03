@@ -26,7 +26,9 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
         
@@ -40,7 +42,9 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
         
@@ -54,7 +58,9 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return BadRequest(ex.Message);
             }
         }
         
