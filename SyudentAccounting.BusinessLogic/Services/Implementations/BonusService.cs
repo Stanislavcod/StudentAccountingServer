@@ -3,16 +3,21 @@ using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class BonusService : IBonusService
     {
+        private readonly ILogger<BonusService> _logger;
         private readonly ApplicationDatabaseContext _context;
-        public BonusService(ApplicationDatabaseContext context)
+        
+        public BonusService(ApplicationDatabaseContext context, ILogger<BonusService> logger)
         {
+            _logger = logger;
             _context = context;
         }
+        
         public void Create(Bonus bonus)
         {
             try
@@ -22,7 +27,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
 
@@ -30,11 +35,16 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().ToList();
+                var bonuses = _context.Bonuses.Include(x => x.RankBonus).
+                    ThenInclude(rb => rb.Rank).AsNoTracking().ToList();
+
+                return bonuses;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new List<Bonus>();
             }
         }
 
@@ -42,11 +52,16 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
+                var bonus = _context.Bonuses.Include(x => x.RankBonus).
+                    ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.BonusName == name);
+
+                return bonus;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new Bonus();
             }
         }
 
@@ -54,11 +69,16 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Bonuses.Include(x => x.RankBonus).ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                var bonus = _context.Bonuses.Include(x => x.RankBonus).
+                    ThenInclude(rb => rb.Rank).AsNoTracking().FirstOrDefault(x => x.Id == id);
+
+                return bonus;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return null;
             }
         }
 
@@ -71,7 +91,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
 
@@ -80,28 +100,43 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             try
             {
                 var bonus = _context.Bonuses.FirstOrDefault(x => x.Id == id);
-                _context.Bonuses.Remove(bonus);
-                _context.SaveChanges();
+
+                if (bonus != null)
+                {
+                    _context.Bonuses.Remove(bonus);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
 
         public IEnumerable<Bonus> GetForRank(int rankId)
         {
-            var rank = _context.Ranks
-                .Include(r => r.RankBonus)
-                .ThenInclude(rb => rb.Bonus)
-                .SingleOrDefault(r => r.Id == rankId);
-
-            if (rank == null)
+            try
             {
-                throw new Exception("Rank not found");
-            }
+                var rank = _context.Ranks
+                    .Include(r => r.RankBonus)
+                    .ThenInclude(rb => rb.Bonus)
+                    .SingleOrDefault(r => r.Id == rankId);
 
-            return rank.RankBonus.Select(rb => rb.Bonus).ToList();
+                if (rank != null)
+                {
+                    var bonus = rank.RankBonus.Select(rb => rb.Bonus).ToList();
+
+                    return bonus;
+                }
+
+                return  new List<Bonus>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
+                return  new List<Bonus>();
+            }
         }
     }
 }

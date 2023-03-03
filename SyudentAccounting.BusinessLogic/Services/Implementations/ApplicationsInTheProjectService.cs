@@ -19,22 +19,29 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         
         public void Create(ApplicationsInTheProject applicationsInTheProject)
         {
-            if (applicationsInTheProject == null)
+            try
             {
-                _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject is null");
+                if (applicationsInTheProject == null)
+                {
+                    _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject is null");
                 
-                return;
-            }
+                    return;
+                }
             
-            if (_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+                if (_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+                {
+                    _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject haven't any id");
+                
+                    return;
+                }
+            
+                _context.ApplicationsInTheProjects.Add(applicationsInTheProject);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
             {
-                _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject haven't any id");
-                
-                return;
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
-            
-            _context.ApplicationsInTheProjects.Add(applicationsInTheProject);
-            _context.SaveChanges();
         }
         
         public IEnumerable<ApplicationsInTheProject> Get()
@@ -73,58 +80,81 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         
         public ApplicationsInTheProject Get(int id)
         {
-            if (id <= 0)
+            try
             {
-                return null;
+                if (id <= 0)
+                {
+                    return new ApplicationsInTheProject();
+                }
+            
+                var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy.StagesOfProject.Project).
+                    Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            
+                if (application == null)
+                {
+                    return new ApplicationsInTheProject();
+                }
+            
+                return application;
             }
-            
-            var application = _context.ApplicationsInTheProjects.Include(x => x.Vacancy.StagesOfProject.Project).
-                Include(x => x.Participants).AsNoTracking().FirstOrDefault(x => x.Id == id);
-            
-            if (application == null)
+            catch (Exception ex)
             {
-                return null;
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new ApplicationsInTheProject();
             }
-            
-            return application;
         }
         
         public void Edit(ApplicationsInTheProject applicationsInTheProject)
         {
-            if (applicationsInTheProject == null)
+            try
             {
-                _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject is null");
+                if (applicationsInTheProject == null)
+                {
+                    _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject is null");
                 
-                return;
-            }
+                    return;
+                }
             
-            if (!_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+                if (!_context.ApplicationsInTheProjects.Any(x => x.Id == applicationsInTheProject.Id))
+                {
+                    _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject haven't any id");
+                
+                    return;
+                }
+            
+                _context.ApplicationsInTheProjects.Update(applicationsInTheProject);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
             {
-                _logger.LogWarning($"{DateTime.Now}: applicationsInTheProject haven't any id");
-                
-                return;
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
-            
-            _context.ApplicationsInTheProjects.Update(applicationsInTheProject);
-            _context.SaveChanges();
         }
         
         public void Delete(int id)
         {
-            if (id <= 0)
+            try
             {
-                return;
+                if (id <= 0)
+                {
+                    return;
+                }
+            
+                var application = _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
+            
+                if (application == null)
+                {
+                    return;
+                }
+            
+                _context.ApplicationsInTheProjects.Remove(application);
+                _context.SaveChanges();
             }
-            
-            var application = _context.ApplicationsInTheProjects.FirstOrDefault(x => x.Id == id);
-            
-            if (application == null)
+            catch (Exception ex)
             {
-                return;
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
-            
-            _context.ApplicationsInTheProjects.Remove(application);
-            _context.SaveChanges();
         }
     }
 }
