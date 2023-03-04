@@ -2,16 +2,21 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class IndividualsService : IIndividualsService
     {
+        private readonly ILogger<IndividualsService> _logger;
         private readonly ApplicationDatabaseContext _context;
-        public IndividualsService(ApplicationDatabaseContext context)
+        
+        public IndividualsService(ApplicationDatabaseContext context, ILogger<IndividualsService> logger)
         {
+            _logger = logger;
             _context = context;
         }
+        
         public void Create(Individuals newIndividuals)
         {
             try
@@ -21,42 +26,68 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
+        
         public IEnumerable<Individuals> Get()
         {
             try
             {
-                return _context.Individuals.AsNoTracking().ToList();
+                var individuals = _context.Individuals.AsNoTracking().ToList();
+
+                return individuals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new List<Individuals>();
             }
         }
+        
         public Individuals Get(string name)
         {
             try
             {
-                return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.FIO == name);
+                var individuals = _context.Individuals.AsNoTracking().FirstOrDefault(x => x.FIO == name);
+
+                if (individuals == null)
+                {
+                    return new Individuals();
+                }
+                
+                return individuals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new Individuals();
             }
         }
+        
         public Individuals Get(int id)
         {
             try
             {
-                return _context.Individuals.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                var individuals = _context.Individuals.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                
+                if (individuals == null)
+                {
+                    return new Individuals();
+                }
+                
+                return individuals;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return new Individuals();
             }
         }
+        
         public void Edit(Individuals newIndividuals)
         {
             try
@@ -66,20 +97,25 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
+        
         public void Delete(int id)
         {
             try
             {
                 var individual = _context.Individuals.FirstOrDefault(x => x.Id == id);
-                _context.Individuals.Remove(individual);
-                _context.SaveChanges();
+
+                if (individual != null)
+                {
+                    _context.Individuals.Remove(individual);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
     }
