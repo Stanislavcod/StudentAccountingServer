@@ -8,10 +8,12 @@ namespace StudentAccounting.Controllers
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
+        
         public RoleController(IRoleService service)
         {
             _roleService = service;
         }
+        
         [HttpGet("GetRoles")]
         public ActionResult Get()
         {
