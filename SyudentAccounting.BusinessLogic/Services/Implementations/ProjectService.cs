@@ -131,7 +131,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             if(!string.IsNullOrEmpty(filter.Status))
             {
-                quary = quary.Where(project => project.Status == filter.Status);
+                quary = quary.Where(project => project.Status.ToLower().Contains(filter.Status));
             }
 
             var applicationInTheProject = quary.ToList();

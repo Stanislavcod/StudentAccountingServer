@@ -149,7 +149,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 var individuals = _context.Departments
                    .Where(d => d.Positions.Any(p => p.Employments
-                   .Any(e => e.Participants.Individuals.FIO == filter.Individuals))).ToList();
+                   .Any(e => e.Participants.Individuals.FIO.ToLower().Contains(filter.Individuals)))).ToList();
             }
             if (!string.IsNullOrEmpty(filter.Status))
             {

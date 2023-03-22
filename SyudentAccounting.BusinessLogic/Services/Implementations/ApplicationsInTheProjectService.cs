@@ -167,7 +167,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             if(!string.IsNullOrEmpty(filter.Project))
             {
-                quary = quary.Where(app => app.Vacancy.StagesOfProject.Project.Fullname == filter.Project);
+                quary = quary.Where(app => app.Vacancy.StagesOfProject.Project.Fullname.ToLower().Contains(filter.Project));
             }
             if(filter.DateYear != new DateTime().Year)
             {
