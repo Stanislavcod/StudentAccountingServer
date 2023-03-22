@@ -2,6 +2,8 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -85,22 +87,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        //public List<Project> GetForParticipantsId(int participantId)
-        //{
-        //    try
-        //    {
-        //        var projects = _context.ApplicationsInTheProjects
-        //                    .Where(a => a.ParticipantsId == participantId)
-        //                    .Select(a => a.Vacancy.StagesOfProject.Project)
-        //                    .Distinct()
-        //                    .ToList();
-        //        return projects;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
         public void Edit(Project project)
         {
             try
@@ -125,6 +111,32 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public IEnumerable<Project> GetFiltredApplicationInTheProject(ProjectFilter filter)
+        {
+            var quary = _context.Projects.AsQueryable();
+
+            //фильтр по отделам не готов
+            //if (!string.IsNullOrEmpty(filter.Position))
+            //{
+            //    quary = quary.Where(app => app.StagesOfProjects));
+            //}
+            if (filter.DateYear != new DateTime().Year)
+            {
+                quary = quary.Where(project => project.DateStart.Year == filter.DateYear);
+            }
+            if (filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
+            {
+                quary = quary.Where(project => project.DateStart >= filter.DateFrom && project.DateStart <= filter.DateTo);
+            }
+            if(!string.IsNullOrEmpty(filter.Status))
+            {
+                quary = quary.Where(project => project.Status == filter.Status);
+            }
+
+            var applicationInTheProject = quary.ToList();
+
+            return applicationInTheProject;
         }
     }
 }
