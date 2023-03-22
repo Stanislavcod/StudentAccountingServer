@@ -160,6 +160,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         public IEnumerable<ApplicationsInTheProject> GetFiltredApplicationInTheProject(ApplicationsInTheProjectFilter filter) 
         {
             var quary = _context.ApplicationsInTheProjects.AsQueryable();
+
             if(!string.IsNullOrEmpty(filter.Vacancy))
             {
                 quary = quary.Where(app => app.Vacancy.Name.ToLower().Contains(filter.Vacancy));
@@ -168,22 +169,23 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 quary = quary.Where(app => app.Vacancy.StagesOfProject.Project.Fullname == filter.Project);
             }
-            if(filter.DateYear != null)
+            if(filter.DateYear != new DateTime().Year)
             {
                 quary = quary.Where(app => app.DateEntry.Year == filter.DateYear);
             }
-            if(filter.DateFrom != null && filter.DateTo != null)
+            if(filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
             {
                 quary = quary.Where(app => app.DateEntry >= filter.DateFrom && app.DateEntry <= filter.DateTo);
             }
-            if(filter.IsAccepted == null)
-            {
-                quary = quary.Where(app => app.IsAccepted == null);
-            }
-            else
-            {
-                quary = quary.Where(app => app.IsAccepted == filter.IsAccepted);
-            }
+            //Реализация фильтр статус не готова
+            //if(filter.IsAccepted == null) //?
+            //{
+            //    quary = quary.Where(app => app.IsAccepted == null);
+            //}
+            //else
+            //{
+            //    quary = quary.Where(app => app.IsAccepted == filter.IsAccepted);
+            //}
 
             var applicationInTheProject = quary.ToList();
 

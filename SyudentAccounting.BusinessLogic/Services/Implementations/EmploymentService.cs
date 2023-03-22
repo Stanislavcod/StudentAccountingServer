@@ -3,6 +3,7 @@ using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -119,6 +120,44 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
+        }
+        public IEnumerable<Employment> GetFiltredEmployments(EmploymentFilter filter)
+        {
+            var quary = _context.Employments.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Department))
+            {
+                quary = quary.Where(emp => emp.Position.Department.FullName.Contains(filter.Department));
+            }
+            if (!string.IsNullOrEmpty(filter.Position))
+            {
+                quary = quary.Where(emp => emp.Position.FullName.Contains(filter.Position));
+            }
+            if (filter.DateYear != new DateTime().Year)
+            {
+                quary = quary.Where(emp => emp.DateStart.Year == filter.DateYear);
+            }
+            if (filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
+            {
+                quary = quary.Where(emp => emp.DateStart >= filter.DateFrom && emp.DateStart <= filter.DateTo);
+            }
+            if(filter.ExperienceFrom is not 0 && filter.ExperienceTo is not 0) 
+            {
+                quary = quary.Where(emp => (DateTime.Now - emp.Participants.DateEntry).Days >= filter.ExperienceFrom
+                && (DateTime.Now - emp.Participants.DateEntry).Days <= filter.ExperienceTo);
+            }
+            if(filter.Experience is not 0)
+            {
+                quary = quary.Where(emp => (DateTime.Now - emp.Participants.DateEntry).Days >= filter.Experience);
+            }
+            if(!string.IsNullOrEmpty(filter.Status))
+            {
+                quary = quary.Where(emp => emp.Status.Contains(filter.Status));
+            }
+
+            var employments = quary.ToList();
+
+            return employments;
         }
     }
 }

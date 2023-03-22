@@ -12,7 +12,7 @@ namespace StudentAccounting.Common.FilterModels
         public DateTime DateTo { get; set; }
         public int ExperienceFrom { get; set; }
         public int ExperienceTo { get; set; }
-        public string Experience { get; set; } = string.Empty;  
+        public int Experience { get; set; } 
         public string Status { get; set; } = string.Empty;
     }
 }
