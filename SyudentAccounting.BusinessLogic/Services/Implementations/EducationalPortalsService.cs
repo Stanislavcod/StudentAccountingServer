@@ -9,9 +9,9 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     public class EducationalPortalsService : IEducationalPortalsService
     {
         private readonly ApplicationDatabaseContext _context;
-        private readonly Logger<EducationalPortalsService> _logger;
+        private readonly ILogger<EducationalPortalsService> _logger;
 
-        public EducationalPortalsService(ApplicationDatabaseContext context, Logger<EducationalPortalsService> logger)
+        public EducationalPortalsService(ApplicationDatabaseContext context, ILogger<EducationalPortalsService> logger)
         {
             _logger = logger;
             _context = context;

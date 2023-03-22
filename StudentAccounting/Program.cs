@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using StudentAccounting.Configuration;
 using StudentAccounting.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSystemd();
+//builder.Host.UseSystemd();
 var configure = builder.Configuration;
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
@@ -23,5 +23,6 @@ ConfigurationHelper.ConfigureServices(builder.Services, configure);
 var app = builder.Build();
 
 ConfigurationHelper.Configure(app);
+
 
 app.Run();

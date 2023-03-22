@@ -7,6 +7,7 @@ using System.Text.Json;
 using Microsoft.OpenApi.Models;
 using StudentAccounting.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Configuration;
 
 namespace StudentAccounting.Configuration
 {
@@ -20,12 +21,12 @@ namespace StudentAccounting.Configuration
                 opt => opt.MigrationsAssembly("StudentAccounting")));
             
             services.AddMvc();
-            
+
             services
                 .AddTransient<ITokenService, TokenService>()
+                .AddTransient<IUserService, UserService>()
                 .AddTransient<IAuthService, AuthService>()
                 .AddTransient<IApplicationInTheProjectService, ApplicationsInTheProjectService>()
-                .AddTransient<IUserService, UserService>()
                 .AddTransient<IBonusService, BonusService>()
                 .AddTransient<ICustomerService, CustomerService>()
                 .AddTransient<IDepartmentService, DepartmentService>()
@@ -102,10 +103,10 @@ namespace StudentAccounting.Configuration
             }
             if (!app.Environment.IsDevelopment())
             {
-                //app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
             }
-            app.UsePathBase("/polessup");
-            //app.UseHttpsRedirection();
+            //app.UsePathBase("/polessup");
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

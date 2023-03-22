@@ -13,10 +13,10 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         private readonly ILogger<AuthService> _logger;
         private readonly ApplicationDatabaseContext _context;
         private readonly ITokenService _tokenService;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
         
         public AuthService(ApplicationDatabaseContext context, ITokenService tokenService, ILogger<AuthService> logger, 
-            UserService userService)
+            IUserService userService)
         {
             _logger = logger;
             _userService = userService;
