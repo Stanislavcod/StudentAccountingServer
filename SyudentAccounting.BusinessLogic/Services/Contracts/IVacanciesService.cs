@@ -1,5 +1,6 @@
 ﻿
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -13,5 +14,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Edit(Vacancy vacancy);
         void Delete(int id);
         IEnumerable<Vacancy> GetVacanciesPos(int participantsId);
+        IEnumerable<Vacancy> GetFiltredVacancy(VacancyFilter filter);
     }
 }

@@ -1,7 +1,9 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DatabaseModels;
 
@@ -83,6 +85,31 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public IEnumerable<ScheduleOfСlasses> GetFiltredScheduleOfСlasses(ScheduleOfСlassesFilter filter)
+        {
+            var quary = _context.ScheduleOfСlasses.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Lector))
+            {
+                quary = quary.Where(soc => soc.TrainingCourses.LectorFIO.ToLower().Contains(filter.Lector));
+            }
+            if (filter.DateYear is not 0)
+            {
+                quary = quary.Where(soc => soc.DateStart.Year == filter.DateYear);
+            }
+            if (filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
+            {
+                quary = quary.Where(soc => soc.TrainingCourses.DateStart == filter.DateFrom && soc.TrainingCourses.DateStart == filter.DateTo);
+            }
+            if(!string.IsNullOrEmpty(filter.Status))
+            {
+                quary = quary.Where(soc => soc.TrainingCourses.Status == filter.Status);
+            }
+
+            var scheduleOfСlasses = quary.ToList();
+
+            return scheduleOfСlasses;
         }
     }
 }

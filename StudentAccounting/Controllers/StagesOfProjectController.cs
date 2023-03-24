@@ -64,7 +64,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPost("CreateStagesOfProject")]
         public IActionResult Create(StagesOfProject stagesOfProject)
         {
@@ -78,7 +78,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm")]
+        [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPut("UpdateStagesOfProject")]
         public IActionResult Update(StagesOfProject stagesOfProject)
         {

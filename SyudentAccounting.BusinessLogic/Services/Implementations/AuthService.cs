@@ -1,77 +1,113 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.Logging;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Common.Constants;
 using StudentAccounting.Common.Helpers.Criptography;
 using StudentAccounting.Common.ModelsDto;
 using StudentAccounting.Model;
-using StudentAccounting.Model.DatabaseModels;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
     public class AuthService : IAuthService
     {
+        private readonly ILogger<AuthService> _logger;
         private readonly ApplicationDatabaseContext _context;
         private readonly ITokenService _tokenService;
-        public AuthService(ApplicationDatabaseContext context, ITokenService tokenService)
+        private readonly IUserService _userService;
+        
+        public AuthService(ApplicationDatabaseContext context, ITokenService tokenService, ILogger<AuthService> logger, 
+            IUserService userService)
         {
+            _logger = logger;
+            _userService = userService;
             _context = context;
             _tokenService = tokenService;
         }
+        
         private User AuthUser(LoginDTO loginDTO)
         {
-            var user = _context.Users.Include(x=> x.Role).SingleOrDefault(x => x.Login == loginDTO.Login);
+            var user = _userService.Get(loginDTO.Login);
+            
+            if (user == null)
+            {
+                _logger.LogInformation($"{DateTime.Now}: User with {loginDTO.Login} is not found.");
 
-            if (user == null) throw new Exception("Пользователь не найден.");
-
-            if (PasswordHasher.VerifyPassordHash(user.PasswordSalt,user.PasswordHash,loginDTO.Password))
+                return null;
+            }
+            
+            if (PasswordHasher.VerifyPasswordHash(user.PasswordSalt, user.PasswordHash, loginDTO.Password))
             {
                 return user;
             }
-            throw new Exception("Неверный пароль.");
+
+            return new User();
         }
+        
         public TokenDto Login(LoginDTO loginDTO)
         {
             var user = AuthUser(loginDTO);
+            
+            _logger.LogInformation($"{DateTime.Now}: {loginDTO.Login} is login");
+            
             return _tokenService.GetToken(user);
         }
+        
         public bool UserExists(string login)
         {
-            return _context.Users.AsNoTracking().Any(x => x.Login == login.ToLower()) ? true : false;
+            var user = _userService.Get(login.ToLower());
+
+            if (user != null)
+            {
+                return true;
+            }
+
+            return false;
         }
+        
         public TokenDto Refresh(RefreshTokenDto refreshTokenDto)
         {
             return _tokenService.Refresh(refreshTokenDto);
         }
+        
         public bool Register(RegisterDto registerDto)
         {
- 
-            User user = new User()
+            var user = new User
             {
                 Login = registerDto.Login,
                 RoleId = registerDto.RoleId
             };
+            
             PasswordHasher.CreatePasswordHash(registerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
+            
+            _logger.LogInformation($"{DateTime.Now}: Registration new {registerDto.Login}");
+            
             _context.Users.Add(user);
-            return _context.SaveChanges() > 0 ? true : false;
+            
+            return _context.SaveChanges() > 0;
         }
+        
         public bool RegisterAdmin()
         {
-           
             if (!UserExists("admin"))
             {
-                User admin = new User();
+                var admin = new User();
+                
                 PasswordHasher.CreatePasswordHash("admin", out byte[] passwordHash, out byte[] passwordSalt);
+                
                 admin.Login = "admin";
-                admin.RoleId = _context.Roles.FirstOrDefault(x => x.Name == (RoleType)2).Id;
+                admin.RoleId = _context.Roles.FirstOrDefault(x => x.Name == RoleType.Admin).Id;
                 admin.PasswordSalt = passwordSalt;
                 admin.PasswordHash = passwordHash;
+                
                 _context.Users.Add(admin);
                 _context.SaveChanges();
+                
                 return true;
             }
+            
             return false;
         }
     }

@@ -7,11 +7,15 @@ namespace StudentAccounting.Controllers
 {
     public class IndividualsController : Controller
     {
+        private readonly ILogger<IndividualsController> _logger;
         private readonly IIndividualsService _individualsService;
-        public IndividualsController(IIndividualsService individualsService)
+        
+        public IndividualsController(IIndividualsService individualsService, ILogger<IndividualsController> logger)
         {
+            _logger = logger;
             _individualsService = individualsService;
         }
+        
         [Authorize]
         [HttpGet("GetIndividuals")]
         public ActionResult<IEnumerable<Individuals>> Get()
@@ -22,9 +26,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize]
         [HttpGet("nameIndividual/{name}", Name = "GetIndividualName")]
         public IActionResult Get(string name)
@@ -35,9 +42,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize]
         [HttpGet("idIndividual/{id}", Name = "GetIndividualId")]
         public IActionResult Get(int id)
@@ -48,9 +58,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPost("CreateIndividual")]
         public IActionResult Create(Individuals newIndividuals)
@@ -58,13 +71,19 @@ namespace StudentAccounting.Controllers
             try
             {
                 _individualsService.Create(newIndividuals);
+                
+                _logger.LogInformation($"{DateTime.Now}: Create new individuals");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpPut("UpdateIndividual")]
         public IActionResult Update(Individuals newIndividuals)
@@ -72,24 +91,35 @@ namespace StudentAccounting.Controllers
             try
             {
                 _individualsService.Edit(newIndividuals);
+                
+                _logger.LogInformation($"{DateTime.Now}: Edit bonus with {newIndividuals.Id}");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
-        [HttpDelete("DeletIndividual")]
+        [HttpDelete("DeleteIndividual")]
         public IActionResult Delete(int id)
         {
             try
             {
                 _individualsService.Delete(id);
+                
+                _logger.LogInformation($"{DateTime.Now}: Delete individuals with {id}");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }

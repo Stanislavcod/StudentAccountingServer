@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -79,7 +81,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpDelete("DeleteTrainingCourses")]
         public IActionResult Delete(int id)
         {
@@ -90,6 +92,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredTrainingCourses")]
+        public IActionResult GetFiltredTrainingCourses(TrainingCoursesFilter filter)
+        {
+            try
+            {
+                _trainingCoursesService.GetFiltredrainingCourses(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

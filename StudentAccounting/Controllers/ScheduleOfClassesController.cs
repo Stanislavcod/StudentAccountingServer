@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model.DatabaseModels;
 
 namespace StudentAccounting.Controllers
@@ -79,7 +81,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpDelete("DeleteScheduleOfСlasses")]
         public IActionResult Delete(int id)
         {
@@ -90,6 +92,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredScheduleOfСlasses")]
+        public IActionResult GetFiltredScheduleOfСlasses(ScheduleOfСlassesFilter filter)
+        {
+            try
+            {
+                _scheduleOfСlassesService.GetFiltredScheduleOfСlasses(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

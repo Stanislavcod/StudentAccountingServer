@@ -2,17 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
     public class ApplicationInTheProjectController : Controller
     {
+        private readonly ILogger<ApplicationInTheProjectController> _logger;
         private readonly IApplicationInTheProjectService _applicationInTheProjectService;
 
-        public ApplicationInTheProjectController(IApplicationInTheProjectService applicationInTheProjectService)
+        public ApplicationInTheProjectController(IApplicationInTheProjectService applicationInTheProjectService, ILogger<ApplicationInTheProjectController> logger)
         {
+            _logger = logger;
             _applicationInTheProjectService = applicationInTheProjectService;
         }
+
         [Authorize]
         [HttpGet("GetAppInTheProject")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> Get()
@@ -23,9 +27,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
+
         [Authorize]
         [HttpPut("GetAppInTheProjectForVacancyId")]
         public ActionResult<IEnumerable<ApplicationsInTheProject>> GetForVacancyId(int vacancyId)
@@ -36,9 +43,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
+
         [Authorize]
         [HttpGet("idAppInTheProject/{id}")]
         public IActionResult Get(int id)
@@ -47,29 +57,34 @@ namespace StudentAccounting.Controllers
             {
                 return Ok(_applicationInTheProjectService.Get(id));
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,GlobalPm,LocalPm,LocalPm")]
+
+        [Authorize(Roles = "Admin,Director,DirectorOrganizational,GlobalPm,LocalPm,User")]
         [HttpPost("CreateAppInTheProject")]
         public IActionResult Create(ApplicationsInTheProject applicationsInTheProject)
         {
             try
             {
                 _applicationInTheProjectService.Create(applicationsInTheProject);
+
+                _logger.LogInformation($"{DateTime.Now}: Create new applicationsInTheProject");
+
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
+
         [Authorize(Roles = "Admin,GlobalPm,LocalPm")]
         [HttpPut("UpdateAppInTheProject")]
         public IActionResult Update(ApplicationsInTheProject applicationsInTheProject)
@@ -77,13 +92,19 @@ namespace StudentAccounting.Controllers
             try
             {
                 _applicationInTheProjectService.Edit(applicationsInTheProject);
+
+                _logger.LogInformation($"{DateTime.Now}: Edit applicationsInTheProject with {applicationsInTheProject.Id}");
+
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteAppInTheProject")]
         public IActionResult Delete(int id)
@@ -91,14 +112,34 @@ namespace StudentAccounting.Controllers
             try
             {
                 _applicationInTheProjectService.Delete(id);
+
+                _logger.LogInformation($"{DateTime.Now}: Delete applicationsInTheProject with {id}");
+
                 return Ok();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFilteredApplicationInTheProject")]
+        public IActionResult GetFilteredApplicationInTheProject(ApplicationsInTheProjectFilter filter)
+        {
+            try
+            {
+                _applicationInTheProjectService.GetFiltredApplicationInTheProject(filter);
+
+                _logger.LogInformation($"{DateTime.Now}: Get applicationsInTheProjectFiltered");
+
+                return Ok();
+            }
+            catch(Exception ex) 
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }

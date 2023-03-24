@@ -15,57 +15,67 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         private readonly IConfiguration _config;
         private readonly ApplicationDatabaseContext _context;
         private readonly SymmetricSecurityKey _key;
+        
         public TokenService(IConfiguration config, ApplicationDatabaseContext context)
         {
             _config = config;
             _context = context;
             _key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["JWT:TokenKey"]));
         }
-        public JwtSecurityToken CreateToken(User user)
+        
+        private JwtSecurityToken CreateToken(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name.ToString()),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name.ToString())
             };
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
-            var Jwt = new JwtSecurityToken(
+            
+            var signIn = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
+            
+            var jwt = new JwtSecurityToken(
                 issuer: _config["JWT:Issuer"],
                 audience: _config["JWT:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: creds,
+                signingCredentials: signIn,
                 notBefore: DateTime.UtcNow
                 );
-            return Jwt;
+            
+            return jwt;
         }
+        
         private RefreshToken AddRefreshToken(User user)
         {
-            var now = DateTime.UtcNow;
             var token = new RefreshToken
             {
                 Id = new JwtSecurityTokenHandler().WriteToken(CreateToken(user)),
                 UserId = user.Id,
-                ValidTo = now.AddDays(2),
-                ValidFrom = now
+                ValidTo = DateTime.UtcNow.AddDays(2),
+                ValidFrom = DateTime.UtcNow
             };
+            
             _context.RefreshToken.Add(token);
             _context.SaveChanges();
+            
             return token;
         }
+        
         public TokenDto GetToken(User user)
         {
             var token = CreateToken(user);
             var tokenHandler = new JwtSecurityTokenHandler();
             var encodedJwt = tokenHandler.WriteToken(token);
             var refreshToken = AddRefreshToken(user);
-            UserDto userDto = new UserDto()
+            
+            var userDto = new UserDto()
             {
                 Id = user.Id,
                 Login = user.Login,
                 RoleId = user.RoleId,
                 Role = new RoleDto { Name = user.Role.Name.ToString() }
             };
+            
             return new TokenDto
             {
                 UserId = user.Id,
@@ -76,18 +86,31 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 ValidTo = token.ValidTo
             };
         }
+        
         public TokenDto Refresh(RefreshTokenDto refreshTokenDto)
         {
             var refreshToken = _context.RefreshToken.FirstOrDefault(x => x.Id == refreshTokenDto.RefreshToken);
 
-            if (refreshToken == null) throw new Exception("refreshIsExpired");
-            if (refreshToken.ValidTo < DateTime.UtcNow) throw new Exception("refreshIsExpired");
+            if (refreshToken == null)
+            {
+                return new TokenDto();
+            }
+
+            if (refreshToken.ValidTo < DateTime.UtcNow)
+            {
+                return new TokenDto();
+            }
 
             var user = _context.Users.FirstOrDefault(x => x.Login == refreshTokenDto.Login);
-            if (user == null) throw new Exception("Пользователь не найден");
+            
+            if (user == null)
+            {
+                return new TokenDto();
+            }
 
             _context.RefreshToken.Remove(refreshToken);
             _context.SaveChanges();
+            
             return GetToken(user);
         }
     }

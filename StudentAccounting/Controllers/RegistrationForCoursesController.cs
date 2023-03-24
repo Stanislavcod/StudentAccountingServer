@@ -66,7 +66,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
         [HttpDelete("DeleteRegistrationForCourses")]
         public IActionResult Delete(int id)
         {

@@ -12,6 +12,8 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
     {
         private readonly ApplicationDatabaseContext _context;
         private readonly IEmailService _emailService;
+        private const string pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
+        private const string subject = "New password PolessUp";
         public UserService(ApplicationDatabaseContext context, IEmailService emailService)
         {
             _context = context;
@@ -55,7 +57,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Users.Include(x=> x.Role).AsNoTracking().FirstOrDefault(x => x.Login == name);
+                return _context.Users.Include(x => x.Role).AsNoTracking().FirstOrDefault(x => x.Login == name);
             }
             catch (Exception ex)
             {
@@ -66,7 +68,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                return _context.Users.Include(x=> x.Role).AsNoTracking().FirstOrDefault(x => x.Id == id);
+                return _context.Users.Include(x => x.Role).AsNoTracking().FirstOrDefault(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -77,8 +79,8 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                User user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
-                user.Login=model.Login;
+                var user = _context.Users.FirstOrDefault(x => x.Id == model.Id);
+                user.Login = model.Login;
                 user.RoleId = model.RoleId;
                 _context.Users.Update(user);
                 _context.SaveChanges();
@@ -94,15 +96,30 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         }
         public void EditPassword(EditPasswordUserDto editPasswordUserDto)
         {
+            var user = _context.Users.FirstOrDefault(x => x.Id == editPasswordUserDto.Id);
+            if (user == null) throw new Exception("Пользователь не найден");
             try
             {
-                User user = _context.Users.FirstOrDefault(x=>x.Id==editPasswordUserDto.Id);
                 PasswordHasher.CreatePasswordHash(editPasswordUserDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordSalt = passwordSalt;
                 user.PasswordHash = passwordHash;
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                const string pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new Exception("Произошла ошибка при обновлении пароля", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка", ex);
+            }
+            SendEmailMessage(user, editPasswordUserDto);
+        }
+        public void SendEmailMessage(User user, EditPasswordUserDto editPasswordUserDto)
+        {
+            try
+            {
                 string emailDatabase = _context.Participants.Include(x => x.Individuals).FirstOrDefault(x => x.UserId == user.Id).Individuals.Mail;
                 var email = emailDatabase.Trim().ToLowerInvariant();
                 if (email != null)
@@ -111,7 +128,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                     {
                         if (Regex.Match(email, pattern).Success)
                         {
-                            string subject = "New password PolessUp";
                             string message = $"Здравствуйте! Ваш новый пароль {editPasswordUserDto.Password}";
                             _emailService.SendEmailMessage(email, subject, message);
                         }
@@ -121,10 +137,6 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                         }
                     }
                 }
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw new Exception("Произошла ошибка при обновлении пользователя", ex);
             }
             catch (Exception ex)
             {
@@ -136,10 +148,8 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             try
             {
                 string emailDatabase = _context.Participants.Include(x => x.Individuals).Include(x => x.User).FirstOrDefault(x => x.User.Login == login).Individuals.Mail;
-                string subject = "New password PolessUp";
                 string password = RandomPassword.RandomUserPassword();
                 string message = $"Здравствуйте! Ваш новый пароль {password}";
-                const string pattern = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
                 var email = emailDatabase.Trim().ToLowerInvariant();
                 if (email != null)
                 {

@@ -1,4 +1,6 @@
 ﻿using StudentAccounting.Model.DatabaseModels;
+using StudentAccounting.Model.DataBaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -10,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         EducationalPortals Get(int id);
         void Edit(EducationalPortals educationalPortals);
         void Delete(int id);
+        IEnumerable<EducationalPortals> GetFiltredEducationalPortals(EducationalPortalsFilter filter);
     }
 }

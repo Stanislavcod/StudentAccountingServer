@@ -1,5 +1,6 @@
 ﻿
 using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -11,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         TrainingCourses Get(int id);
         void Edit(TrainingCourses trainingCourses);
         void Delete(int id);
+        IEnumerable<TrainingCourses> GetFiltredrainingCourses(TrainingCoursesFilter filter);
     }
 }

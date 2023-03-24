@@ -2,6 +2,8 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -81,6 +83,25 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public IEnumerable<Rank> GetFiltredRanks(RankFilter filter)
+        {
+            var quary = _context.Ranks.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                quary = quary.Where(rank => rank.RankName.ToLower().Contains(filter.Name));
+            }
+            //фильтр по рейтингу не работает
+            //if (filter.MmrFrom is not 0)
+            //{
+            //    quary = quary.Where(rank => rank..DateEntry.Year == filter.DateYear);
+            //}
+
+
+            var applicationInTheProject = quary.ToList();
+
+            return applicationInTheProject;
         }
     }
 }

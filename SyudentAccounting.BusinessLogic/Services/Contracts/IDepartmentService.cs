@@ -1,4 +1,5 @@
 ﻿using StudentAccounting.Model.DataBaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -10,5 +11,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Department Get(int id);
         void Edit(Department department);
         void Delete(int id);
+        IEnumerable<Department> GetFiltredDepartment(DepartmentFilter filter);
     }
 }

@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StudentAccounting.Common\StudentAccounting.Common.csproj" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\StudentAccounting.Common\StudentAccounting.Common.csproj" />
   </ItemGroup>
 
 </Project>

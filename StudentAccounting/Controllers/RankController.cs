@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.Controllers
 {
     public class RankController : Controller
     {
-        private readonly IRankService _routingService;
-        public RankController(IRankService routingService)
+        private readonly IRankService _rankService;
+        public RankController(IRankService rankService)
         {
-            _routingService = routingService;
+            _rankService = rankService;
         }
         [Authorize]
         [HttpGet("GetRank")]
@@ -18,7 +20,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                return Ok(_routingService.Get());
+                return Ok(_rankService.Get());
             }
             catch (Exception ex)
             {
@@ -31,7 +33,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                return Ok(_routingService.Get(id));
+                return Ok(_rankService.Get(id));
             }
             catch (Exception ex)
             {
@@ -44,7 +46,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                return Ok(_routingService.Get(name));
+                return Ok(_rankService.Get(name));
             }
             catch (Exception ex)
             {
@@ -57,7 +59,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                _routingService.Create(Rank);
+                _rankService.Create(Rank);
                 return Ok();
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                _routingService.Edit(Rank);
+                _rankService.Edit(Rank);
                 return Ok();
             }
             catch (Exception ex)
@@ -85,11 +87,28 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                _routingService.Delete(id);
+                _rankService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("GetFiltredRanks")]
+        public IActionResult GetFiltredRanks(RankFilter filter)
+        {
+            try
+            {
+                _rankService.GetFiltredRank(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DatabaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
     public class EducationalPortalsController : Controller
     {
         private readonly IEducationalPortalsService _educationalPortalsService;
-        public EducationalPortalsController(IEducationalPortalsService educationalPortalsService)
+        private readonly Logger<EducationalPortalsController> _logger;
+        
+        public EducationalPortalsController(IEducationalPortalsService educationalPortalsService, Logger<EducationalPortalsController> logger)
         {
+            _logger = logger;
             _educationalPortalsService = educationalPortalsService;
         }
+        
         [Authorize]
         [HttpGet("GetEducationalPortals")]
         public ActionResult<IEnumerable<EducationalPortals>> Get()
@@ -22,9 +28,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize]
         [HttpGet("idEducationalPortals/{id}", Name = "GetEducationalPortalsId")]
         public IActionResult Get(int id)
@@ -35,6 +44,8 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
@@ -48,9 +59,12 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpPost("CreateEducationalPortals")]
         public IActionResult Create(EducationalPortals educationalPortals)
@@ -58,6 +72,9 @@ namespace StudentAccounting.Controllers
             try
             {
                 _educationalPortalsService.Create(educationalPortals);
+                
+                _logger.LogInformation($"{DateTime.Now}: Create new educationalPortals");
+                
                 return Ok();
             }
             catch (Exception ex)
@@ -65,6 +82,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpPut("UpdateEducationalPortals")]
         public IActionResult Update(EducationalPortals educationalPortals)
@@ -72,6 +90,9 @@ namespace StudentAccounting.Controllers
             try
             {
                 _educationalPortalsService.Edit(educationalPortals);
+                
+                _logger.LogInformation($"{DateTime.Now}: Edit educationalPortals with {educationalPortals.Id}");
+                
                 return Ok();
             }
             catch (Exception ex)
@@ -79,6 +100,7 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteEducationalPortals")]
         public IActionResult Delete(int id)
@@ -86,10 +108,32 @@ namespace StudentAccounting.Controllers
             try
             {
                 _educationalPortalsService.Delete(id);
+                
+                _logger.LogInformation($"{DateTime.Now}: Delete educationalPortals with {id}");
+                
                 return Ok();
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredEducationalPortals")]
+        public IActionResult GetFiltredEducationalPortals(EducationalPortalsFilter filter)
+        {
+            try
+            {
+                _educationalPortalsService.GetFiltredEducationalPortals(filter);
+
+                _logger.LogInformation($"{DateTime.Now}: Get departmentFiltered");
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }
