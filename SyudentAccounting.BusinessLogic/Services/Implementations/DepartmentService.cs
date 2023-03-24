@@ -121,7 +121,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
-        public IEnumerable<Department> GetFilterDepartment(DepartmentFilter filter)
+        public IEnumerable<Department> GetFiltredDepartment(DepartmentFilter filter)
         {
             var quary = _context.Departments.AsQueryable();
 
