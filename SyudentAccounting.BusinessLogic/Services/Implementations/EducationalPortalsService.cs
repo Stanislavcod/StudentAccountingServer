@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using StudentAccounting.Model;
 using StudentAccounting.Model.DatabaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -117,6 +118,23 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
+        }
+        public IEnumerable<EducationalPortals> GetFilterEducationalPortals(EducationalPortalsFilter filter)
+        {
+            var quary = _context.EducationalPortals.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                quary = quary.Where(edp => edp.Name.ToLower().Contains(filter.Name));
+            }
+            if (!string.IsNullOrEmpty(filter.Department))
+            {
+                quary = quary.Where(edp => edp.Department.FullName.ToLower().Contains(filter.Department));
+            }
+
+            var educationalPortals = quary.ToList();
+
+            return educationalPortals;
         }
     }
 }
