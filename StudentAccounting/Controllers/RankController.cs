@@ -102,7 +102,7 @@ namespace StudentAccounting.Controllers
         {
             try
             {
-                _rankService.GetFiltredRank(filter);
+                _rankService.GetFiltredRanks(filter);
 
                 return Ok();
             }
