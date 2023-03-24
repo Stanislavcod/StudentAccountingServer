@@ -169,7 +169,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 quary = quary.Where(app => app.Vacancy.StagesOfProject.Project.Fullname.ToLower().Contains(filter.Project));
             }
-            if(filter.DateYear != new DateTime().Year)
+            if(filter.DateYear is not 0)
             {
                 quary = quary.Where(app => app.DateEntry.Year == filter.DateYear);
             }

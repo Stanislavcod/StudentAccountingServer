@@ -1,4 +1,5 @@
 ﻿
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
@@ -11,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Rank Get(int id);
         void Edit(Rank Rank);
         void Delete(int id);
+        IEnumerable<Rank> GetFiltredApplicationInTheProject(RankFilter filter);
     }
 }

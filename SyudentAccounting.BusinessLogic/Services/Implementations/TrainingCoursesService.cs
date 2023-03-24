@@ -3,6 +3,7 @@ using StudentAccounting.Model;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -82,6 +83,31 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public IEnumerable<TrainingCourses> GetFiltredrainingCourses(TrainingCoursesFilter filter)
+        {
+            var quary = _context.TrainingCourses.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Lector))
+            {
+                quary = quary.Where(trc => trc.LectorFIO.ToLower().Contains(filter.Lector));
+            }
+            if (!string.IsNullOrEmpty(filter.Status))
+            {
+                quary = quary.Where(trc => trc.Status.ToLower().Contains(filter.Status));
+            }
+            if (filter.DateYear is not 0)
+            {
+                quary = quary.Where(trc=> trc.DateStart.Value.Year == filter.DateYear);
+            }
+            if (filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
+            {
+                quary = quary.Where(trc => trc.DateStart >= filter.DateFrom && trc.DateStart <= filter.DateTo);
+            }
+
+            var trainingCourses = quary.ToList();
+
+            return trainingCourses;
         }
     }
 }

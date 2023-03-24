@@ -8,7 +8,8 @@ namespace StudentAccountin.Model.DatabaseModels
         public int Id { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public string? isActive { get; set; } = string.Empty;
+        public string? Status { get; set; } = string.Empty;
         public string StatusDescription { get; set; } = string.Empty;
         public int? IdMentor { get; set; }
         public Participants? Participants { get; set; }

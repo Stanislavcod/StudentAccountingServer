@@ -133,7 +133,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 quary = quary.Where(emp => emp.Position.FullName.Contains(filter.Position));
             }
-            if (filter.DateYear != new DateTime().Year)
+            if (filter.DateYear is not 0)
             {
                 quary = quary.Where(emp => emp.DateStart.Year == filter.DateYear);
             }
@@ -152,7 +152,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
             if(!string.IsNullOrEmpty(filter.Status))
             {
-                quary = quary.Where(emp => emp.Status.Contains(filter.Status));
+                quary = quary.Where(emp => emp.isActive.Contains(filter.Status));
             }
 
             var employments = quary.ToList();

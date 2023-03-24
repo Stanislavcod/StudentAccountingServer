@@ -1,4 +1,4 @@
-﻿
+﻿ 
 namespace StudentAccounting.Common.FilterModels
 {
     public class TrainingCoursesFilter
@@ -7,6 +7,7 @@ namespace StudentAccounting.Common.FilterModels
         public int DateYear { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public string status { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
     }
 } 
+

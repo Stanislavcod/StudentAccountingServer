@@ -1,4 +1,6 @@
-﻿using StudentAccounting.Model.DatabaseModels;
+﻿using StudentAccounting.Common.FilterModels;
+using StudentAccounting.Model.DatabaseModels;
+using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -10,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Edit(ScheduleOfСlasses scheduleOfСlasses);
         IEnumerable<ScheduleOfСlasses> GetForCoursesId(int coursesId);
         void Delete(int id);
+        IEnumerable<ScheduleOfСlasses> GetFiltredScheduleOfСlasses(ScheduleOfСlassesFilter filter);
     }
 }

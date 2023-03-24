@@ -125,7 +125,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             var quary = _context.Departments.AsQueryable();
 
-            if (filter.DateYear != new DateTime().Year)
+            if (filter.DateYear is not 0)
             {
                 quary = quary.Where(dep => dep.DateStart.Year == filter.DateYear);
             }

@@ -121,7 +121,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             //{
             //    quary = quary.Where(app => app.StagesOfProjects));
             //}
-            if (filter.DateYear != new DateTime().Year)
+            if (filter.DateYear is not 0)
             {
                 quary = quary.Where(project => project.DateStart.Year == filter.DateYear);
             }
