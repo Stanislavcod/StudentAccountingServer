@@ -1,4 +1,7 @@
-﻿using StudentAccounting.Model.DataBaseModels;
+﻿using StudentAccountin.Model.DatabaseModels;
+using StudentAccounting.Common.FilterModels;
+using StudentAccounting.Model.DataBaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Contracts
 {
@@ -11,5 +14,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         IEnumerable<Position> GetForDepartmentId(int departmentId);
         void Edit(Position position);
         void Delete(int id);
+        IEnumerable<Position> GetFiltredPosition(PositionFilter filter);
     }
 }

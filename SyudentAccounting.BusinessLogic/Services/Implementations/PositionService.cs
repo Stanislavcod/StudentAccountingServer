@@ -2,6 +2,7 @@
 using StudentAccounting.Model;
 using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -92,6 +93,23 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public IEnumerable<Position> GetFiltredPosition(PositionFilter filter)
+        {
+            var quary = _context.Positions.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                quary = quary.Where(position => position.FullName.ToLower().Contains(filter.Name));
+            }
+            if (!string.IsNullOrEmpty(filter.Department))
+            {
+                quary = quary.Where(position => position.Department.FullName.ToLower().Contains(filter.Department));
+            }
+
+            var positions = quary.ToList();
+
+            return positions;
         }
     }
 }
