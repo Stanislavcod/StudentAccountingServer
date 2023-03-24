@@ -112,7 +112,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IEnumerable<Project> GetFiltredApplicationInTheProject(ProjectFilter filter)
+        public IEnumerable<Project> GetFiltredProject(ProjectFilter filter)
         {
             var quary = _context.Projects.AsQueryable();
 

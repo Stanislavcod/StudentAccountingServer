@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -120,6 +123,26 @@ namespace StudentAccounting.Controllers
             {
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
                 
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("GetFiltredEmployments")]
+        public IActionResult GetFiltredEmployments(EmploymentFilter filter)
+        {
+            try
+            {
+                _employmentService.GetFiltredEmployments(filter);
+
+                _logger.LogInformation($"{DateTime.Now}: Get departmentFiltered");
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }

@@ -12,6 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         EducationalPortals Get(int id);
         void Edit(EducationalPortals educationalPortals);
         void Delete(int id);
-        IEnumerable<EducationalPortals> GetFilterEducationalPortals(EducationalPortalsFilter filter);
+        IEnumerable<EducationalPortals> GetFiltredEducationalPortals(EducationalPortalsFilter filter);
     }
 }

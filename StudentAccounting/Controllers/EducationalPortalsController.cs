@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
 using StudentAccounting.Model.DatabaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -113,6 +115,25 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredEducationalPortals")]
+        public IActionResult GetFiltredEducationalPortals(EducationalPortalsFilter filter)
+        {
+            try
+            {
+                _educationalPortalsService.GetFiltredEducationalPortals(filter);
+
+                _logger.LogInformation($"{DateTime.Now}: Get departmentFiltered");
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
                 return BadRequest(ex.Message);
             }
         }

@@ -12,6 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Rank Get(int id);
         void Edit(Rank Rank);
         void Delete(int id);
-        IEnumerable<Rank> GetFiltredApplicationInTheProject(RankFilter filter);
+        IEnumerable<Rank> GetFiltredRanks(RankFilter filter);
     }
 }

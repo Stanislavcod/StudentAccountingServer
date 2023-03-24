@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model.DataBaseModels;
+using StudentAccounting.Model.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -90,6 +93,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredProjects")]
+        public IActionResult GetFiltredProjects(ProjectFilter filter)
+        {
+            try
+            {
+                _projectService.GetFiltredProject(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

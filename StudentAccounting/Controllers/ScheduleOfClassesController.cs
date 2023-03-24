@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 using StudentAccounting.Model.DatabaseModels;
 
 namespace StudentAccounting.Controllers
@@ -51,8 +53,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPost("CreateScheduleOfСlasses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPost("CreateScheduleOfСlasses")]
         public IActionResult Create(ScheduleOfСlasses schedule)
         {
             try
@@ -65,8 +67,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPut("UpdateScheduleOfСlasses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPut("UpdateScheduleOfСlasses")]
         public IActionResult Update(ScheduleOfСlasses schedule)
         {
             try
@@ -79,8 +81,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteScheduleOfСlasses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpDelete("DeleteScheduleOfСlasses")]
         public IActionResult Delete(int id)
         {
             try
@@ -90,6 +92,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredScheduleOfСlasses")]
+        public IActionResult GetFiltredScheduleOfСlasses(ScheduleOfСlassesFilter filter)
+        {
+            try
+            {
+                _scheduleOfСlassesService.GetFiltredScheduleOfСlasses(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

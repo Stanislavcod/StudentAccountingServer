@@ -84,7 +84,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public IEnumerable<Rank> GetFiltredApplicationInTheProject(RankFilter filter)
+        public IEnumerable<Rank> GetFiltredRanks(RankFilter filter)
         {
             var quary = _context.Ranks.AsQueryable();
 

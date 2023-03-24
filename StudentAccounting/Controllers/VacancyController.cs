@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -116,6 +118,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredVacancy")]
+        public IActionResult GetFiltredVacancy(VacancyFilter filter)
+        {
+            try
+            {
+                _vacanciesService.GetFiltredVacancy(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

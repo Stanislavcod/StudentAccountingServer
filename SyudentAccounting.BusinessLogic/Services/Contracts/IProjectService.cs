@@ -11,6 +11,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Edit(Project project);
         void Delete(int id);
         List<Project> GetForParticipantsId(int participantsId);
-        IEnumerable<Project> GetFiltredApplicationInTheProject(ProjectFilter filter);
+        IEnumerable<Project> GetFiltredProject(ProjectFilter filter);
     }
 }

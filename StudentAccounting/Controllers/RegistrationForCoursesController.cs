@@ -38,8 +38,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPost("CreateRegistrationForCourses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPost("CreateRegistrationForCourses")]
         public IActionResult Create(RegistrationForCourses registrationForCourses)
         {
             try
@@ -52,8 +52,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPut("UpdateRegistrationForCourses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPut("UpdateRegistrationForCourses")]
         public IActionResult Update(RegistrationForCourses registrationForCourses)
         {
             try
@@ -66,8 +66,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteRegistrationForCourses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpDelete("DeleteRegistrationForCourses")]
         public IActionResult Delete(int id)
         {
             try

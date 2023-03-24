@@ -119,7 +119,7 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
-        public IEnumerable<EducationalPortals> GetFilterEducationalPortals(EducationalPortalsFilter filter)
+        public IEnumerable<EducationalPortals> GetFiltredEducationalPortals(EducationalPortalsFilter filter)
         {
             var quary = _context.EducationalPortals.AsQueryable();
 

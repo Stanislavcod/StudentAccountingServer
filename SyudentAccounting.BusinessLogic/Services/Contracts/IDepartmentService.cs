@@ -11,6 +11,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         Department Get(int id);
         void Edit(Department department);
         void Delete(int id);
-        IEnumerable<Department> GetFilterDepartment(DepartmentFilter filter);
+        IEnumerable<Department> GetFiltredDepartment(DepartmentFilter filter);
     }
 }

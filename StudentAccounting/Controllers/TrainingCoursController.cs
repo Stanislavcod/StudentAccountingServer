@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentAccountin.Model.DatabaseModels;
 using StudentAccounting.BusinessLogic.Services.Contracts;
+using StudentAccounting.BusinessLogic.Services.Implementations;
+using StudentAccounting.Common.FilterModels;
 
 namespace StudentAccounting.Controllers
 {
@@ -51,8 +53,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPost("CreateTrainingCourses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPost("CreateTrainingCourses")]
         public IActionResult Create(TrainingCourses trainingCourses)
         {
             try
@@ -65,8 +67,8 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpPut("UpdateTrainingCourses,DirectorOrganizational")]
+        [Authorize(Roles = "Admin,DirectorOrganizational")]
+        [HttpPut("UpdateTrainingCourses")]
         public IActionResult Update(TrainingCourses trainingCourses)
         {
             try
@@ -90,6 +92,22 @@ namespace StudentAccounting.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("GetFiltredTrainingCourses")]
+        public IActionResult GetFiltredTrainingCourses(TrainingCoursesFilter filter)
+        {
+            try
+            {
+                _trainingCoursesService.GetFiltredrainingCourses(filter);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }
