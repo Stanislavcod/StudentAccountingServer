@@ -52,35 +52,26 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             try
             {
-                List<Project> result = new List<Project>();
-                var projects = _context.Projects.ToList();
-                foreach (var project in projects)
+                var projects = _context.Projects
+                    .Include(p => p.StagesOfProjects)
+                        .ThenInclude(s => s.Vacancy)
+                            .ThenInclude(v => v.ApplicationsInTheProjects)
+                                .ThenInclude(a => a.Participants)
+                                    .Where(p => p.Id == participantId)
+                                    .ToList();
+                //var projects = _context.Participants
+                //    .Where(p => p.Id == participantId)
+                //    .Join(_context.Projects, p => p.Id, r => r.Id, (p, r) => r)
+                //    .ToList();
+
+                if (projects != null)
                 {
-                    if (project.StagesOfProjects != null)
-                    {
-                        foreach (var stage in _context.StagesOfProjects.Where(x => x.ProjectId == project.Id).ToList())
-                        {
-                            if (stage.Vacancy != null)
-                            {
-                                foreach (var vacancy in stage.Vacancy)
-                                {
-                                    if (vacancy.ApplicationsInTheProjects != null)
-                                    {
-                                        foreach (var application in vacancy.ApplicationsInTheProjects)
-                                        {
-                                            if (application.Participants != null && application.Participants.Id == participantId)
-                                            {
-                                                result.Add(project);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    return projects;
                 }
-                return result;
+                else
+                {
+                    throw new Exception("project был null");
+                }
             }
             catch (Exception ex)
             {

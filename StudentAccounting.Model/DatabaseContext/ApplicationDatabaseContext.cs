@@ -13,7 +13,7 @@ namespace StudentAccounting.Model
         {
             //Database.EnsureDeleted();
             Database.EnsureCreated();
-            //Database.Migrate();
+            Database.Migrate();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,24 +31,78 @@ namespace StudentAccounting.Model
                     new Role {Id = 5, Name = RoleType.Director, NormalName = RoleDescription.Get(RoleType.Director)},
                     new Role {Id = 6, Name = RoleType.DirectorOrganizational, NormalName = RoleDescription.Get(RoleType.DirectorOrganizational)}
                 });
-            //modelBuilder
-            //.Entity<Rank>()
-            //.HasMany(c => c.Bonuses)
-            //.WithMany(s => s.Ranks)
-            //.UsingEntity<RankBonus>(
-            //   j => j
-            //    .HasOne(pt => pt.Bonus)
-            //    .WithMany(t => t.RankBonus)
-            //    .HasForeignKey(pt => pt.BonusId),
-            //j => j
-            //    .HasOne(pt => pt.Rank)
-            //    .WithMany(p => p.RankBonus)
-            //    .HasForeignKey(pt => pt.RankId),
-            //j =>
-            //{
-            //    j.HasKey(t => new { t.RankId, t.BonusId });
-            //    j.ToTable("RankBonus");
-            //});
+            modelBuilder
+            .Entity<Rank>()
+            .HasMany(c => c.Bonuses)
+            .WithMany(s => s.Ranks)
+            .UsingEntity<RankBonus>(
+               j => j
+                .HasOne(pt => pt.Bonus)
+                .WithMany(t => t.RankBonus)
+                .HasForeignKey(pt => pt.BonusId),
+            j => j
+                .HasOne(pt => pt.Rank)
+                .WithMany(p => p.RankBonus)
+                .HasForeignKey(pt => pt.RankId),
+            j =>
+            {
+                j.HasKey(t => new { t.RankId, t.BonusId });
+                j.ToTable("RankBonus");
+            });
+            modelBuilder.Entity<Rank>().HasData(
+                new Rank[]
+                {
+                    new Rank { Id = 1, Description = "aaa", MaxMmr = 999, MinMmr = 1, OrganizationId = 1, RankName = "Первый" },
+                    new Rank { Id = 2, Description = "bbb", MaxMmr = 999, MinMmr = 1, OrganizationId = 2, RankName = "Второй"}
+                });
+            modelBuilder.Entity<Organization>().HasData(
+                new Organization[]
+                {
+                    new Organization { Id = 1, Address = "aaa", BSR = 4.5, Contacts = "aaa",
+                        FoundationDate = DateTime.Parse("1990-01-01"), Fullname = "Первый", WebSite = "aaa"},
+                    new Organization { Id = 2, Address = "aaa", BSR = 4.5, Contacts = "aaa",
+                        FoundationDate = DateTime.Parse("1990-01-01"), Fullname = "Второй", WebSite = "aaa"}
+                });
+            modelBuilder.Entity<Department>().HasData(
+                    new Department[]
+                    {
+                        new Department { Id = 1, FullName = "Department 1", Description = "Description 1",
+                            DirectorId = 1, DateStart = DateTime.Now, Status = "Active", OrganizationId = 1 },
+                        new Department { Id = 2, FullName = "Department 2", Description = "Description 2",
+                            DirectorId = 2, DateStart = DateTime.Now, Status = "Active", OrganizationId = 2 }
+                    });
+
+            modelBuilder.Entity<Position>().HasData(
+                new Position[]
+                {
+                        new Position { Id = 1, FullName = "Position 1", Description = "Description 1", DepartmentId = 1 },
+                        new Position { Id = 2, FullName = "Position 2", Description = "Description 2", DepartmentId = 2 }
+                });
+            modelBuilder.Entity<Participants>().HasData(
+               new Participants[]
+               {
+                        new Participants { Id = 1, IndividualsId = 1, DateEntry = DateTime.Now,
+                            Mmr = 1000, Status = "Active", GitHub = "github.com/user1" },
+                        new Participants { Id = 2, IndividualsId = 2, DateEntry = DateTime.Now,
+                            Mmr = 1200, Status = "Active", GitHub = "github.com/user2" }
+               });
+            modelBuilder.Entity<Employment>().HasData(
+                new Employment[]
+                {
+                        new Employment { Id = 1, DateStart = DateTime.Now, DateEnd = DateTime.Now.AddDays(30),
+                            isActive = "Yes", Status = "Active", StatusDescription = "Description 1", ParticipantsId = 1, PositionId = 1 },
+                        new Employment { Id = 2, DateStart = DateTime.Now, DateEnd = DateTime.Now.AddDays(30),
+                            isActive = "Yes", Status = "Active", StatusDescription = "Description 2", ParticipantsId = 2, PositionId = 2 }
+                });
+
+            modelBuilder.Entity<Individuals>().HasData(
+                new Individuals[]
+                {
+                    new Individuals { Id = 1, DateOfBirth = DateTime.Now, FIO = "первый", Gender = "aaa", Mail = "aaa",
+                     Phone = "aaa", SocialNetwork = "aaa"},
+                    new Individuals { Id = 2, DateOfBirth = DateTime.Now, FIO = "второй", Gender = "aaa", Mail = "aaa",
+                     Phone = "aaa", SocialNetwork = "aaa"}
+                });
             //modelBuilder.Entity<User>().HasData(
             //    new User[]
             //    {

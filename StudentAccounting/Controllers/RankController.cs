@@ -41,6 +41,19 @@ namespace StudentAccounting.Controllers
             }
         }
         [Authorize]
+        [HttpGet("GetRankByParticipantId")]
+        public IActionResult GetByParticipantsId(int participantsId)
+        {
+            try
+            {
+                return Ok(_rankService.GetByParticipants(participantsId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
         [HttpGet("nameRank/{name}", Name = "GetRankName")]
         public IActionResult Get(string name)
         {

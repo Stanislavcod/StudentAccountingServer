@@ -4,6 +4,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StudentAccounting.Common.FilterModels;
+using StudentAccounting.Model.DataBaseModels;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -69,25 +70,31 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             }
         }
         
-        public Employment GetByParticipants(int participantsId)
+        public List<Employment> GetByParticipants(int participantId)
         {
             try
             {
-                var employment = _context.Employments.AsNoTracking().Include(x=> x.Position).
-                    ThenInclude(x=> x.Department).FirstOrDefault(x => x.ParticipantsId == participantsId);
+                var employments = _context.Employments
+                      .Where(e => e.ParticipantsId == participantId)
+                      .ToList();
+                //var employments = _context.Participants
+                //    .Where(p => p.Id == participantId)
+                //    .Join(_context.Employments, p => p.Id, e => e.Id, (p, e) => e)
+                //    .ToList();
 
-                if (employment == null)
+                if (employments != null)
                 {
-                    return new Employment();
+                    return employments;
                 }
-                
-                return employment;
+                else
+                {
+                    throw new Exception($"employments был null");
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
-
-                return new Employment();
+                throw new Exception($"У участника c id {participantId} нет трудоустройств");
             }
         }
         

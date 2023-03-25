@@ -13,5 +13,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Edit(Rank Rank);
         void Delete(int id);
         IEnumerable<Rank> GetFiltredRanks(RankFilter filter);
+        Rank GetByParticipants(int participantId);
     }
 }

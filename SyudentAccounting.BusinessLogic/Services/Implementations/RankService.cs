@@ -48,6 +48,38 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
+        public Rank GetByParticipants(int participantId)
+        {
+            try
+            {
+                var rank = _context.Participants
+                    .Where(p => p.Id == participantId)
+                    .Select(p => p.Employments)
+                    .SelectMany(e => e)
+                    .Select(e => e.Position)
+                    .Select(p => p.Department)
+                    .Select(d => d.Organizations)
+                    .SelectMany(o => o.Ranks)
+                    .FirstOrDefault();
+                //var rank = _context.Participants
+                //    .Where(p => p.Id == participantId)
+                //    .Join(_context.Ranks, p => p.Id, r => r.Id, (p, r) => r)
+                //    .FirstOrDefault();
+
+                if (rank != null)
+                {
+                    return rank;
+                }
+                else
+                {
+                    throw new Exception("rank был null");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public Rank Get(string name)
         {
             try

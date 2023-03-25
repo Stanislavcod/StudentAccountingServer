@@ -8,7 +8,7 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Create(Employment employment);
         IEnumerable<Employment> Get();
         Employment Get(int id);
-        Employment GetByParticipants(int participantsId);
+        List<Employment> GetByParticipants(int participantsId);
         void Edit(Employment employment);
         void Delete(int id);
         IEnumerable<Employment> GetFiltredEmployments(EmploymentFilter filter);
