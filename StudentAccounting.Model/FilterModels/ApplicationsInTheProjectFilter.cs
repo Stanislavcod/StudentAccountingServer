@@ -11,6 +11,6 @@ namespace StudentAccounting.Common.FilterModels
         public int DateYear { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public bool IsAccepted { get; set; }
+        public string IsAccepted { get; set; } = string.Empty;
     }
 }

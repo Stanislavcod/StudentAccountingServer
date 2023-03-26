@@ -50,7 +50,23 @@ namespace StudentAccounting.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        [Authorize]
+        [HttpGet("GetDepartmentByParticipantsCount")]
+        public IActionResult GetParticipantsCount(int id)
+        {
+            try
+            {
+                return Ok(_departmentService.GetDepartmentByParticipantsCount(id));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Authorize]
         [HttpGet("nameDepartment/{name}", Name = "GetDepartmentName")]
         public IActionResult Get(string name)

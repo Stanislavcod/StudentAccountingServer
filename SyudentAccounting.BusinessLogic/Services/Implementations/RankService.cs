@@ -124,12 +124,11 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 quary = quary.Where(rank => rank.RankName.ToLower().Contains(filter.Name));
             }
-            //фильтр по рейтингу не работает
-            //if (filter.MmrFrom is not 0)
+            //фильтр по рангу не готов
+            //if (filter.MmrFrom != 0 && filter.MmrTo != 0)
             //{
-            //    quary = quary.Where(rank => rank..DateEntry.Year == filter.DateYear);
+            //    quary = _context.Participants.Where(p=> p.Mmr >= filter.MmrFrom && p.Mmr <= filter.MmrTo);
             //}
-
 
             var applicationInTheProject = quary.ToList();
 

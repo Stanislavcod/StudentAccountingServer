@@ -177,15 +177,10 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
             {
                 quary = quary.Where(app => app.DateEntry >= filter.DateFrom && app.DateEntry <= filter.DateTo);
             }
-            //Реализация фильтр статус не готова
-            //if(filter.IsAccepted == null) //?
-            //{
-            //    quary = quary.Where(app => app.IsAccepted == null);
-            //}
-            //else
-            //{
-            //    quary = quary.Where(app => app.IsAccepted == filter.IsAccepted);
-            //}
+            if (!string.IsNullOrEmpty(filter.IsAccepted))
+            {
+                quary = quary.Where(app => app.IsAccepted == filter.IsAccepted);
+            }
 
             var applicationInTheProject = quary.ToList();
 

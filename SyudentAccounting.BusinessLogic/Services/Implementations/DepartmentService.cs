@@ -4,6 +4,7 @@ using StudentAccounting.BusinessLogic.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StudentAccounting.Model.FilterModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace StudentAccounting.BusinessLogic.Services.Implementations
 {
@@ -121,41 +122,77 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
                 _logger.LogError($"{DateTime.Now}: {ex.Message}");
             }
         }
+        public int GetDepartmentByParticipantsCount(int departmentId)
+        {
+            try
+            {
+                var department = _context.Departments
+                    .Include(d => d.Positions)
+                    .ThenInclude(p => p.Employments)
+                    .FirstOrDefault(d => d.Id == departmentId);
+
+                if (department == null)
+                {
+                    throw new Exception("Отдела не найден");  
+                }
+
+                var participantCount = department.Positions
+                    .SelectMany(p => p.Employments)
+                    .Select(e => e.ParticipantsId)
+                    .Distinct()
+                    .Count();
+
+                return participantCount;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError($"{DateTime.Now}: {ex.Message}");
+                return -1;
+            }
+        }
         public IEnumerable<Department> GetFiltredDepartment(DepartmentFilter filter)
         {
-            var quary = _context.Departments.AsQueryable();
+            var query = _context.Departments.AsQueryable();
 
             if (filter.DateYear is not 0)
             {
-                quary = quary.Where(dep => dep.DateStart.Year == filter.DateYear);
+                query = query.Where(dep => dep.DateStart.Year == filter.DateYear);
             }
             if (filter.DateFrom != new DateTime() && filter.DateTo != new DateTime())
             {
-                quary = quary.Where(dep => dep.DateStart >= filter.DateFrom && dep.DateStart <= filter.DateTo);
+                query = query.Where(dep => dep.DateStart >= filter.DateFrom && dep.DateStart <= filter.DateTo);
             }
-            //фильтр на количество человек не готов
-            //if(filter.NumberOfPeople is not 0)
-            //{
-            //    //quary = quary.Include(a=> a.Positions).ThenInclude(b=> b.Employments).ThenInclude(c=> c.Participants).Where(x=>x.Positions);
-            //}
-            //фильтр по главе отдела не готов 
-            //if(!string.IsNullOrEmpty(filter.Individuals))
-            //{
-            //    var individuals = _context.Departments.Include(pos => pos.Positions).ThenInclude(emp => emp.Employments)
-            //        .ThenInclude(par => par.Participants).ThenInclude(ind => ind.Individuals.FIO).ToList();
-            //    quary = quary.Where(individuals == filter.Individuals);
-            //}
-            if (!string.IsNullOrEmpty(filter.Individuals))
+            if (filter.NumberOfPeople is not 0)
             {
-                var individuals = _context.Departments
-                   .Where(d => d.Positions.Any(p => p.Employments
-                   .Any(e => e.Participants.Individuals.FIO.ToLower().Contains(filter.Individuals)))).ToList();
+                query = query.Where(dep => dep.Positions
+                        .Join(_context.Employments, p => p.Id, e => e.PositionId, (p, e) => e.ParticipantsId)
+                        .Distinct()
+                        .Count() == filter.NumberOfPeople);
+            }
+            if(filter.NumberOfPeopleFrom != 0 && filter.NumberOfPeopleTo != 0) 
+            {
+                query = query.Where(dep => dep.Positions
+                       .SelectMany(p => p.Employments)
+                       .Select(e => e.ParticipantsId)
+                       .Distinct()
+                       .Count(id => id != null)
+                       >= filter.NumberOfPeopleFrom
+                       && dep.Positions
+                       .SelectMany(p => p.Employments)
+                       .Select(e => e.ParticipantsId)
+                       .Distinct()
+                       .Count(id => id != null)
+                       <= filter.NumberOfPeopleTo);
+            }
+            if (filter.ParticipantsId is not 0)
+            {
+                query = query.Where(d=> d.DirectorId == filter.ParticipantsId);
             }
             if (!string.IsNullOrEmpty(filter.Status))
             {
-                quary = quary.Where(dep => dep.Status.Contains(filter.Status));
+                query = query.Where(dep => dep.Status.Contains(filter.Status));
             }
-            var departmens = quary.ToList();
+            var departmens = query.ToList();
 
             return departmens;
         }

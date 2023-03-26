@@ -12,5 +12,6 @@ namespace StudentAccounting.BusinessLogic.Services.Contracts
         void Edit(Department department);
         void Delete(int id);
         IEnumerable<Department> GetFiltredDepartment(DepartmentFilter filter);
+        int GetDepartmentByParticipantsCount(int departmentId);
     }
 }

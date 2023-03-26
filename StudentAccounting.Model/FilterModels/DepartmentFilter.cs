@@ -11,7 +11,7 @@ namespace StudentAccounting.Model.FilterModels
         public int NumberOfPeople { get; set; }
         public int NumberOfPeopleFrom { get; set; }
         public int NumberOfPeopleTo { get; set; }
-        public string Individuals { get; set; } = string.Empty;
+        public int ParticipantsId { get; set; }
         public string Status { get; set; } = string.Empty;
     }
 }

@@ -107,11 +107,19 @@ namespace StudentAccounting.BusinessLogic.Services.Implementations
         {
             var quary = _context.Projects.AsQueryable();
 
-            //фильтр по отделам не готов
-            //if (!string.IsNullOrEmpty(filter.Position))
-            //{
-            //    quary = quary.Where(app => app.StagesOfProjects));
-            //}
+            if (!string.IsNullOrEmpty(filter.Position))
+            {
+                quary = _context.Projects
+                    .Join(_context.StagesOfProjects, p => p.Id, s => s.ProjectId, (p, s) => new { Project = p, Stage = s })
+                    .Join(_context.Vacancies, ps => ps.Stage.Id, v => v.StagesOfProjectId, (ps, v) => new { ps.Project, ps.Stage, Vacancy = v })
+                    .Join(_context.ApplicationsInTheProjects, pv => pv.Vacancy.Id, ap => ap.VacancyId, (pv, ap) => new { pv.Project, pv.Stage, pv.Vacancy, Application = ap })
+                    .Join(_context.Participants, apv => apv.Application.ParticipantsId, pt => pt.Id, (apv, pt) => new { apv.Project, apv.Stage, apv.Vacancy, apv.Application, Participant = pt })
+                    .Join(_context.Employments, ptp => ptp.Participant.Id, e => e.ParticipantsId, (ptp, e) => new { ptp.Project, ptp.Stage, ptp.Vacancy, ptp.Application, ptp.Participant, Employment = e })
+                    .Join(_context.Positions, ept => ept.Employment.PositionId, pos => pos.Id, (ept, pos) => new { ept.Project, ept.Stage, ept.Vacancy, ept.Application, ept.Participant, ept.Employment, Position = pos })
+                    .Where(pr => pr.Position.FullName == filter.Position)
+                    .Select(pd => pd.Project)
+                    .Distinct();
+            }
             if (filter.DateYear is not 0)
             {
                 quary = quary.Where(project => project.DateStart.Year == filter.DateYear);

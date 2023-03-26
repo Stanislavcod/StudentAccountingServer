@@ -6,7 +6,7 @@ namespace StudentAccountin.Model.DatabaseModels
     public class ApplicationsInTheProject
     {
         public int Id { get; set; }
-        public bool? IsAccepted { get; set; }
+        public string? IsAccepted { get; set; }
         public string? Status { get; set; } = string.Empty;
         public string? StatusDescription { get; set; } = string.Empty;
         public DateTime DateEntry { get; set; }
